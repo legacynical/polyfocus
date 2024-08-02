@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://b055wpfq7y5vo"]
+[gd_scene load_steps=2 format=3 uid="uid://b055wpfq7y5vo"]
+
+[ext_resource type="PackedScene" uid="uid://cyssynqbw33oq" path="res://scenes/pomodoro_timer.tscn" id="1_46ecp"]
 
 [node name="Main Window" type="Control"]
 layout_mode = 3
@@ -8,7 +10,4 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="PomodoroTimer" parent="." instance=ExtResource("1_46ecp")]
