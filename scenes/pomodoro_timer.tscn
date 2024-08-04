@@ -1,50 +1,66 @@
-[gd_scene load_steps=4 format=3 uid="uid://cyssynqbw33oq"]
+[gd_scene load_steps=5 format=3 uid="uid://cyssynqbw33oq"]
 
 [ext_resource type="Script" path="res://scenes/PomodoroTimer.gd" id="1_dpc6i"]
-[ext_resource type="FontFile" uid="uid://0jqx62gj4pwq" path="res://ldfcomicsans-font/Ldfcomicsans-jj7l.ttf" id="2_rj8dj"]
+[ext_resource type="FontFile" uid="uid://cogm35cdl37e6" path="res://fonts/ComicMono/ComicMono.ttf" id="2_j8k3t"]
 
 [sub_resource type="Theme" id="Theme_r1dsa"]
-default_font = ExtResource("2_rj8dj")
+default_font = ExtResource("2_j8k3t")
 default_font_size = 15
 
-[node name="PomodoroTimer" type="Node"]
+[sub_resource type="LabelSettings" id="LabelSettings_ilrq5"]
+font_size = 50
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 11
+shadow_color = Color(0, 0, 0, 0.239216)
+
+[node name="PomodoroTimer" type="PanelContainer"]
+offset_right = 200.0
+offset_bottom = 109.0
 script = ExtResource("1_dpc6i")
 session_time = 11
 
-[node name="TimerLabel" type="Label" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -73.5
-offset_top = -30.0
-offset_right = 73.5
-offset_bottom = 30.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 2
+color = Color(0.32549, 0.439216, 0.65098, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureButton" type="TextureButton" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 25
+
+[node name="TimerLabel" type="Label" parent="VBoxContainer/MarginContainer2"]
+layout_mode = 2
 theme = SubResource("Theme_r1dsa")
 theme_override_font_sizes/font_size = 50
 text = "25:00"
+label_settings = SubResource("LabelSettings_ilrq5")
 horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 15
+
+[node name="TimerButton" type="Button" parent="VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "START"
 
 [node name="PomoTimer" type="Timer" parent="."]
 wait_time = 1500.0
 
-[node name="TimerButton" type="Button" parent="."]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -41.5
-offset_top = 30.27
-offset_right = 41.5
-offset_bottom = 73.27
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 25
-text = "START"
-
+[connection signal="pressed" from="VBoxContainer/MarginContainer/TimerButton" to="." method="_on_timer_button_pressed"]
 [connection signal="timeout" from="PomoTimer" to="." method="_on_pomo_timer_timeout"]
-[connection signal="pressed" from="TimerButton" to="." method="_on_timer_button_pressed"]

@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://0jqx62gj4pwq"
-path="res://.godot/imported/Ldfcomicsans-jj7l.ttf-d7f640a0ef50d35cb1ea6eedf503902a.fontdata"
+uid="uid://cdyewf0ewuqje"
+path="res://.godot/imported/Ldfcomicsanshairline-5PmL.ttf-fed7588d1a7be92897584bc43dc80baf.fontdata"
 
 [deps]
 
-source_file="res://ldfcomicsans-font/Ldfcomicsans-jj7l.ttf"
-dest_files=["res://.godot/imported/Ldfcomicsans-jj7l.ttf-d7f640a0ef50d35cb1ea6eedf503902a.fontdata"]
+source_file="res://fonts/ldfcomicsans-font/Ldfcomicsanshairline-5PmL.ttf"
+dest_files=["res://.godot/imported/Ldfcomicsanshairline-5PmL.ttf-fed7588d1a7be92897584bc43dc80baf.fontdata"]
 
 [params]
 

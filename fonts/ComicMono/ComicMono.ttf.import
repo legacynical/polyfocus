@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://dtkhltvwef4wm"
-path="res://.godot/imported/Ldfcomicsanslight-6dZo.ttf-62d40145e5775ce9980e26077f356f98.fontdata"
+uid="uid://cogm35cdl37e6"
+path="res://.godot/imported/ComicMono.ttf-5b72e6ce562d5612bbcf59bd954421a9.fontdata"
 
 [deps]
 
-source_file="res://ldfcomicsans-font/Ldfcomicsanslight-6dZo.ttf"
-dest_files=["res://.godot/imported/Ldfcomicsanslight-6dZo.ttf-62d40145e5775ce9980e26077f356f98.fontdata"]
+source_file="res://fonts/ComicMono/ComicMono.ttf"
+dest_files=["res://.godot/imported/ComicMono.ttf-5b72e6ce562d5612bbcf59bd954421a9.fontdata"]
 
 [params]
 

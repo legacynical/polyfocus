@@ -1,8 +1,8 @@
 extends Node
 
-@onready var label = $TimerLabel
+@onready var label = $VBoxContainer/MarginContainer2/TimerLabel
 @onready var timer = $PomoTimer
-@onready var timer_button = $TimerButton
+@onready var timer_button = $VBoxContainer/MarginContainer/TimerButton
 
 @export var session_time: int
 
@@ -33,11 +33,12 @@ func _on_timer_button_pressed():
         timer.paused = true
         counting_down = false
         timer_button.text = "RESUME"
+    #TODO: make consistent size images to use for texture button, resume has 1 more char space
     else: # if neither paused and counting down, then start timer and count down
         timer.start()
         counting_down = true
         timer_button.text = "PAUSE"
-        
+    
       
         
 func _on_pomo_timer_timeout():
