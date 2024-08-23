@@ -12,8 +12,12 @@ config_version=5
 
 config/name="polyfocus"
 run/main_scene="res://scenes/main_window.tscn"
-config/features=PackedStringArray("4.2", "GL Compatibility")
+config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[debug]
+
+gdscript/warnings/untyped_declaration=2
 
 [dotnet]
 
