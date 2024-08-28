@@ -21,6 +21,7 @@ func _process(_delta: float) -> void:
 		update_label()
 
 func update_label() -> void:
+	@warning_ignore("integer_division")
 	var minutes: int = floor(time_left / 60)
 	var seconds: int = time_left % 60
 	label.text = "%02d:%02d" % [minutes, seconds]

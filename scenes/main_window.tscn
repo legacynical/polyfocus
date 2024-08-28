@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://b055wpfq7y5vo"]
+[gd_scene load_steps=3 format=3 uid="uid://b055wpfq7y5vo"]
 
 [ext_resource type="PackedScene" uid="uid://cyssynqbw33oq" path="res://scenes/pomodoro_timer.tscn" id="1_46ecp"]
+[ext_resource type="PackedScene" uid="uid://dckhpntr1d5jp" path="res://scenes/date.tscn" id="2_qhlep"]
 
 [node name="Main Window" type="Control"]
 layout_mode = 3
@@ -23,3 +24,7 @@ offset_right = 100.0
 offset_bottom = 54.5
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Date" parent="." instance=ExtResource("2_qhlep")]
+layout_mode = 0
+anchors_preset = 0
