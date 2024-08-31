@@ -1,7 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://cyssynqbw33oq"]
+[gd_scene load_steps=8 format=3 uid="uid://cyssynqbw33oq"]
 
 [ext_resource type="Script" path="res://scenes/PomodoroTimer.gd" id="1_dpc6i"]
 [ext_resource type="FontFile" uid="uid://cogm35cdl37e6" path="res://fonts/ComicMono/ComicMono.ttf" id="2_j8k3t"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r78xr"]
+bg_color = Color(0.32549, 0.439216, 0.65098, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
 
 [sub_resource type="Theme" id="Theme_r1dsa"]
 default_font = ExtResource("2_j8k3t")
@@ -25,18 +32,17 @@ shadow_size = 3
 [sub_resource type="Theme" id="Theme_1f8c0"]
 Button/styles/normal = SubResource("StyleBoxFlat_d5qed")
 
-[node name="PomodoroTimer" type="PanelContainer"]
+[node name="PomodoroTimer" type="Panel"]
 offset_right = 200.0
-offset_bottom = 109.0
+offset_bottom = 121.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_r78xr")
 script = ExtResource("1_dpc6i")
 session_time = 11
 
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 2
-color = Color(0.32549, 0.439216, 0.65098, 1)
-
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2
+offset_right = 200.0
+offset_bottom = 121.0
 theme_override_constants/separation = 0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
