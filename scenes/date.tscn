@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://date.gd" id="1_qsb3r"]
 
-[node name="Date" type="Label"]
+[node name="CurrentDateTime" type="Label"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
