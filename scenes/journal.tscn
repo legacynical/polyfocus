@@ -27,14 +27,13 @@ offset_bottom = 277.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Date" parent="SingleEntryView" instance=ExtResource("2_d4d1p")]
+[node name="EntryTitle" type="LineEdit" parent="SingleEntryView"]
 layout_mode = 2
-text = "date placeholder"
-horizontal_alignment = 2
-
-[node name="Title" type="LineEdit" parent="SingleEntryView"]
-layout_mode = 2
+text = "test title"
 placeholder_text = "Title goes here..."
+
+[node name="CurrentDateTime" parent="SingleEntryView" instance=ExtResource("2_d4d1p")]
+layout_mode = 2
 
 [node name="EntryText" type="TextEdit" parent="SingleEntryView"]
 layout_mode = 2
@@ -54,7 +53,14 @@ text = "Entry List"
 layout_mode = 2
 text = "Save"
 
+[node name="Load" type="Button" parent="SingleEntryView/ButtonContainer"]
+layout_mode = 2
+text = "Load"
+
 [node name="Utilities" type="Node" parent="."]
 
 [node name="SaverLoader" type="Node" parent="Utilities"]
 script = ExtResource("2_pm0ww")
+
+[connection signal="pressed" from="SingleEntryView/ButtonContainer/Save" to="Utilities/SaverLoader" method="_on_save_pressed"]
+[connection signal="pressed" from="SingleEntryView/ButtonContainer/Load" to="Utilities/SaverLoader" method="_on_load_pressed"]
