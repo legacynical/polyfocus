@@ -1,8 +1,8 @@
 extends Node
 
-@onready var label: Label = $VBoxContainer/MarginContainer2/TimerLabel
-@onready var timer: Timer = $PomoTimer
-@onready var timer_button: Button = $VBoxContainer/MarginContainer/TimerButton
+@onready var label: Label = %TimerLabel
+@onready var timer: Timer = %PomoTimer
+@onready var timer_button: Button = %TimerButton
 
 @export var session_time: int
 

@@ -1,36 +1,51 @@
-[gd_scene load_steps=3 format=3 uid="uid://b055wpfq7y5vo"]
+[gd_scene load_steps=4 format=3 uid="uid://b055wpfq7y5vo"]
 
 [ext_resource type="PackedScene" uid="uid://cyssynqbw33oq" path="res://scenes/pomodoro_timer.tscn" id="1_46ecp"]
 [ext_resource type="PackedScene" uid="uid://dckhpntr1d5jp" path="res://scenes/date.tscn" id="2_qhlep"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3ljl6"]
+bg_color = Color(0.262224, 0.492451, 1, 1)
 
 [node name="Main Window" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -1152.0
+offset_bottom = -648.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PomodoroTimer" parent="." instance=ExtResource("1_46ecp")]
-layout_mode = 1
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+follow_viewport_enabled = true
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_3ljl6")
+
+[node name="PomodoroTimer" parent="CanvasLayer" instance=ExtResource("1_46ecp")]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -100.0
-offset_top = -54.5
-offset_right = 100.0
-offset_bottom = 54.5
+offset_left = -203.0
+offset_top = -132.0
+offset_right = 203.0
+offset_bottom = 132.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Date" parent="." instance=ExtResource("2_qhlep")]
-layout_mode = 0
-anchors_preset = 0
-anchor_right = 0.0
+[node name="Date" parent="CanvasLayer" instance=ExtResource("2_qhlep")]
+anchors_preset = 1
+anchor_left = 1.0
 anchor_bottom = 0.0
-offset_right = 1.0
+offset_left = -1.0
 offset_bottom = 23.0
-grow_horizontal = 1
+grow_horizontal = 0
 grow_vertical = 1
