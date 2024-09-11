@@ -17,8 +17,8 @@ func _ready() -> void:
 	update_label()
 	#TODO make this automatically remember user settings in a save
 	# manual win pos & size setting for easier debug for now
-	DisplayServer.window_set_position(Vector2(1396, 925))
-	DisplayServer.window_set_size(Vector2(411, 269))
+	DisplayServer.window_set_position(Vector2(3028, 799))
+	DisplayServer.window_set_size(Vector2(406, 265))
 	
 	
 
