@@ -12,9 +12,15 @@ var counting_down: bool = false
 var time_left: int
 
 func _ready() -> void:
-	time_left = session_time
-	timer.wait_time = time_left
+	timer.wait_time = session_time # sets PomoTimer wait time
+	time_left = session_time # for TimerLabel processing
 	update_label()
+	#TODO make this automatically remember user settings in a save
+	# manual win pos & size setting for easier debug for now
+	DisplayServer.window_set_position(Vector2(1396, 925))
+	DisplayServer.window_set_size(Vector2(411, 269))
+	
+	
 
 func _process(_delta: float) -> void:
 	if counting_down:
@@ -47,13 +53,15 @@ func _on_timer_button_pressed() -> void:
 		
 func _on_pomo_timer_timeout() -> void:
 	print("countdown complete!")
-	reset_timer()
+	reset_timer(session_time)
 	
 	
-func reset_timer() -> void:
-	timer.stop()
+func reset_timer(session_time: int) -> void:
+	timer.paused = false
 	counting_down = false
+	timer.stop()
 	timer_button.text = "START"
+	timer.wait_time = session_time
 	time_left = session_time
 	update_label()
 
@@ -68,10 +76,11 @@ func _on_setting_menu_button_pressed() -> void:
 
 func _on_button_pressed() -> void:
 	print("test pressed")
+	print("win pos: " + str(DisplayServer.window_get_position()))
+	print("win size: " + str(DisplayServer.window_get_size()))
 
 
-
-func _on_pomo_session_value_changed(value: int) -> void:
-	print("timer changed")
-	session_time = value
-	reset_timer()
+func _on_pomo_session_value_changed(session_time: int) -> void:
+	print("session time changed to " + str(%PomoSession.value) + " min")
+	session_time = %PomoSession.value * 60
+	reset_timer(session_time)
