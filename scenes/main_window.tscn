@@ -43,10 +43,10 @@ grow_vertical = 2
 session_time = 0
 
 [node name="Date" parent="CanvasLayer" instance=ExtResource("2_qhlep")]
-anchors_preset = 1
+anchors_preset = 3
 anchor_left = 1.0
-anchor_bottom = 0.0
+anchor_top = 1.0
 offset_left = -1.0
-offset_bottom = 23.0
+offset_top = -23.0
 grow_horizontal = 0
-grow_vertical = 1
+grow_vertical = 0

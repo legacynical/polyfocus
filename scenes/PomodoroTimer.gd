@@ -82,5 +82,5 @@ func _on_button_pressed() -> void:
 
 func _on_pomo_session_value_changed(session_time: int) -> void:
 	print("session time changed to " + str(%PomoSession.value) + " min")
-	session_time = %PomoSession.value * 60
+	session_time = %PomoSession.value * 60 # minute value to seconds
 	reset_timer(session_time)
