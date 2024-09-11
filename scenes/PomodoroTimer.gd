@@ -3,6 +3,8 @@ extends Node
 @onready var label: Label = %TimerLabel
 @onready var timer: Timer = %PomoTimer
 @onready var timer_button: Button = %TimerButton
+@onready var setting_menu: PanelContainer = %SettingMenu
+@onready var pomo_session: SpinBox = %PomoSession
 
 @export var session_time: int
 
@@ -54,3 +56,22 @@ func reset_timer() -> void:
 	timer_button.text = "START"
 	time_left = session_time
 	update_label()
+
+
+func _on_setting_menu_button_pressed() -> void:
+	print("setting menu button pressed")
+	if setting_menu.visible:
+		setting_menu.visible = false
+	else:
+		setting_menu.visible = true
+
+
+func _on_button_pressed() -> void:
+	print("test pressed")
+
+
+
+func _on_pomo_session_value_changed(value: int) -> void:
+	print("timer changed")
+	session_time = value
+	reset_timer()
