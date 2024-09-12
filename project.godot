@@ -15,6 +15,10 @@ run/main_scene="res://scenes/main_window.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+AudioManager="*res://globals/audio manager/audio_manager.tscn"
+
 [debug]
 
 gdscript/warnings/untyped_declaration=2
