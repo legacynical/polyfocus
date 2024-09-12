@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dckhpntr1d5jp"]
 
-[ext_resource type="Script" path="res://date.gd" id="1_qsb3r"]
+[ext_resource type="Script" path="res://scenes/date/date.gd" id="1_qsb3r"]
 
 [node name="CurrentDateTime" type="Label"]
 anchors_preset = 15

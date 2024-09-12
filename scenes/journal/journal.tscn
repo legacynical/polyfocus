@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=3 uid="uid://dewyfnpu3bvqr"]
 
-[ext_resource type="Script" path="res://journal.gd" id="1_inerv"]
-[ext_resource type="PackedScene" uid="uid://dckhpntr1d5jp" path="res://scenes/date.tscn" id="2_d4d1p"]
-[ext_resource type="Script" path="res://scenes/saver_loader.gd" id="2_pm0ww"]
+[ext_resource type="Script" path="res://scenes/journal/journal.gd" id="1_inerv"]
+[ext_resource type="PackedScene" uid="uid://dckhpntr1d5jp" path="res://scenes/date/date.tscn" id="2_d4d1p"]
+[ext_resource type="Script" path="res://scenes/journal/saver_loader.gd" id="2_pm0ww"]
 
 [node name="Journal" type="Panel"]
 anchors_preset = 15
