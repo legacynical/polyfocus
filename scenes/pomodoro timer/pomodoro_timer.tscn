@@ -122,6 +122,7 @@ text = "START"
 
 [node name="SettingMenu" type="PanelContainer" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 offset_left = 8.0
 offset_top = 40.0
