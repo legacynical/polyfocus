@@ -27,7 +27,7 @@ func load_journal_data() -> void:
 			journal_data = JSON.parse_string(json_data).result
 			file.close()
 
-# Example usage: Add an entry for today
+## TODO make a functional entry system
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("ui_accept"):
 		var current_time: Dictionary = Time.get_datetime_dict_from_system()

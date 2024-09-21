@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://cyssynqbw33oq"]
+[gd_scene load_steps=14 format=3 uid="uid://cyssynqbw33oq"]
 
 [ext_resource type="Script" path="res://scenes/pomodoro timer/PomodoroTimer.gd" id="1_dpc6i"]
 [ext_resource type="FontFile" uid="uid://cogm35cdl37e6" path="res://fonts/ComicMono/ComicMono.ttf" id="2_j8k3t"]
@@ -39,6 +39,20 @@ shadow_size = 3
 [sub_resource type="Theme" id="Theme_1f8c0"]
 Button/styles/normal = SubResource("StyleBoxFlat_d5qed")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pueoj"]
+bg_color = Color(0.466181, 0.466181, 0.466181, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2pg1l"]
+bg_color = Color(0.360784, 0.682353, 0.466667, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fsrcm"]
+bg_color = Color(0.379893, 0.622226, 0.844851, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yftdv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hilug"]
+bg_color = Color(0.833293, 0.471977, 0.584311, 1)
+
 [node name="PomodoroTimer" type="Panel"]
 offset_right = 406.0
 offset_bottom = 264.0
@@ -68,6 +82,12 @@ z_index = 1
 custom_minimum_size = Vector2(12, 30)
 layout_mode = 2
 size_flags_horizontal = 8
+
+[node name="TotalFocusTime" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "TFT [00:00]"
 
 [node name="TextureButton" type="TextureButton" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(30, 0)
@@ -157,6 +177,64 @@ size_flags_horizontal = 6
 text = "min"
 horizontal_alignment = 2
 
+[node name="SessionRating" type="Panel" parent="."]
+unique_name_in_owner = true
+visible = false
+z_index = 1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_pueoj")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SessionRating"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="SessionRating/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "Rate your focus state:"
+
+[node name="Flow" type="Button" parent="SessionRating/VBoxContainer"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_2pg1l")
+text = "Flow"
+
+[node name="Focused" type="Button" parent="SessionRating/VBoxContainer"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_fsrcm")
+text = "Focused
+"
+
+[node name="Neutral" type="Button" parent="SessionRating/VBoxContainer"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_yftdv")
+text = "Neutral
+"
+
+[node name="Distracted" type="Button" parent="SessionRating/VBoxContainer"]
+custom_minimum_size = Vector2(120, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_hilug")
+text = "Distracted"
+
 [node name="PomoTimer" type="Timer" parent="."]
 unique_name_in_owner = true
 wait_time = 1500.0
@@ -165,4 +243,8 @@ wait_time = 1500.0
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer2/TimerButton" to="." method="_on_timer_button_pressed"]
 [connection signal="value_changed" from="SettingMenu/Timer Setting/HBoxContainer/PomoSession" to="." method="_on_pomo_session_value_changed"]
+[connection signal="pressed" from="SessionRating/VBoxContainer/Flow" to="." method="_on_flow_pressed"]
+[connection signal="pressed" from="SessionRating/VBoxContainer/Focused" to="." method="_on_focused_pressed"]
+[connection signal="pressed" from="SessionRating/VBoxContainer/Neutral" to="." method="_on_neutral_pressed"]
+[connection signal="pressed" from="SessionRating/VBoxContainer/Distracted" to="." method="_on_distracted_pressed"]
 [connection signal="timeout" from="PomoTimer" to="." method="_on_pomo_timer_timeout"]
