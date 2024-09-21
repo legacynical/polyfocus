@@ -125,8 +125,7 @@ func _on_button_pressed() -> void:
 
 ### SessionRating
 func rate_session() -> void:
-	timer.paused = false
-	counting_down = false
+	reset_timer(300)
 	session_rating.visible = true
 
 func _on_flow_pressed() -> void:
@@ -146,7 +145,6 @@ func _on_distracted_pressed() -> void:
 func session_resume(extend_time: int) -> void:
 	AudioManager.click_basic.play()
 	session_rating.visible = false
-	update_total_focus_time()
 	reset_timer(extend_time)
 	timer.start()
 	counting_down = true

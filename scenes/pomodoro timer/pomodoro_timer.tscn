@@ -40,7 +40,7 @@ shadow_size = 3
 Button/styles/normal = SubResource("StyleBoxFlat_d5qed")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pueoj"]
-bg_color = Color(0.466181, 0.466181, 0.466181, 1)
+bg_color = Color(0.118581, 0.118581, 0.118581, 0.752941)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2pg1l"]
 bg_color = Color(0.360784, 0.682353, 0.466667, 1)
