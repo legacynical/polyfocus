@@ -1,6 +1,7 @@
 extends Node
 
 @onready var timer_label: Label = %TimerLabel
+@onready var focus_time_label: Label = %TotalFocusTime
 @onready var timer_button: Button = %TimerButton
 @onready var setting_menu: PanelContainer = %SettingMenu
 @onready var session_rating: Panel = %SessionRating
@@ -9,14 +10,18 @@ extends Node
 
 var progressive_pomo: bool = true
 var counting_down: bool = false
+var break_session: bool = false 
+var total_focus_time: int = 0
 var session_time: int = 0
 var time_left: int = 0
+var focus_duration: int = 0
 
 func _ready() -> void:
 	session_time = 300 #initializes to 5 min
 	timer.wait_time = session_time # sets PomoTimer wait time
 	time_left = session_time # for TimerLabel processing
 	update_label()
+	update_focus_time_label()
 	#TODO make this automatically remember user settings in a save
 	# manual win pos & size setting for easier debug for now
 	DisplayServer.window_set_position(Vector2(3028, 799))
@@ -32,6 +37,23 @@ func _process(_delta: float) -> void:
 func update_label() -> void:
 	timer_label.text = convert_time(time_left)
 	
+func update_focus_time_label() -> void:
+	if counting_down:
+		var focus_duration: int = session_time - time_left 
+		var current_total_time: int = total_focus_time + focus_duration
+		focus_time_label.text = "TFT [" + convert_time(current_total_time) + "]"
+	else:
+		update_total_focus_time()
+		focus_time_label.text = "TFT [" + convert_time(total_focus_time) + "]"
+		
+		
+func update_total_focus_time() -> void:
+	var focus_duration: int = session_time - time_left
+	if focus_duration > 0 and session_time > 0:
+		print("Adding focus duration: %d seconds" % focus_duration)
+		total_focus_time += focus_duration
+		session_time -= focus_duration
+		print("New total focus time: %d seconds" % total_focus_time)
 	
 func convert_time(time: int) -> String:
 	@warning_ignore("integer_division")
@@ -50,6 +72,7 @@ func _on_timer_button_pressed() -> void:
 		timer.paused = true
 		counting_down = false
 		timer_button.text = "RESUME"
+		update_focus_time_label()
 	#TODO: make consistent size images to use for texture button, resume has 1 more char space
 	else: # if neither paused nor counting down, then start timer and count down
 		timer.start()
@@ -59,6 +82,7 @@ func _on_timer_button_pressed() -> void:
 
 func _on_pomo_timer_timeout() -> void:
 	AudioManager.timer_complete.play()
+	total_focus_time += session_time
 	if progressive_pomo:
 		rate_session()
 	else:
