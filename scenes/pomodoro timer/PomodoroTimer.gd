@@ -39,7 +39,7 @@ func update_label() -> void:
 	
 func update_focus_time_label() -> void:
 	if counting_down:
-		var focus_duration: int = session_time - time_left 
+		focus_duration = session_time - time_left 
 		var current_total_time: int = total_focus_time + focus_duration
 		focus_time_label.text = "TFT [" + convert_time(current_total_time) + "]"
 	else:
@@ -48,7 +48,7 @@ func update_focus_time_label() -> void:
 		
 		
 func update_total_focus_time() -> void:
-	var focus_duration: int = session_time - time_left
+	focus_duration = session_time - time_left
 	if focus_duration > 0 and session_time > 0:
 		print("Adding focus duration: %d seconds" % focus_duration)
 		total_focus_time += focus_duration
@@ -110,7 +110,7 @@ func _on_setting_menu_button_pressed() -> void:
 		setting_menu.visible = true
 	
 		
-func _on_pomo_session_value_changed(custom_time: int) -> void:
+func _on_pomo_session_value_changed(_custom_time: int) -> void:
 	print("session time changed to " + str(%PomoSession.value) + " min")
 	update_total_focus_time() # prevents desync? hopefully
 	session_time = %PomoSession.value * 60 # minute value to seconds
