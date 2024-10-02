@@ -12,8 +12,7 @@ var request: HTTPRequest
 func _ready() -> void:
 	request = HTTPRequest.new()
 	add_child(request)
-	request.connect("request_completed", _on_request_completed)
-
+	request.connect("request_completed", Callable(self, "_on_request_completed"))
 	dialogue_request("Give me a monologue on how to manage focus on diverse topics.")
 	
 func dialogue_request (player_dialogue):
