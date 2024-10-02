@@ -15,11 +15,11 @@ func _ready() -> void:
 	request.connect("request_completed", Callable(self, "_on_request_completed"))
 	dialogue_request("Give me a monologue on how to manage focus on diverse topics.")
 	
-func dialogue_request (player_dialogue):
+func dialogue_request (player_dialogue: String) -> void:
 	messages.append({
 		"role": "user",
 		"content": player_dialogue
-		})
+	})
 	
 	var body = JSON.stringify({
 		"messages": messages,
@@ -29,21 +29,31 @@ func dialogue_request (player_dialogue):
 	})
 
 	var send_request = request.request(url, headers, HTTPClient.METHOD_POST, body)
-	
 	if send_request != OK:
 		print("Send request failed! :( Error Code: " + str(send_request))
 
 func _on_request_completed (result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray) -> void:
 	var json = JSON.new()
-	
 	var parse_error = json.parse(body.get_string_from_utf8())
 	if parse_error == OK:
-		var response = json.get_data
-	
-	var response = json.get_data()
-	print (response)
-	#var message = response["choices"][0]["message"]["content"]
-	#print(message)
+		var response = json.get_data()
+		print("Full response: ", response)
+		
+		if response.has("choices") and response["choices"].size() > 0:
+			var choice = response["choices"][0]
+			if choice.has("message") and choice["message"].has("content"):
+				var message = choice["message"]["content"]
+				print("Model Output: ", message)
+				messages.append({
+					"role": "assistant",
+					"content": message
+				})
+			else:
+				push_error('Unexpected reponse. Wrong structure.')
+		else:
+			push_error('Unexpected responce. No "choices" in response.')
+	else:
+		push_error('Parse JSON failed. Error code: ' + str(parse_error))
 	
 ##typical error response
 # { "error": 
