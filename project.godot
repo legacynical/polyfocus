@@ -21,7 +21,7 @@ AudioManager="*res://globals/audio manager/audio_manager.tscn"
 
 [debug]
 
-gdscript/warnings/untyped_declaration=2
+gdscript/warnings/untyped_declaration=1
 
 [dotnet]
 
