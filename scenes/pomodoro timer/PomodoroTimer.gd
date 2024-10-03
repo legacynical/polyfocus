@@ -16,6 +16,7 @@ var session_time: int = 0
 var time_left: int = 0
 var focus_duration: int = 0
 
+
 func _ready() -> void:
 	session_time = 300 #initializes to 5 min
 	timer.wait_time = session_time # sets PomoTimer wait time
