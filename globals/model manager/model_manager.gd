@@ -8,12 +8,19 @@ var headers: PackedStringArray = ["Content-Type: application/json", "Authorizati
 var model: String = "gpt-4o-mini"
 var messages: Array = []
 var httpRequest: HTTPRequest
+var store: bool = true
+var metadata: Dictionary = {}
+
+
 
 func _ready() -> void:
 	httpRequest = HTTPRequest.new()
 	add_child(httpRequest)
 	httpRequest.connect("request_completed", Callable(self, "_on_request_completed"))
 	dialogue_request("Give me a monologue on how to manage focus on diverse topics.")
+	metadata = {
+	"application": "polyfocus"
+	}
 	
 func dialogue_request (player_dialogue: String) -> void:
 	messages.append({
@@ -25,7 +32,9 @@ func dialogue_request (player_dialogue: String) -> void:
 		"messages": messages,
 		"temperature": temperature,
 		"max_tokens": max_tokens,
-		"model": model
+		"model": model,
+		"store": store,
+		"metadata": metadata
 	})
 
 	var send_request = httpRequest.request(url, headers, HTTPClient.METHOD_POST, body)

@@ -29,7 +29,7 @@ project/assembly_name="polyfocus"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/GPTIntegration/plugin.cfg", "res://addons/YouCanDoIt/plugin.cfg")
+enabled=PackedStringArray("res://addons/GPTIntegration/plugin.cfg")
 
 [rendering]
 

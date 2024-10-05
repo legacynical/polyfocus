@@ -2,5 +2,7 @@
 
 [ext_resource type="Script" path="res://globals/model manager/model_manager.gd" id="1_wm3ak"]
 
-[node name="ModelManager" type="Node"]
+[node name="ModelManager" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_wm3ak")
