@@ -179,3 +179,12 @@ func session_resume(extend_time: int) -> void:
 	counting_down = true
 	timer_button.text = "PAUSE"
 ###
+
+func _on_progressive_pomo_toggle_toggled(toggled_on):
+	AudioManager.click_basic.play()
+	if toggled_on:
+		progressive_pomo = true
+		print("progressive pomo: true")
+	else:
+		progressive_pomo = false
+		print("progressive pomo: false")
