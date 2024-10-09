@@ -2,36 +2,39 @@ extends Node
 
 var api_key: String = OS.get_environment("OPENAI_API_KEY")
 var url: String = "https://api.openai.com/v1/chat/completions"
-var temperature: float = 0.5
-var max_tokens: int = 1024
 var headers: PackedStringArray = ["Content-Type: application/json", "Authorization: Bearer " + api_key]
+
 var model: String = "gpt-4o-mini"
+var max_completion_tokens: int = 1024
+var temperature: float = 0.5 # value between 0 and 2
+var store: bool = true # to store chat completions in dev dashboard
+var metadata: Dictionary = {} # custom tags to filter in dev dashboard
 var messages: Array = []
+var prompt: String = ""
+
 var httpRequest: HTTPRequest
-var store: bool = true
-var metadata: Dictionary = {}
-
-
 
 func _ready() -> void:
 	httpRequest = HTTPRequest.new()
 	add_child(httpRequest)
 	httpRequest.connect("request_completed", Callable(self, "_on_request_completed"))
-	dialogue_request("Give me a monologue on how to manage focus on diverse topics.")
+	callGPT("Give me a monologue on how to manage focus on diverse topics.")
+	
 	metadata = {
-	"application": "polyfocus"
+	"application": "polyfocus",
+	"version": "0.1.0-alpha"
 	}
 	
-func dialogue_request (player_dialogue: String) -> void:
+func callGPT(prompt) -> void:
 	messages.append({
 		"role": "user",
-		"content": player_dialogue
+		"content": prompt
 	})
 	
 	var body = JSON.stringify({
 		"messages": messages,
 		"temperature": temperature,
-		"max_tokens": max_tokens,
+		"max_completion_tokens": max_completion_tokens,
 		"model": model,
 		"store": store,
 		"metadata": metadata
