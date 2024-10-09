@@ -7,6 +7,9 @@ extends Node
 @onready var session_rating: Panel = %SessionRating
 @onready var pomo_session: SpinBox = %PomoSession
 @onready var timer: Timer = %PomoTimer
+@onready var background: Panel = %BackgroundPanel
+@onready var focus_color: ColorPickerButton = %FocusColor
+@onready var break_color: ColorPickerButton = %BreakColor
 
 var progressive_pomo: bool = true
 var counting_down: bool = false
@@ -16,6 +19,12 @@ var session_time: int = 0
 var time_left: int = 0
 var focus_duration: int = 0
 
+var current_mode
+enum mode {
+	FOCUS,
+	BREAK,
+	PAUSED
+}
 
 func _ready() -> void:
 	session_time = 300 #initializes to 5 min
@@ -34,6 +43,8 @@ func _process(_delta: float) -> void:
 		# print(str(timer.time_left) + " -> " + str(time_left))
 		update_label()
 		update_focus_time_label()
+
+	
 
 func update_label() -> void:
 	timer_label.text = convert_time(time_left)
@@ -65,21 +76,38 @@ func convert_time(time: int) -> String:
 func _on_timer_button_pressed() -> void:
 	timer_button.disabled = true
 	AudioManager.click_basic.play()
+	
 	if timer.is_paused(): # if paused, then unpause and count down
+		current_mode = mode.FOCUS
 		timer.paused = false
 		counting_down = true
 		timer_button.text = "PAUSE"
 	elif counting_down: # if counting down, then pause
+		current_mode = mode.PAUSED
 		timer.paused = true
 		counting_down = false
 		timer_button.text = "RESUME"
 		update_focus_time_label()
 	#TODO: make consistent size images to use for texture button, resume has 1 more char space
 	else: # if neither paused nor counting down, then start timer and count down
+		current_mode = mode.FOCUS
 		timer.start()
 		counting_down = true
 		timer_button.text = "PAUSE"
+	changePanelColor()
 	timer_button.disabled = false
+
+func changePanelColor():
+	var new_stylebox = background.get_theme_stylebox("panel").duplicate()
+	if current_mode == mode.FOCUS:
+		new_stylebox.bg_color = focus_color.color
+		background.add_theme_stylebox_override("panel", new_stylebox)
+	elif current_mode == mode.BREAK:
+		new_stylebox.bg_color = break_color.color
+		background.add_theme_stylebox_override("panel", new_stylebox)
+	else:
+		new_stylebox.bg_color = Color.html("999999")
+		background.add_theme_stylebox_override("panel", new_stylebox)
 
 func _on_pomo_timer_timeout() -> void:
 	AudioManager.timer_complete.play()
