@@ -6,6 +6,7 @@ extends Node
 @onready var setting_menu: PanelContainer = %SettingMenu
 @onready var session_rating: Panel = %SessionRating
 @onready var pomo_session: SpinBox = %PomoSession
+@onready var break_session: SpinBox = %BreakSession
 @onready var timer: Timer = %PomoTimer
 @onready var background: Panel = %BackgroundPanel
 @onready var focus_color: ColorPickerButton = %FocusColor
@@ -16,7 +17,6 @@ extends Node
 
 var progressive_pomo: bool = true
 var counting_down: bool = false
-var break_session: bool = false 
 var total_focus_time: int = 0
 var session_time: int = 0
 var time_left: int = 0
@@ -82,23 +82,21 @@ func _on_timer_button_pressed() -> void:
 	AudioManager.click_basic.play()
 	
 	if timer.is_paused(): # if paused, then unpause and count down
-		current_mode = mode.FOCUS
 		timer.paused = false
 		counting_down = true
 		timer_button.text = "PAUSE"
 	elif counting_down: # if counting down, then pause
-		current_mode = mode.PAUSED
 		timer.paused = true
 		counting_down = false
 		timer_button.text = "RESUME"
-		update_focus_time_label()
+		if current_mode == mode.FOCUS:
+			update_focus_time_label()
 	#TODO: make consistent size images to use for texture button, resume has 1 more char space
 	else: # if neither paused nor counting down, then start timer and count down
-		current_mode = mode.FOCUS
 		timer.start()
 		counting_down = true
 		timer_button.text = "PAUSE"
-	changePanelColor()
+	#changePanelColor()
 	timer_button.disabled = false
 
 func changePanelColor():
@@ -144,9 +142,9 @@ func _on_setting_menu_button_pressed() -> void:
 	
 		
 func _on_pomo_session_value_changed(_custom_time: int) -> void:
-	print("session time changed to " + str(%PomoSession.value) + " min")
+	print("session time changed to " + str(pomo_session.value) + " min")
 	update_total_focus_time() # prevents desync? hopefully
-	session_time = %PomoSession.value * 60 # minute value to seconds
+	session_time = pomo_session.value * 60 # minute value to seconds
 	reset_timer(session_time)
 ###
 
@@ -198,6 +196,9 @@ func _on_progressive_pomo_toggle_toggled(toggled_on):
 
 func _on_mode_toggle_toggled(toggled_on):
 	AudioManager.click_basic.play()
+	if current_mode == mode.FOCUS:
+		update_total_focus_time()
+	reset_timer(break_session.value * 60)
 	if toggled_on:
 		mode_toggle.modulate = Color(1, 1, 1) # normal
 		current_mode = mode.FOCUS
