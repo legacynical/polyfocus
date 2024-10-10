@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://cyssynqbw33oq"]
+[gd_scene load_steps=17 format=3 uid="uid://cyssynqbw33oq"]
 
 [ext_resource type="Script" path="res://scenes/pomodoro timer/PomodoroTimer.gd" id="1_dpc6i"]
 [ext_resource type="FontFile" uid="uid://cogm35cdl37e6" path="res://fonts/ComicMono/ComicMono.ttf" id="2_j8k3t"]
 [ext_resource type="Texture2D" uid="uid://ddcu2t7y2pmog" path="res://icon.svg" id="3_e0otb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_weg84"]
+bg_color = Color(0.43724, 0.73942, 0.563565, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -13,6 +14,12 @@ corner_radius_top_left = 4
 corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
+
+[sub_resource type="GDScript" id="GDScript_trt3g"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bk4ye"]
+load_path = "res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex"
+script = SubResource("GDScript_trt3g")
 
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_pj5h6"]
 load_path = "res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex"
@@ -85,18 +92,29 @@ theme_override_constants/separation = 0
 z_index = 1
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-size_flags_horizontal = 8
+
+[node name="ModeToggle" type="TextureButton" parent="BackgroundPanel/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(30, 0)
+layout_mode = 2
+size_flags_horizontal = 2
+toggle_mode = true
+button_pressed = true
+texture_normal = ExtResource("3_e0otb")
+texture_pressed = SubResource("CompressedTexture2D_bk4ye")
+ignore_texture_size = true
+stretch_mode = 5
 
 [node name="TotalFocusTime" type="Label" parent="BackgroundPanel/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 10
 text = "TFT [00:00]"
 
 [node name="SettingMenuButton" type="TextureButton" parent="BackgroundPanel/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
-size_flags_horizontal = 6
+size_flags_horizontal = 10
 texture_normal = SubResource("CompressedTexture2D_pj5h6")
 ignore_texture_size = true
 stretch_mode = 5
@@ -106,10 +124,6 @@ layout_mode = 2
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 15
 text = "test"
-
-[node name="ModeToggle" type="TextureButton" parent="BackgroundPanel/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 4
 
 [node name="TimerLabel" type="Label" parent="BackgroundPanel/VBoxContainer"]
 unique_name_in_owner = true
@@ -160,7 +174,7 @@ text = " Pomodoro Session"
 unique_name_in_owner = true
 layout_mode = 2
 text = "color"
-color = Color(0.356833, 0.691573, 0.329908, 1)
+color = Color(0.435294, 0.741176, 0.564706, 1)
 edit_alpha = false
 
 [node name="PomoSession" type="SpinBox" parent="SettingMenu/Timer Setting/HBoxContainer"]
@@ -219,6 +233,7 @@ size_flags_horizontal = 3
 text = " Progressive Pomodoro"
 
 [node name="ProgressivePomoToggle" type="TextureButton" parent="SettingMenu/Timer Setting/HBoxContainer3"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_horizontal = 6
@@ -291,6 +306,7 @@ text = "Distracted"
 unique_name_in_owner = true
 wait_time = 1500.0
 
+[connection signal="toggled" from="BackgroundPanel/VBoxContainer/HBoxContainer/ModeToggle" to="." method="_on_mode_toggle_toggled"]
 [connection signal="pressed" from="BackgroundPanel/VBoxContainer/HBoxContainer/SettingMenuButton" to="." method="_on_setting_menu_button_pressed"]
 [connection signal="pressed" from="BackgroundPanel/VBoxContainer/HBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="BackgroundPanel/VBoxContainer/HBoxContainer2/TimerButton" to="." method="_on_timer_button_pressed"]

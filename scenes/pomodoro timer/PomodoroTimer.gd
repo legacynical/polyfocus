@@ -10,6 +10,9 @@ extends Node
 @onready var background: Panel = %BackgroundPanel
 @onready var focus_color: ColorPickerButton = %FocusColor
 @onready var break_color: ColorPickerButton = %BreakColor
+@onready var progressive_pomo_toggle: TextureButton = %ProgressivePomoToggle
+@onready var mode_toggle: TextureButton = %ModeToggle
+
 
 var progressive_pomo: bool = true
 var counting_down: bool = false
@@ -19,7 +22,7 @@ var session_time: int = 0
 var time_left: int = 0
 var focus_duration: int = 0
 
-var current_mode
+var current_mode = mode.FOCUS
 enum mode {
 	FOCUS,
 	BREAK,
@@ -42,7 +45,8 @@ func _process(_delta: float) -> void:
 		time_left = round(timer.time_left)
 		# print(str(timer.time_left) + " -> " + str(time_left))
 		update_label()
-		update_focus_time_label()
+		if current_mode == mode.FOCUS:
+			update_focus_time_label()
 
 	
 
@@ -105,9 +109,9 @@ func changePanelColor():
 	elif current_mode == mode.BREAK:
 		new_stylebox.bg_color = break_color.color
 		background.add_theme_stylebox_override("panel", new_stylebox)
-	else:
-		new_stylebox.bg_color = Color.html("999999")
-		background.add_theme_stylebox_override("panel", new_stylebox)
+	#else:
+		#new_stylebox.bg_color = Color.html("999999")
+		#background.add_theme_stylebox_override("panel", new_stylebox)
 
 func _on_pomo_timer_timeout() -> void:
 	AudioManager.timer_complete.play()
@@ -183,8 +187,23 @@ func session_resume(extend_time: int) -> void:
 func _on_progressive_pomo_toggle_toggled(toggled_on):
 	AudioManager.click_basic.play()
 	if toggled_on:
+		progressive_pomo_toggle.modulate = Color(1, 1, 1) # normal
 		progressive_pomo = true
 		print("progressive pomo: true")
 	else:
+		progressive_pomo_toggle.modulate = Color(0.5, 0.1, 0.1) # red
 		progressive_pomo = false
 		print("progressive pomo: false")
+
+
+func _on_mode_toggle_toggled(toggled_on):
+	AudioManager.click_basic.play()
+	if toggled_on:
+		mode_toggle.modulate = Color(1, 1, 1) # normal
+		current_mode = mode.FOCUS
+		print("focus mode")
+	else:
+		mode_toggle.modulate = Color(0.5, 0.1, 0.1) # red
+		current_mode = mode.BREAK
+		print("break mode")
+	changePanelColor()
