@@ -16,6 +16,7 @@ extends Node
 
 
 var progressive_pomo: bool = true
+var switch_mode_on_timeout: bool = true
 var counting_down: bool = false
 var total_focus_time: int = 0
 var session_time: int = 0
@@ -114,10 +115,10 @@ func updatePanelColor():
 func _on_pomo_timer_timeout() -> void:
 	AudioManager.timer_complete.play()
 	total_focus_time += session_time
-	if progressive_pomo:
+	if progressive_pomo and mode.FOCUS:
 		rate_session()
-	else:
-		reset_timer(session_time)
+	elif switch_mode_on_timeout:
+		switchMode()
 	
 	
 func reset_timer(new_session_time: int) -> void:
@@ -201,15 +202,18 @@ func _on_progressive_pomo_toggle_toggled(toggled_on):
 
 func _on_mode_toggle_toggled(toggled_on):
 	AudioManager.click_basic.play()
+	switchMode()
+	updatePanelColor()
+
+func switchMode():
 	if current_mode == mode.FOCUS:
 		update_total_focus_time()
-	reset_timer(break_session.value * 60)
-	if toggled_on:
-		mode_toggle.modulate = Color(1, 1, 1) # normal
-		current_mode = mode.FOCUS
-		print("focus mode")
-	else:
-		mode_toggle.modulate = Color(0.5, 0.1, 0.1) # red
+		reset_timer(break_session.value * 60)
 		current_mode = mode.BREAK
+		mode_toggle.modulate = Color(0.5, 0.1, 0.1) # red
 		print("break mode")
-	updatePanelColor()
+	else:
+		reset_timer(pomo_session.value * 60)
+		current_mode = mode.FOCUS
+		mode_toggle.modulate = Color(1, 1, 1) # normal
+		print("focus mode")
