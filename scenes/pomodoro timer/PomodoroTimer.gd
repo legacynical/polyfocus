@@ -99,7 +99,7 @@ func _on_timer_button_pressed() -> void:
 	#changePanelColor()
 	timer_button.disabled = false
 
-func changePanelColor():
+func updatePanelColor():
 	var new_stylebox = background.get_theme_stylebox("panel").duplicate()
 	if current_mode == mode.FOCUS:
 		new_stylebox.bg_color = focus_color.color
@@ -207,4 +207,4 @@ func _on_mode_toggle_toggled(toggled_on):
 		mode_toggle.modulate = Color(0.5, 0.1, 0.1) # red
 		current_mode = mode.BREAK
 		print("break mode")
-	changePanelColor()
+	updatePanelColor()

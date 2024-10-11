@@ -62,6 +62,7 @@ bg_color = Color(0.833293, 0.471977, 0.584311, 1)
 
 [node name="PomodoroTimer" type="Control"]
 layout_mode = 3
+anchors_preset = 0
 offset_right = 406.0
 offset_bottom = 264.0
 grow_horizontal = 2
