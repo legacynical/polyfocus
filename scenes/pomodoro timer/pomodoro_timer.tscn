@@ -313,6 +313,7 @@ wait_time = 1500.0
 [connection signal="pressed" from="BackgroundPanel/VBoxContainer/HBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="BackgroundPanel/VBoxContainer/HBoxContainer2/TimerButton" to="." method="_on_timer_button_pressed"]
 [connection signal="value_changed" from="SettingMenu/Timer Setting/HBoxContainer/PomoSession" to="." method="_on_pomo_session_value_changed"]
+[connection signal="value_changed" from="SettingMenu/Timer Setting/HBoxContainer2/BreakSession" to="." method="_on_break_session_value_changed"]
 [connection signal="toggled" from="SettingMenu/Timer Setting/HBoxContainer3/ProgressivePomoToggle" to="." method="_on_progressive_pomo_toggle_toggled"]
 [connection signal="pressed" from="SessionRating/VBoxContainer/Flow" to="." method="_on_flow_pressed"]
 [connection signal="pressed" from="SessionRating/VBoxContainer/Focused" to="." method="_on_focused_pressed"]

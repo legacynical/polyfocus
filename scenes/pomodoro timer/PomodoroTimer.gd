@@ -142,9 +142,14 @@ func _on_setting_menu_button_pressed() -> void:
 	
 		
 func _on_pomo_session_value_changed(_custom_time: int) -> void:
-	print("session time changed to " + str(pomo_session.value) + " min")
+	print("pomo session time changed to " + str(pomo_session.value) + " min")
 	update_total_focus_time() # prevents desync? hopefully
 	session_time = pomo_session.value * 60 # minute value to seconds
+	reset_timer(session_time)
+
+func _on_break_session_value_changed(_custom_time: int):
+	print("break session time changed to " + str(break_session.value) + " min")
+	session_time = break_session.value * 60 # minute value to seconds
 	reset_timer(session_time)
 ###
 
