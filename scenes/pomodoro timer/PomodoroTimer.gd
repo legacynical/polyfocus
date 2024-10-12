@@ -115,7 +115,7 @@ func updatePanelColor():
 func _on_pomo_timer_timeout() -> void:
 	AudioManager.timer_complete.play()
 	total_focus_time += session_time
-	if progressive_pomo and mode.FOCUS:
+	if progressive_pomo and current_mode == mode.FOCUS:
 		rate_session()
 	elif switch_mode_on_timeout:
 		switchMode()
