@@ -119,7 +119,7 @@ func _on_pomo_timer_timeout() -> void:
 		rate_session()
 	elif switch_mode_on_timeout:
 		switchMode()
-	
+		updatePanelColor()
 	
 func reset_timer(new_session_time: int) -> void:
 	timer.paused = false
