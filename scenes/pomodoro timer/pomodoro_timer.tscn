@@ -149,7 +149,7 @@ vertical_alignment = 2
 layout_mode = 2
 mouse_filter = 0
 
-[node name="Spacer" type="Control" parent="BackgroundPanel/VBoxContainer/HBoxContainer2"]
+[node name="SpacerLeft" type="Control" parent="BackgroundPanel/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -163,9 +163,22 @@ theme = SubResource("Theme_1f8c0")
 theme_override_font_sizes/font_size = 40
 text = "START"
 
-[node name="SkipButton" type="Button" parent="BackgroundPanel/VBoxContainer/HBoxContainer2"]
+[node name="SpacerRight" type="Control" parent="BackgroundPanel/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="SkipButton" type="Button" parent="BackgroundPanel/VBoxContainer/HBoxContainer2/SpacerRight"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 5.0
+offset_top = -15.0
+offset_right = 45.0
+offset_bottom = 15.0
+grow_vertical = 2
 size_flags_horizontal = 2
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 15
