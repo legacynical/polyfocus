@@ -14,7 +14,6 @@ extends Node
 @onready var progressive_pomo_toggle: TextureButton = %ProgressivePomoToggle
 @onready var mode_toggle: TextureButton = %ModeToggle
 
-
 var progressive_pomo: bool = true
 var switch_mode_on_timeout: bool = true
 var counting_down: bool = false
@@ -23,12 +22,12 @@ var session_time: int = 0
 var time_left: int = 0
 var focus_duration: int = 0
 
-var current_mode = mode.FOCUS
 enum mode {
 	FOCUS,
 	BREAK,
 	PAUSED
 }
+var current_mode: mode = mode.FOCUS
 
 func _ready() -> void:
 	session_time = 300 #initializes to 5 min
@@ -119,8 +118,8 @@ func _on_timer_button_pressed() -> void:
 	#changePanelColor()
 	timer_button.disabled = false
 
-func updatePanelColor():
-	var new_stylebox = background.get_theme_stylebox("panel").duplicate()
+func updatePanelColor() -> void:
+	var new_stylebox: StyleBox = background.get_theme_stylebox("panel").duplicate()
 	if current_mode == mode.FOCUS:
 		new_stylebox.bg_color = focus_color.color
 		background.add_theme_stylebox_override("panel", new_stylebox)
@@ -164,11 +163,13 @@ func _on_setting_menu_button_pressed() -> void:
 func _on_pomo_session_value_changed(_custom_time: int) -> void:
 	print("pomo session time changed to " + str(pomo_session.value) + " min")
 	update_total_focus_time() # prevents desync? hopefully
+	@warning_ignore("narrowing_conversion")
 	session_time = pomo_session.value * 60 # minute value to seconds
 	reset_timer(session_time)
 
-func _on_break_session_value_changed(_custom_time: int):
+func _on_break_session_value_changed(_custom_time: int) -> void:
 	print("break session time changed to " + str(break_session.value) + " min")
+	@warning_ignore("narrowing_conversion")
 	session_time = break_session.value * 60 # minute value to seconds
 	reset_timer(session_time)
 ###
@@ -208,7 +209,7 @@ func session_resume(extend_time: int) -> void:
 	timer_button.text = "PAUSE"
 ###
 
-func _on_progressive_pomo_toggle_toggled(toggled_on):
+func _on_progressive_pomo_toggle_toggled(toggled_on: bool) -> void:
 	AudioManager.click_basic.play()
 	if toggled_on:
 		progressive_pomo_toggle.modulate = Color(1, 1, 1) # normal
@@ -220,24 +221,28 @@ func _on_progressive_pomo_toggle_toggled(toggled_on):
 		print("progressive pomo: false")
 
 
-func _on_mode_toggle_toggled(toggled_on):
+func _on_mode_toggle_toggled(_toggled_on: bool) -> void:
 	AudioManager.click_basic.play()
 	switchMode()
 	updatePanelColor()
 
-func switchMode():
+func switchMode() -> void:
 	if current_mode == mode.FOCUS:
 		update_total_focus_time()
+		@warning_ignore("narrowing_conversion")
 		reset_timer(break_session.value * 60)
 		current_mode = mode.BREAK
 		mode_toggle.modulate = Color(0.5, 0.1, 0.1) # red
 		print("break mode")
 	else:
+		@warning_ignore("narrowing_conversion")
 		reset_timer(pomo_session.value * 60)
 		current_mode = mode.FOCUS
 		mode_toggle.modulate = Color(1, 1, 1) # normal
 		print("focus mode")
-func save_game():
+		
+	
+func save_game() -> void:
 	var saved_game: SavedGame = SavedGame.new()
 	
 	saved_game.window_position = DisplayServer.window_get_position()
@@ -245,8 +250,12 @@ func save_game():
 	
 	ResourceSaver.save(saved_game, "user://savegame.tres")
 
-func load_game():
+func load_game() -> bool:
 	var saved_game: SavedGame = load("user://savegame.tres") as SavedGame
-	DisplayServer.window_set_position(saved_game.window_position)
-	DisplayServer.window_set_size(saved_game.window_size)
+	if saved_game.window_position == null:
+		return false
+	else:
+		DisplayServer.window_set_position(saved_game.window_position)
+		DisplayServer.window_set_size(saved_game.window_size)
+		return true
 	

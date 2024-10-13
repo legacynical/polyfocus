@@ -124,7 +124,7 @@ text = "TFT [00:00]"
 [node name="SettingMenuButton" type="TextureButton" parent="BackgroundPanel/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
-size_flags_horizontal = 10
+size_flags_horizontal = 8
 texture_normal = SubResource("CompressedTexture2D_pj5h6")
 ignore_texture_size = true
 stretch_mode = 5
@@ -158,6 +158,15 @@ size_flags_stretch_ratio = 2.0
 theme = SubResource("Theme_1f8c0")
 theme_override_font_sizes/font_size = 40
 text = "START"
+
+[node name="SkipButton" type="Button" parent="BackgroundPanel"]
+layout_mode = 2
+offset_left = 350.0
+offset_top = 170.0
+offset_right = 390.0
+offset_bottom = 200.0
+theme_override_font_sizes/font_size = 15
+text = "skip"
 
 [node name="SettingMenu" type="PanelContainer" parent="."]
 unique_name_in_owner = true
