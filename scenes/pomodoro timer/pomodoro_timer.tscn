@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://ddcu2t7y2pmog" path="res://icon.svg" id="3_e0otb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_weg84"]
-bg_color = Color(0.43724, 0.73942, 0.563565, 1)
+bg_color = Color(0.435294, 0.741176, 0.564706, 1)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -62,9 +62,9 @@ bg_color = Color(0.833293, 0.471977, 0.584311, 1)
 
 [node name="PomodoroTimer" type="Control"]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 406.0
-offset_bottom = 264.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -82,17 +82,26 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_weg84")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="BackgroundPanel"]
-layout_mode = 2
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 398.0
-offset_bottom = 256.0
+custom_minimum_size = Vector2(450, 250)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -136.5
+offset_top = -102.5
+offset_right = 136.5
+offset_bottom = 102.5
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_constants/separation = 0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BackgroundPanel/VBoxContainer"]
 z_index = 1
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+size_flags_vertical = 0
 
 [node name="ModeToggle" type="TextureButton" parent="BackgroundPanel/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
@@ -128,12 +137,13 @@ text = "test"
 
 [node name="TimerLabel" type="Label" parent="BackgroundPanel/VBoxContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
 theme = SubResource("Theme_r1dsa")
 text = "25:00"
 label_settings = SubResource("LabelSettings_ilrq5")
 horizontal_alignment = 1
-vertical_alignment = 1
+vertical_alignment = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundPanel/VBoxContainer"]
 layout_mode = 2
@@ -304,7 +314,9 @@ size_flags_horizontal = 4
 theme_override_styles/normal = SubResource("StyleBoxFlat_hilug")
 text = "Distracted"
 
-[node name="PomoTimer" type="Timer" parent="."]
+[node name="Utilities" type="Node" parent="."]
+
+[node name="PomoTimer" type="Timer" parent="Utilities"]
 unique_name_in_owner = true
 wait_time = 1500.0
 
@@ -319,4 +331,4 @@ wait_time = 1500.0
 [connection signal="pressed" from="SessionRating/VBoxContainer/Focused" to="." method="_on_focused_pressed"]
 [connection signal="pressed" from="SessionRating/VBoxContainer/Neutral" to="." method="_on_neutral_pressed"]
 [connection signal="pressed" from="SessionRating/VBoxContainer/Distracted" to="." method="_on_distracted_pressed"]
-[connection signal="timeout" from="PomoTimer" to="." method="_on_pomo_timer_timeout"]
+[connection signal="timeout" from="Utilities/PomoTimer" to="." method="_on_pomo_timer_timeout"]

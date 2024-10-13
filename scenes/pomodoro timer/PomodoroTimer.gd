@@ -36,10 +36,21 @@ func _ready() -> void:
 	time_left = session_time # for TimerLabel processing
 	update_label()
 	update_focus_time_label()
+	
+	
+	#TODO finish transparent mode feature
+	# get_tree().get_root().set_transparent_background(true) # sets window transparency
+	# DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, true) # sets window bar
+	# set_semi_transparent(get_tree().get_root())
+	
+	if load_game(): # only save initial state if loading fails
+		save_game()
+	load_game()
+	
 	#TODO make this automatically remember user settings in a save
 	# manual win pos & size setting for easier debug for now
-	DisplayServer.window_set_position(Vector2(3028, 799))
-	DisplayServer.window_set_size(Vector2(406, 265))
+	# DisplayServer.window_set_position(Vector2(3028, 799))
+	# DisplayServer.window_set_size(Vector2(406, 265))
 	
 func _process(_delta: float) -> void:
 	if counting_down:
@@ -49,6 +60,14 @@ func _process(_delta: float) -> void:
 		if current_mode == mode.FOCUS:
 			update_focus_time_label()
 
+# TODO finish transparent mode feature
+func set_semi_transparent(node: Node) -> void:
+	if node is CanvasItem:
+		var visual_node := node as CanvasItem
+		visual_node.modulate.a = 0.9
+		
+	for child in node.get_children():
+		set_semi_transparent(child)
 	
 
 func update_label() -> void:
@@ -159,6 +178,7 @@ func _on_button_pressed() -> void:
 	print("test pressed")
 	print("win pos: " + str(DisplayServer.window_get_position()))
 	print("win size: " + str(DisplayServer.window_get_size()))
+	save_game()
 
 ### SessionRating
 func rate_session() -> void:
@@ -217,3 +237,16 @@ func switchMode():
 		current_mode = mode.FOCUS
 		mode_toggle.modulate = Color(1, 1, 1) # normal
 		print("focus mode")
+func save_game():
+	var saved_game: SavedGame = SavedGame.new()
+	
+	saved_game.window_position = DisplayServer.window_get_position()
+	saved_game.window_size = DisplayServer.window_get_size()
+	
+	ResourceSaver.save(saved_game, "user://savegame.tres")
+
+func load_game():
+	var saved_game: SavedGame = load("user://savegame.tres") as SavedGame
+	DisplayServer.window_set_position(saved_game.window_position)
+	DisplayServer.window_set_size(saved_game.window_size)
+	
