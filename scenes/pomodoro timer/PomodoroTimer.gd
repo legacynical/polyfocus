@@ -3,6 +3,7 @@ extends Node
 @onready var timer_label: Label = %TimerLabel
 @onready var focus_time_label: Label = %TotalFocusTime
 @onready var timer_button: Button = %TimerButton
+@onready var skip_button: Button = %SkipButton
 @onready var setting_menu: PanelContainer = %SettingMenu
 @onready var session_rating: Panel = %SessionRating
 @onready var pomo_session: SpinBox = %PomoSession
@@ -13,6 +14,8 @@ extends Node
 @onready var break_color: ColorPickerButton = %BreakColor
 @onready var progressive_pomo_toggle: TextureButton = %ProgressivePomoToggle
 @onready var mode_toggle: TextureButton = %ModeToggle
+
+
 
 var progressive_pomo: bool = true
 var switch_mode_on_timeout: bool = true
@@ -103,10 +106,12 @@ func _on_timer_button_pressed() -> void:
 	if timer.is_paused(): # if paused, then unpause and count down
 		timer.paused = false
 		counting_down = true
+		skip_button.visible = true
 		timer_button.text = "PAUSE"
 	elif counting_down: # if counting down, then pause
 		timer.paused = true
 		counting_down = false
+		skip_button.visible = false
 		timer_button.text = "RESUME"
 		if current_mode == mode.FOCUS:
 			update_focus_time_label()
@@ -114,9 +119,15 @@ func _on_timer_button_pressed() -> void:
 	else: # if neither paused nor counting down, then start timer and count down
 		timer.start()
 		counting_down = true
+		skip_button.visible = true
 		timer_button.text = "PAUSE"
-	#changePanelColor()
+		
 	timer_button.disabled = false
+
+func _on_skip_button_pressed():
+	AudioManager.click_basic.play()
+	switchMode()
+	skip_button.visible = false
 
 func updatePanelColor() -> void:
 	var new_stylebox: StyleBox = background.get_theme_stylebox("panel").duplicate()
@@ -137,7 +148,6 @@ func _on_pomo_timer_timeout() -> void:
 		rate_session()
 	elif switch_mode_on_timeout:
 		switchMode()
-		updatePanelColor()
 	
 func reset_timer(new_session_time: int) -> void:
 	timer.paused = false
@@ -224,7 +234,6 @@ func _on_progressive_pomo_toggle_toggled(toggled_on: bool) -> void:
 func _on_mode_toggle_toggled(_toggled_on: bool) -> void:
 	AudioManager.click_basic.play()
 	switchMode()
-	updatePanelColor()
 
 func switchMode() -> void:
 	if current_mode == mode.FOCUS:
@@ -240,7 +249,7 @@ func switchMode() -> void:
 		current_mode = mode.FOCUS
 		mode_toggle.modulate = Color(1, 1, 1) # normal
 		print("focus mode")
-		
+	updatePanelColor()
 	
 func save_game() -> void:
 	var saved_game: SavedGame = SavedGame.new()
