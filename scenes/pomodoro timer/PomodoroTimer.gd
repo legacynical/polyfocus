@@ -124,7 +124,7 @@ func _on_timer_button_pressed() -> void:
 		
 	timer_button.disabled = false
 
-func _on_skip_button_pressed():
+func _on_skip_button_pressed() -> void:
 	AudioManager.click_basic.play()
 	switchMode()
 	skip_button.visible = false

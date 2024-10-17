@@ -22,3 +22,5 @@ volume_db = 15.22
 
 [node name="40hzFocus2" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_cel48")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]

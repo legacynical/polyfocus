@@ -1,9 +1,9 @@
 class_name SaverLoader
 extends Node
 
-@onready var entry_title: LineEdit = $"../../SingleEntryView/EntryTitle"
-@onready var entry_date: Label = $"../../SingleEntryView/CurrentDateTime"
-@onready var entry_text: TextEdit = $"../../SingleEntryView/EntryText"
+@onready var entry_title: LineEdit = %EntryTitle
+@onready var entry_date: Label = %CurrentDateTime
+@onready var entry_text: TextEdit = %EntryText
 
 # file paths doc
 # https://docs.godotengine.org/en/stable/tutorials/io/data_paths.html
