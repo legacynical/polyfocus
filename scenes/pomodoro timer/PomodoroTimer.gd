@@ -45,12 +45,14 @@ func _ready() -> void:
 	# DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, true) # sets window bar
 	# set_semi_transparent(get_tree().get_root())
 	
-	if load_game(): # only save initial state if loading fails
-		save_game()
+	#TODO refactor names to something like window_data instead of game
+	if load_game(): # only save initial state if loading fails due to null values
+		save_game() # saves the initialized window pos & size (center of primary monitor of user)
+			# this workaround to make sure it works properly for other people w/ different monitor setups
 	load_game()
 	
-	#TODO make this automatically remember user settings in a save
-	# manual win pos & size setting for easier debug for now
+	# manual win pos & size setting for previous debug
+	# note irregular Vector2 coords (3000+??), it's probably due to my multi-monitor setup
 	# DisplayServer.window_set_position(Vector2(3028, 799))
 	# DisplayServer.window_set_size(Vector2(406, 265))
 	
