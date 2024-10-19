@@ -4,7 +4,14 @@ var api_key: String = OS.get_environment("OPENAI_API_KEY")
 var url: String = "https://api.openai.com/v1/chat/completions"
 var headers: PackedStringArray = ["Content-Type: application/json", "Authorization: Bearer " + api_key]
 
-var model: String = "gpt-4o-mini"
+var model: PackedStringArray = [
+	"gpt-4o-mini", # most cost-efficient small model with vision capabilities
+	"gpt-4o", # most advanced multimodal with stronger vision capabilities
+	"o1-mini", # fast, cost-efficient reasoning model tailored to coding, math, and science
+	"o1-preview" # new reasoning model for complex tasks
+]
+var id: int = 0 # model[id] initialized to "gpt-4o-mini"
+
 var max_completion_tokens: int = 1024
 var temperature: float = 0.5 # value between 0 and 2
 var store: bool = true # to store chat completions in dev dashboard
@@ -32,12 +39,12 @@ func callGPT(prompt) -> void:
 	})
 	
 	var body = JSON.stringify({
-		"messages": messages,
-		"temperature": temperature,
+		"model": model[id],
 		"max_completion_tokens": max_completion_tokens,
-		"model": model,
+		"temperature": temperature,
 		"store": store,
-		"metadata": metadata
+		"metadata": metadata,
+		"messages": messages
 	})
 
 	var send_request = httpRequest.request(url, headers, HTTPClient.METHOD_POST, body)
