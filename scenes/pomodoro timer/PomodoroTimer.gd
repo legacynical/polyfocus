@@ -14,7 +14,7 @@ extends Node
 @onready var break_color: ColorPickerButton = %BreakColor
 @onready var progressive_pomo_toggle: TextureButton = %ProgressivePomoToggle
 @onready var mode_toggle: TextureButton = %ModeToggle
-
+@onready var save_file: String = "user://savegame.tres"
 
 
 var progressive_pomo: bool = true
@@ -24,6 +24,8 @@ var total_focus_time: int = 0
 var session_time: int = 0
 var time_left: int = 0
 var focus_duration: int = 0
+var default_window_size: Vector2 = Vector2(480, 270)
+var default_window_pos = null # sets to center of user's primary screen on 1st startup
 
 enum mode {
 	FOCUS,
@@ -44,7 +46,8 @@ func _ready() -> void:
 	# get_tree().get_root().set_transparent_background(true) # sets window transparency
 	# DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, true) # sets window bar
 	# set_semi_transparent(get_tree().get_root())
-	save_window()
+	if not FileAccess.file_exists(save_file):
+		save_window()
 	load_window()
 		
 	# manual win pos & size setting for previous debug
@@ -186,9 +189,9 @@ func _on_break_session_value_changed(_custom_time: int) -> void:
 
 func _on_button_pressed() -> void:
 	AudioManager.click_basic.play()
-	print("test pressed")
-	print("win pos: " + str(DisplayServer.window_get_position()))
-	print("win size: " + str(DisplayServer.window_get_size()))
+	print("resetting window")
+	DisplayServer.window_set_size(default_window_size)
+	DisplayServer.window_set_position(default_window_pos)
 	save_window()
 
 ### SessionRating
@@ -254,23 +257,33 @@ func switchMode() -> void:
 	updatePanelColor()
 
 func print_window_stats():
-	print("win pos: " + str(DisplayServer.window_get_position()))
-	print("win size: " + str(DisplayServer.window_get_size()))
+	print(" ⌈Window Stats")
+	print(" |win pos: " + str(DisplayServer.window_get_position()))
+	print(" |win size: " + str(DisplayServer.window_get_size()))
+	print(" ⌊default win pos: " + str(default_window_pos))
 
 func save_window() -> void:
+	print("saving window:")
+	print_window_stats()
 	var saved_game: SavedGame = SavedGame.new()
 	saved_game.window_position = DisplayServer.window_get_position()
 	saved_game.window_size = DisplayServer.window_get_size()
-	ResourceSaver.save(saved_game, "user://savegame.tres")
-	print("saving window:")
-	print_window_stats()
+	if default_window_pos == null:
+		saved_game.default_window_position = DisplayServer.window_get_position()
+		print("default window pos saved: " + str(saved_game.default_window_position))
+	else:
+		saved_game.default_window_position = default_window_pos
+	ResourceSaver.save(saved_game, save_file)
+	print("\n")
 	
 func load_window() -> void:
-	var saved_game: SavedGame = load("user://savegame.tres") as SavedGame
+	print("loading window:")
+	var saved_game: SavedGame = load(save_file) as SavedGame
 	DisplayServer.window_set_position(saved_game.window_position)
 	DisplayServer.window_set_size(saved_game.window_size)
-	print("loading window:")
+	default_window_pos = saved_game.default_window_position
 	print_window_stats()
+	print("\n")
 
 ### ON WINDOW CLOSE
 func _notification(what):

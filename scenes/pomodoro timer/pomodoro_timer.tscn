@@ -306,6 +306,15 @@ texture_pressed = ExtResource("3_e0otb")
 ignore_texture_size = true
 stretch_mode = 4
 
+[node name="HBoxContainer4" type="HBoxContainer" parent="SettingMenu/ScrollContainer/Timer Setting"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = " Reset Window"
+
 [node name="SessionRating" type="Panel" parent="."]
 unique_name_in_owner = true
 visible = false
