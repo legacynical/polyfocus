@@ -80,10 +80,10 @@ func update_focus_time_label() -> void:
 	if counting_down:
 		focus_duration = session_time - time_left 
 		var current_total_time: int = total_focus_time + focus_duration
-		focus_time_label.text = "TFT [" + convert_time(current_total_time) + "]"
+		focus_time_label.text = "Total Focus Time [" + convert_time(current_total_time) + "]"
 	else:
 		update_total_focus_time()
-		focus_time_label.text = "TFT [" + convert_time(total_focus_time) + "]"
+		focus_time_label.text = "Total Focus Time [" + convert_time(total_focus_time) + "]"
 		
 		
 func update_total_focus_time() -> void:
@@ -245,14 +245,14 @@ func switchMode() -> void:
 		@warning_ignore("narrowing_conversion")
 		reset_timer(break_session.value * 60)
 		current_mode = mode.BREAK
-		mode_toggle.modulate = Color(0.5, 0.1, 0.1) # red
+		mode_toggle.modulate = focus_color.color
 		print("break mode")
 	else:
 		AudioManager.time_to_focus_mb.play()
 		@warning_ignore("narrowing_conversion")
 		reset_timer(pomo_session.value * 60)
 		current_mode = mode.FOCUS
-		mode_toggle.modulate = Color(1, 1, 1) # normal
+		mode_toggle.modulate = break_color.color
 		print("focus mode")
 	updatePanelColor()
 

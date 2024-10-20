@@ -111,9 +111,10 @@ size_flags_vertical = 0
 
 [node name="ModeToggle" type="TextureButton" parent="BackgroundPanel/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
+modulate = Color(0.32549, 0.439216, 0.65098, 1)
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
-size_flags_horizontal = 2
+size_flags_horizontal = 0
 toggle_mode = true
 button_pressed = true
 texture_normal = ExtResource("3_e0otb")
@@ -124,10 +125,10 @@ stretch_mode = 5
 [node name="TotalFocusTime" type="Label" parent="BackgroundPanel/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-size_flags_horizontal = 10
-text = "TFT [00:00]"
+size_flags_horizontal = 6
+text = "Total Focus Time [00:00]"
 
-[node name="SettingMenuButton2" type="TextureButton" parent="BackgroundPanel/VBoxContainer/HBoxContainer"]
+[node name="PlaceholderButton" type="TextureButton" parent="BackgroundPanel/VBoxContainer/HBoxContainer"]
 visible = false
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
