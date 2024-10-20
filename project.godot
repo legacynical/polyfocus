@@ -34,6 +34,10 @@ window/per_pixel_transparency/allowed=true
 
 project/assembly_name="polyfocus"
 
+[editor]
+
+run/main_run_args="--verbose"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/GPTIntegration/plugin.cfg")
