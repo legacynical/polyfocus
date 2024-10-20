@@ -44,13 +44,9 @@ func _ready() -> void:
 	# get_tree().get_root().set_transparent_background(true) # sets window transparency
 	# DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, true) # sets window bar
 	# set_semi_transparent(get_tree().get_root())
-	
-	#TODO refactor names to something like window_data instead of game
-	if load_game(): # only save initial state if loading fails due to null values
-		save_game() # saves the initialized window pos & size (center of primary monitor of user)
-			# this workaround to make sure it works properly for other people w/ different monitor setups
-	load_game()
-	
+	save_window()
+	load_window()
+		
 	# manual win pos & size setting for previous debug
 	# note irregular Vector2 coords (3000+??), it's probably due to my multi-monitor setup
 	# DisplayServer.window_set_position(Vector2(3028, 799))
@@ -193,7 +189,7 @@ func _on_button_pressed() -> void:
 	print("test pressed")
 	print("win pos: " + str(DisplayServer.window_get_position()))
 	print("win size: " + str(DisplayServer.window_get_size()))
-	save_game()
+	save_window()
 
 ### SessionRating
 func rate_session() -> void:
@@ -256,21 +252,28 @@ func switchMode() -> void:
 		mode_toggle.modulate = Color(1, 1, 1) # normal
 		print("focus mode")
 	updatePanelColor()
-	
-func save_game() -> void:
+
+func print_window_stats():
+	print("win pos: " + str(DisplayServer.window_get_position()))
+	print("win size: " + str(DisplayServer.window_get_size()))
+
+func save_window() -> void:
 	var saved_game: SavedGame = SavedGame.new()
-	
 	saved_game.window_position = DisplayServer.window_get_position()
 	saved_game.window_size = DisplayServer.window_get_size()
-	
 	ResourceSaver.save(saved_game, "user://savegame.tres")
-
-func load_game() -> bool:
-	var saved_game: SavedGame = load("user://savegame.tres") as SavedGame
-	if saved_game.window_position == null:
-		return false
-	else:
-		DisplayServer.window_set_position(saved_game.window_position)
-		DisplayServer.window_set_size(saved_game.window_size)
-		return true
+	print("saving window:")
+	print_window_stats()
 	
+func load_window() -> void:
+	var saved_game: SavedGame = load("user://savegame.tres") as SavedGame
+	DisplayServer.window_set_position(saved_game.window_position)
+	DisplayServer.window_set_size(saved_game.window_size)
+	print("loading window:")
+	print_window_stats()
+
+### ON WINDOW CLOSE
+func _notification(what):
+	if what == NOTIFICATION_WM_CLOSE_REQUEST:
+		save_window() # saves window position & size
+		get_tree().quit() # default behavior
