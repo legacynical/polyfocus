@@ -23,10 +23,10 @@ pitch_scale = 11.0
 
 [node name="TimerComplete" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
-stream = ExtResource("3_dgbms")
 
 [node name="MetalPipe" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
+stream = ExtResource("3_dgbms")
 
 [node name="40hzFocus100" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true

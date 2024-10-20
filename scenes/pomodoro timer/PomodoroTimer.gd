@@ -128,6 +128,8 @@ func _on_timer_button_pressed() -> void:
 
 func _on_skip_button_pressed() -> void:
 	AudioManager.click_basic.play()
+	#if current_mode == mode.FOCUS:
+		#AudioManager.focus_skip.play()
 	switchMode()
 	skip_button.visible = false
 
@@ -144,7 +146,7 @@ func updatePanelColor() -> void:
 		#background.add_theme_stylebox_override("panel", new_stylebox)
 
 func _on_pomo_timer_timeout() -> void:
-	AudioManager.timer_complete.play()
+	#AudioManager.timer_complete.play()
 	total_focus_time += session_time
 	if progressive_pomo and current_mode == mode.FOCUS:
 		rate_session()
@@ -240,12 +242,14 @@ func _on_mode_toggle_toggled(_toggled_on: bool) -> void:
 func switchMode() -> void:
 	if current_mode == mode.FOCUS:
 		update_total_focus_time()
+		AudioManager.time_to_break_mb.play()
 		@warning_ignore("narrowing_conversion")
 		reset_timer(break_session.value * 60)
 		current_mode = mode.BREAK
 		mode_toggle.modulate = Color(0.5, 0.1, 0.1) # red
 		print("break mode")
 	else:
+		AudioManager.time_to_focus_mb.play()
 		@warning_ignore("narrowing_conversion")
 		reset_timer(pomo_session.value * 60)
 		current_mode = mode.FOCUS
