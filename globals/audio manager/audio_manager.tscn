@@ -70,7 +70,7 @@ unique_name_in_owner = true
 stream = ExtResource("11_fego0")
 volume_db = -11.0
 
-[node name="FocusSkip" type="AudioStreamPlayer" parent="."]
+[node name="Distracted" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("12_53nsc")
 volume_db = -5.0

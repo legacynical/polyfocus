@@ -127,8 +127,6 @@ func _on_timer_button_pressed() -> void:
 
 func _on_skip_button_pressed() -> void:
 	AudioManager.click_basic.play()
-	#if current_mode == mode.FOCUS:
-		#AudioManager.focus_skip.play()
 	switchMode()
 	skip_button.visible = false
 
@@ -210,6 +208,7 @@ func _on_neutral_pressed() -> void:
 
 func _on_distracted_pressed() -> void:
 	AudioManager.click_basic.play()
+	AudioManager.distracted.play()
 	session_rating.visible = false
 	reset_timer(300)
 	

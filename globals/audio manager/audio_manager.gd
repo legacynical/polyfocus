@@ -11,4 +11,4 @@ extends Node
 @onready var notification_mb: AudioStreamPlayer = %NotificationMB
 @onready var alert_1_mb: AudioStreamPlayer = %Alert1MB
 @onready var alert_2_mb: AudioStreamPlayer = %Alert2MB
-@onready var focus_skip: AudioStreamPlayer = %FocusSkip
+@onready var distracted: AudioStreamPlayer = %Distracted
