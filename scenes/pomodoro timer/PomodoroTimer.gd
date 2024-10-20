@@ -187,7 +187,7 @@ func _on_break_session_value_changed(_custom_time: int) -> void:
 	reset_timer(session_time)
 ###
 
-func _on_button_pressed() -> void:
+func _on_window_reset_button_pressed() -> void:
 	AudioManager.click_basic.play()
 	print("resetting window")
 	DisplayServer.window_set_size(default_window_size)
