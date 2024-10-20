@@ -207,6 +207,8 @@ func _on_window_reset_button_pressed() -> void:
 ### SessionRating
 func rate_session() -> void:
 	AudioManager.alert_1_mb.play()
+	timer.paused = true
+	counting_down = false
 	timer_elements.visible = false
 	session_rating.visible = true
 
@@ -273,7 +275,7 @@ func switchMode() -> void:
 		print("focus mode")
 	updatePanelColor()
 
-func print_window_stats():
+func print_window_stats() -> void:
 	print(" ⌈Window Stats")
 	print(" |win pos: " + str(DisplayServer.window_get_position()))
 	print(" |win size: " + str(DisplayServer.window_get_size()))
@@ -303,7 +305,7 @@ func load_window() -> void:
 	print("\n")
 
 ### ON WINDOW CLOSE
-func _notification(what):
+func _notification(what) -> void:
 	if what == NOTIFICATION_WM_CLOSE_REQUEST:
 		save_window() # saves window position & size
 		get_tree().quit() # default behavior
