@@ -17,12 +17,14 @@ extends Node
 @onready var mode_toggle: TextureButton = %ModeToggle
 @onready var save_file: String = "user://savegame.tres"
 
-
 var default_window_size: Vector2 = Vector2(480, 270)
 var default_window_pos = null # sets to center of user's primary screen on 1st startup
 
 var progressive_pomo: bool = true
 var progressive_pomo_break_due: bool = false
+@export var flow_session: int = 1800 # 30 min
+@export var focused_session: int = 1200 # 20 min
+@export var neutral_session: int = 600 # 10 min
 
 var switch_mode_on_timeout: bool = true
 var counting_down: bool = false
@@ -153,7 +155,6 @@ func _on_pomo_timer_timeout() -> void:
 	if progressive_pomo and current_mode == mode.FOCUS:
 		if progressive_pomo_break_due:
 			switchMode()
-			progressive_pomo_break_due = false
 		else:
 			rate_session()
 	elif switch_mode_on_timeout:
@@ -210,17 +211,18 @@ func rate_session() -> void:
 	session_rating.visible = true
 
 func _on_flow_pressed() -> void:
-	session_resume(1800)
+	session_resume(flow_session)
 
 func _on_focused_pressed() -> void:
-	session_resume(1200)
+	session_resume(focused_session)
 	
 func _on_neutral_pressed() -> void:
-	session_resume(600)
+	session_resume(neutral_session)
 
 func _on_distracted_pressed() -> void:
 	AudioManager.click_basic.play()
 	AudioManager.distracted.play()
+	timer_elements.visible = true
 	session_rating.visible = false
 	reset_timer(300)
 	
@@ -253,6 +255,7 @@ func _on_mode_toggle_toggled(_toggled_on: bool) -> void:
 	switchMode()
 
 func switchMode() -> void:
+	progressive_pomo_break_due = false # prevents unintended breaks
 	if current_mode == mode.FOCUS:
 		update_total_focus_time()
 		AudioManager.time_to_break_mb.play()
