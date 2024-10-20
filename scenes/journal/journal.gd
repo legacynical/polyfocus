@@ -8,8 +8,9 @@ var save_file_path: String = "user://save/journals/journal_data.json"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	load_journal_data()
-
+	#save_journal_data()
+	#load_journal_data()
+	pass
 
 # Function to save the journal data to a file
 func save_journal_data() -> void:
@@ -28,10 +29,10 @@ func load_journal_data() -> void:
 			file.close()
 
 ## TODO make a functional entry system
-func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("ui_accept"):
-		var current_time: Dictionary = Time.get_datetime_dict_from_system()
-		var date_str: String = (
-			str(current_time.year) + "-" + 
-			str(current_time.month).pad_zeros(2) + "-" + 
-			str(current_time.day).pad_zeros(2))
+#func _process(_delta: float) -> void:
+	#if Input.is_action_just_pressed("ui_accept"):
+		#var current_time: Dictionary = Time.get_datetime_dict_from_system()
+		#var date_str: String = (
+			#str(current_time.year) + "-" + 
+			#str(current_time.month).pad_zeros(2) + "-" + 
+			#str(current_time.day).pad_zeros(2))

@@ -9,7 +9,9 @@ extends Node
 # https://docs.godotengine.org/en/stable/tutorials/io/data_paths.html
 
 func _ready() -> void:
-	load_journal()
+	#save_journal()
+	#load_journal()
+	pass
 
 func save_journal() -> void:
 	# Godot guarantees write access to user:// when exporting
