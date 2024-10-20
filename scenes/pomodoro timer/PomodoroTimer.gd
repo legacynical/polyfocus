@@ -18,15 +18,19 @@ extends Node
 @onready var save_file: String = "user://savegame.tres"
 
 
+var default_window_size: Vector2 = Vector2(480, 270)
+var default_window_pos = null # sets to center of user's primary screen on 1st startup
+
 var progressive_pomo: bool = true
+var progressive_pomo_break_due: bool = false
+
 var switch_mode_on_timeout: bool = true
 var counting_down: bool = false
+var break_session_counter: int = 0
 var total_focus_time: int = 0
 var session_time: int = 0
 var time_left: int = 0
 var focus_duration: int = 0
-var default_window_size: Vector2 = Vector2(480, 270)
-var default_window_pos = null # sets to center of user's primary screen on 1st startup
 
 enum mode {
 	FOCUS,
@@ -147,10 +151,16 @@ func _on_pomo_timer_timeout() -> void:
 	#AudioManager.timer_complete.play()
 	total_focus_time += session_time
 	if progressive_pomo and current_mode == mode.FOCUS:
-		rate_session()
+		if progressive_pomo_break_due:
+			switchMode()
+			progressive_pomo_break_due = false
+		else:
+			rate_session()
 	elif switch_mode_on_timeout:
 		switchMode()
-	
+	else:
+		pass # would user even want auto mode switch on timeout off?
+		
 func reset_timer(new_session_time: int) -> void:
 	timer.paused = false
 	counting_down = false
@@ -219,6 +229,7 @@ func session_resume(extend_time: int) -> void:
 	AudioManager.alert_2_mb.play()
 	timer_elements.visible = true
 	session_rating.visible = false
+	progressive_pomo_break_due = true
 	reset_timer(extend_time)
 	timer.start()
 	counting_down = true
