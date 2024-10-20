@@ -1,5 +1,6 @@
 extends Node
 
+@onready var timer_elements: VBoxContainer = %TimerElements
 @onready var timer_label: Label = %TimerLabel
 @onready var focus_time_label: Label = %TotalFocusTime
 @onready var timer_button: Button = %TimerButton
@@ -194,7 +195,8 @@ func _on_window_reset_button_pressed() -> void:
 
 ### SessionRating
 func rate_session() -> void:
-	reset_timer(300)
+	AudioManager.alert_1_mb.play()
+	timer_elements.visible = false
 	session_rating.visible = true
 
 func _on_flow_pressed() -> void:
@@ -214,6 +216,8 @@ func _on_distracted_pressed() -> void:
 	
 func session_resume(extend_time: int) -> void:
 	AudioManager.click_basic.play()
+	AudioManager.alert_2_mb.play()
+	timer_elements.visible = true
 	session_rating.visible = false
 	reset_timer(extend_time)
 	timer.start()
