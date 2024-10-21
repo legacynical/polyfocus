@@ -151,14 +151,13 @@ func updatePanelColor() -> void:
 
 func _on_pomo_timer_timeout() -> void:
 	#AudioManager.timer_complete.play()
-	total_focus_time += session_time
 	if progressive_pomo and current_mode == mode.FOCUS:
 		if progressive_pomo_break_due:
-			switchMode()
+			switchMode() # updates TFT
 		else:
-			rate_session()
+			rate_session() 
 	elif switch_mode_on_timeout:
-		switchMode()
+		switchMode() # updates TFT
 	else:
 		pass # would user even want auto mode switch on timeout off?
 		
@@ -207,9 +206,10 @@ func _on_window_reset_button_pressed() -> void:
 ### SessionRating
 func rate_session() -> void:
 	AudioManager.alert_1_mb.play()
+	update_total_focus_time()
 	timer.paused = true
 	counting_down = false
-	timer_elements.visible = false
+	#timer_elements.visible = false
 	session_rating.visible = true
 
 func _on_flow_pressed() -> void:
@@ -224,14 +224,14 @@ func _on_neutral_pressed() -> void:
 func _on_distracted_pressed() -> void:
 	AudioManager.click_basic.play()
 	AudioManager.distracted.play()
-	timer_elements.visible = true
+	#timer_elements.visible = true
 	session_rating.visible = false
 	reset_timer(300)
 	
 func session_resume(extend_time: int) -> void:
 	AudioManager.click_basic.play()
 	AudioManager.alert_2_mb.play()
-	timer_elements.visible = true
+	#timer_elements.visible = true
 	session_rating.visible = false
 	progressive_pomo_break_due = true
 	reset_timer(extend_time)
