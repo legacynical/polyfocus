@@ -1,11 +1,10 @@
-[gd_scene load_steps=21 format=3 uid="uid://cyssynqbw33oq"]
+[gd_scene load_steps=19 format=3 uid="uid://cyssynqbw33oq"]
 
 [ext_resource type="Script" path="res://scenes/pomodoro timer/PomodoroTimer.gd" id="1_dpc6i"]
 [ext_resource type="FontFile" uid="uid://cogm35cdl37e6" path="res://fonts/ComicMono/ComicMono.ttf" id="2_j8k3t"]
 [ext_resource type="Texture2D" uid="uid://ddcu2t7y2pmog" path="res://icon.svg" id="3_e0otb"]
 [ext_resource type="PackedScene" uid="uid://dckhpntr1d5jp" path="res://scenes/date/date.tscn" id="4_rjnu3"]
-[ext_resource type="Script" path="res://scenes/journal/journal.gd" id="5_lb0ml"]
-[ext_resource type="Script" path="res://scenes/journal/saver_loader.gd" id="6_1spdf"]
+[ext_resource type="PackedScene" uid="uid://dewyfnpu3bvqr" path="res://scenes/journal/journal.tscn" id="5_byofp"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_weg84"]
 bg_color = Color(0.435294, 0.741176, 0.564706, 1)
@@ -62,8 +61,6 @@ bg_color = Color(0.379893, 0.622226, 0.844851, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hilug"]
 bg_color = Color(0.833293, 0.471977, 0.584311, 1)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0wdyh"]
 
 [node name="PomodoroTimer" type="Control"]
 layout_mode = 3
@@ -403,68 +400,20 @@ offset_top = -23.0
 grow_horizontal = 0
 grow_vertical = 0
 
+[node name="Journal" parent="." instance=ExtResource("5_byofp")]
+visible = false
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+grow_horizontal = 1
+grow_vertical = 1
+
 [node name="Utilities" type="Node" parent="."]
 
 [node name="PomoTimer" type="Timer" parent="Utilities"]
 unique_name_in_owner = true
 wait_time = 1500.0
-
-[node name="Journal" type="Panel" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 16.0
-offset_top = 40.0
-offset_right = -16.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_0wdyh")
-script = ExtResource("5_lb0ml")
-
-[node name="SingleEntryView" type="VBoxContainer" parent="Journal"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="EntryTitle" type="LineEdit" parent="Journal/SingleEntryView"]
-unique_name_in_owner = true
-layout_mode = 2
-text = "test title"
-placeholder_text = "Title goes here..."
-
-[node name="EntryText" type="TextEdit" parent="Journal/SingleEntryView"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_vertical = 3
-text = "the quick brown fox jumped over the lazy dog."
-placeholder_text = "Write your journal entry here..."
-wrap_mode = 1
-
-[node name="ButtonContainer" type="HBoxContainer" parent="Journal/SingleEntryView"]
-layout_mode = 2
-
-[node name="EntryList" type="Button" parent="Journal/SingleEntryView/ButtonContainer"]
-layout_mode = 2
-text = "Entry List"
-
-[node name="Save" type="Button" parent="Journal/SingleEntryView/ButtonContainer"]
-layout_mode = 2
-text = "Save"
-
-[node name="Load" type="Button" parent="Journal/SingleEntryView/ButtonContainer"]
-layout_mode = 2
-text = "Load"
-
-[node name="Utilities" type="Node" parent="Journal"]
-
-[node name="SaverLoader" type="Node" parent="Journal/Utilities"]
-script = ExtResource("6_1spdf")
 
 [connection signal="toggled" from="BackgroundPanel/TimerElements/HBoxContainer/ModeToggle" to="." method="_on_mode_toggle_toggled"]
 [connection signal="pressed" from="BackgroundPanel/TimerElements/HBoxContainer/SettingMenuButton" to="." method="_on_setting_menu_button_pressed"]
@@ -479,5 +428,3 @@ script = ExtResource("6_1spdf")
 [connection signal="pressed" from="SessionRating/VBoxContainer/Neutral" to="." method="_on_neutral_pressed"]
 [connection signal="pressed" from="SessionRating/VBoxContainer/Distracted" to="." method="_on_distracted_pressed"]
 [connection signal="timeout" from="Utilities/PomoTimer" to="." method="_on_pomo_timer_timeout"]
-[connection signal="pressed" from="Journal/SingleEntryView/ButtonContainer/Save" to="Journal/Utilities/SaverLoader" method="_on_save_pressed"]
-[connection signal="pressed" from="Journal/SingleEntryView/ButtonContainer/Load" to="Journal/Utilities/SaverLoader" method="_on_load_pressed"]

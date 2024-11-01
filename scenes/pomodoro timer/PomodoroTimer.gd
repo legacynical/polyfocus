@@ -1,3 +1,4 @@
+class_name PomodoroTimer
 extends Node
 
 @onready var timer_elements: VBoxContainer = %TimerElements
@@ -15,18 +16,21 @@ extends Node
 @onready var break_color: ColorPickerButton = %BreakColor
 @onready var progressive_pomo_toggle: TextureButton = %ProgressivePomoToggle
 @onready var mode_toggle: TextureButton = %ModeToggle
+
 @onready var save_file: String = "user://savegame.tres"
+
 
 var default_window_size: Vector2 = Vector2(480, 270)
 var default_window_pos = null # sets to center of user's primary screen on 1st startup
 
 var progressive_pomo: bool = true
 var progressive_pomo_break_due: bool = false
-@export var flow_session: int = 1800 # 30 min
-@export var focused_session: int = 1200 # 20 min
-@export var neutral_session: int = 600 # 10 min
-
+var flow_session: int = 1800 # 30 min
+var focused_session: int = 1200 # 20 min
+var neutral_session: int = 600 # 10 min
 var switch_mode_on_timeout: bool = true
+
+
 var counting_down: bool = false
 var break_session_counter: int = 0
 var total_focus_time: int = 0
