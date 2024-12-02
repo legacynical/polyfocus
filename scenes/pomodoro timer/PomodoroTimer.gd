@@ -21,7 +21,7 @@ extends Node
 
 
 var default_window_size: Vector2 = Vector2(480, 270)
-var default_window_pos = null # sets to center of user's primary screen on 1st startup
+var default_window_position = null # sets to center of user's primary screen on 1st startup
 
 var progressive_pomo: bool = true
 var progressive_pomo_break_due: bool = false
@@ -206,7 +206,7 @@ func _on_window_reset_button_pressed() -> void:
 	AudioManager.click_basic.play()
 	print("resetting window")
 	DisplayServer.window_set_size(default_window_size)
-	DisplayServer.window_set_position(default_window_pos)
+	DisplayServer.window_set_position(default_window_position)
 	save_window()
 
 ### SessionRating
@@ -285,7 +285,7 @@ func print_window_stats() -> void:
 	print(" ⌈Window Stats")
 	print(" |win pos: " + str(DisplayServer.window_get_position()))
 	print(" |win size: " + str(DisplayServer.window_get_size()))
-	print(" ⌊default win pos: " + str(default_window_pos))
+	print(" ⌊default win pos: " + str(default_window_position))
 
 func save_window() -> void:
 	print("saving window:")
@@ -293,11 +293,11 @@ func save_window() -> void:
 	var saved_game: SavedGame = SavedGame.new()
 	saved_game.window_position = DisplayServer.window_get_position()
 	saved_game.window_size = DisplayServer.window_get_size()
-	if default_window_pos == null:
+	if default_window_position == null:
 		saved_game.default_window_position = DisplayServer.window_get_position()
 		print("default window pos saved: " + str(saved_game.default_window_position))
 	else:
-		saved_game.default_window_position = default_window_pos
+		saved_game.default_window_position = default_window_position
 	ResourceSaver.save(saved_game, save_file)
 	print("\n")
 	
@@ -306,7 +306,7 @@ func load_window() -> void:
 	var saved_game: SavedGame = load(save_file) as SavedGame
 	DisplayServer.window_set_position(saved_game.window_position)
 	DisplayServer.window_set_size(saved_game.window_size)
-	default_window_pos = saved_game.default_window_position
+	default_window_position = saved_game.default_window_position
 	print_window_stats()
 	print("\n")
 
