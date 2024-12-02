@@ -319,6 +319,7 @@ text = " Window"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+tooltip_text = "Set window to most recent save"
 theme_override_font_sizes/font_size = 15
 text = "reset"
 
@@ -326,6 +327,8 @@ text = "reset"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+tooltip_text = "Save window size & position
+(auto saves on app close)"
 theme_override_font_sizes/font_size = 15
 text = "save"
 
@@ -333,6 +336,7 @@ text = "save"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
+tooltip_text = "Set window to center of primary screen, (480 x 270)"
 theme_override_font_sizes/font_size = 15
 text = "default"
 
