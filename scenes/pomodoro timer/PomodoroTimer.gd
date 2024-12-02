@@ -249,11 +249,11 @@ func session_resume(extend_time: int) -> void:
 func _on_progressive_pomo_toggle_toggled(toggled_on: bool) -> void:
 	AudioManager.click_basic.play()
 	if toggled_on:
-		progressive_pomo_toggle.modulate = Color(1, 1, 1) # normal
+		#progressive_pomo_toggle.modulate = Color(1, 1, 1) # normal
 		progressive_pomo = true
 		print("progressive pomo: true")
 	else:
-		progressive_pomo_toggle.modulate = Color(0.5, 0.1, 0.1) # red
+		#progressive_pomo_toggle.modulate = Color(0.5, 0.1, 0.1) # red
 		progressive_pomo = false
 		print("progressive pomo: false")
 
