@@ -184,7 +184,6 @@ func _on_setting_menu_button_pressed() -> void:
 		setting_menu.visible = false
 	else:
 		setting_menu.visible = true
-	
 		
 func _on_pomo_session_value_changed(_custom_time: int) -> void:
 	print("pomo session time changed to " + str(pomo_session.value) + " min")
@@ -200,14 +199,19 @@ func _on_break_session_value_changed(_custom_time: int) -> void:
 		@warning_ignore("narrowing_conversion")
 		session_time = break_session.value * 60 # minute value to seconds
 		reset_timer(session_time)
-###
 
 func _on_window_reset_button_pressed() -> void:
+	load_window()
+
+func _on_window_save_button_pressed() -> void:
+	save_window()
+
+func _on_window_default_button_pressed() -> void:
 	AudioManager.click_basic.play()
 	print("resetting window")
 	DisplayServer.window_set_size(default_window_size)
 	DisplayServer.window_set_position(default_window_position)
-	save_window()
+###
 
 ### SessionRating
 func rate_session() -> void:

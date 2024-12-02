@@ -202,7 +202,6 @@ icon = ExtResource("5_3yb1t")
 
 [node name="SettingMenu" type="PanelContainer" parent="."]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 anchor_left = 0.5
 anchor_top = 0.5
@@ -311,27 +310,27 @@ custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
 [node name="Label" type="Label" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer4"]
+custom_minimum_size = Vector2(255, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-text = " Reset Window"
+text = " Window"
 
-[node name="Control" type="Control" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer4"]
+[node name="WindowReset" type="Button" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer4"]
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 15
+text = "reset"
 
-[node name="WindowReset" type="Button" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer4/Control"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -30.0
-offset_top = -15.0
-offset_right = 30.0
-offset_bottom = 15.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="WindowSave" type="Button" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 15
+text = "save"
+
+[node name="WindowDefault" type="Button" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer4"]
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 15
@@ -428,7 +427,9 @@ wait_time = 1500.0
 [connection signal="value_changed" from="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer/PomoSession" to="." method="_on_pomo_session_value_changed"]
 [connection signal="value_changed" from="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer2/BreakSession" to="." method="_on_break_session_value_changed"]
 [connection signal="toggled" from="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer3/ProgressivePomoToggle" to="." method="_on_progressive_pomo_toggle_toggled"]
-[connection signal="pressed" from="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer4/Control/WindowReset" to="." method="_on_window_reset_button_pressed"]
+[connection signal="pressed" from="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer4/WindowReset" to="." method="_on_window_reset_button_pressed"]
+[connection signal="pressed" from="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer4/WindowSave" to="." method="_on_window_save_button_pressed"]
+[connection signal="pressed" from="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer4/WindowDefault" to="." method="_on_window_default_button_pressed"]
 [connection signal="pressed" from="SessionRating/VBoxContainer/Flow" to="." method="_on_flow_pressed"]
 [connection signal="pressed" from="SessionRating/VBoxContainer/Focused" to="." method="_on_focused_pressed"]
 [connection signal="pressed" from="SessionRating/VBoxContainer/Neutral" to="." method="_on_neutral_pressed"]
