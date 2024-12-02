@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cyssynqbw33oq"]
+[gd_scene load_steps=24 format=3 uid="uid://cyssynqbw33oq"]
 
 [ext_resource type="Script" path="res://scenes/pomodoro timer/PomodoroTimer.gd" id="1_dpc6i"]
 [ext_resource type="FontFile" uid="uid://cogm35cdl37e6" path="res://fonts/ComicMono/ComicMono.ttf" id="2_j8k3t"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dp6ordq4ukkpq" path="res://graphics/256x128-toggled-off-icon.svg" id="5_b358n"]
 [ext_resource type="PackedScene" uid="uid://dewyfnpu3bvqr" path="res://scenes/journal/journal.tscn" id="5_byofp"]
 [ext_resource type="Texture2D" uid="uid://peqio3wcu2w6" path="res://graphics/256x128-toggled-on-icon.svg" id="6_ppuow"]
+[ext_resource type="Theme" uid="uid://bo63cmd85t6l4" path="res://themes/TooltipPanelDarker.tres" id="6_pybon"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_weg84"]
 bg_color = Color(0.435294, 0.741176, 0.564706, 1)
@@ -291,6 +292,11 @@ layout_mode = 2
 [node name="Label" type="Label" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer3"]
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Starts focus sessions with a short \"primer\" period 
+followed by a rating system for varying extentions."
+mouse_filter = 1
+theme = ExtResource("6_pybon")
+theme_type_variation = &"TooltipLabel"
 text = " Progressive Pomodoro"
 
 [node name="ProgressivePomoToggle" type="TextureButton" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer3"]
@@ -313,13 +319,17 @@ layout_mode = 2
 custom_minimum_size = Vector2(255, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+tooltip_text = "Hover each option for details."
+mouse_filter = 1
+theme = ExtResource("6_pybon")
 text = " Window"
 
 [node name="WindowReset" type="Button" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer4"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-tooltip_text = "Set window to most recent save"
+tooltip_text = "Sets window to most recent save."
+theme = ExtResource("6_pybon")
 theme_override_font_sizes/font_size = 15
 text = "reset"
 
@@ -327,8 +337,9 @@ text = "reset"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-tooltip_text = "Save window size & position
+tooltip_text = "Saves window size & position.
 (auto saves on app close)"
+theme = ExtResource("6_pybon")
 theme_override_font_sizes/font_size = 15
 text = "save"
 
@@ -336,7 +347,10 @@ text = "save"
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
-tooltip_text = "Set window to center of primary screen, (480 x 270)"
+tooltip_text = "Sets window (480 x 270) to 
+center of primary screen.
+"
+theme = ExtResource("6_pybon")
 theme_override_font_sizes/font_size = 15
 text = "default"
 

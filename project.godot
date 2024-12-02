@@ -42,6 +42,10 @@ run/main_run_args="--verbose"
 
 enabled=PackedStringArray("res://addons/GPTIntegration/plugin.cfg")
 
+[gui]
+
+timers/tooltip_delay_sec=0.25
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
