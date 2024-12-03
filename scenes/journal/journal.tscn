@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dewyfnpu3bvqr"]
 
 [ext_resource type="Script" path="res://scenes/journal/journal.gd" id="1_inerv"]
-[ext_resource type="PackedScene" uid="uid://dckhpntr1d5jp" path="res://scenes/date/date.tscn" id="2_d4d1p"]
+[ext_resource type="PackedScene" uid="uid://dckhpntr1d5jp" path="res://scenes/date time/date_time.tscn" id="2_d4d1p"]
 
 [node name="Journal" type="Panel"]
 anchors_preset = 15
@@ -12,7 +12,6 @@ grow_vertical = 2
 script = ExtResource("1_inerv")
 
 [node name="SingleEntryView" type="VBoxContainer" parent="."]
-unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -27,14 +26,17 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="EntryTitle" type="LineEdit" parent="SingleEntryView"]
+unique_name_in_owner = true
 layout_mode = 2
 text = "test title"
 placeholder_text = "Title goes here..."
 
-[node name="CurrentDateTime" parent="SingleEntryView" instance=ExtResource("2_d4d1p")]
+[node name="DateTime" parent="SingleEntryView" instance=ExtResource("2_d4d1p")]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="EntryText" type="TextEdit" parent="SingleEntryView"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 text = "the quick brown fox jumped over the lazy dog."

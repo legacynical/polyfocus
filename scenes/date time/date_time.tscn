@@ -1,0 +1,62 @@
+[gd_scene load_steps=5 format=3 uid="uid://dckhpntr1d5jp"]
+
+[ext_resource type="Script" path="res://scenes/date time/DateTime.gd" id="1_qsb3r"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_icpvt"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ewoc4"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0, 0, 0, 0.51)
+
+[sub_resource type="Theme" id="Theme_qfeiu"]
+default_font_size = 11
+FlatButton/styles/disabled = SubResource("StyleBoxEmpty_icpvt")
+FlatButton/styles/hover = SubResource("StyleBoxEmpty_icpvt")
+FlatButton/styles/normal = SubResource("StyleBoxEmpty_icpvt")
+FlatButton/styles/pressed = SubResource("StyleBoxFlat_ewoc4")
+
+[node name="DateTime" type="Control"]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -16.0
+offset_right = 96.0
+grow_vertical = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_qsb3r")
+
+[node name="CurrentDateTime" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -16.0
+offset_right = 93.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 11
+text = "CurrentDateTime"
+vertical_alignment = 2
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -16.0
+offset_right = 115.0
+grow_vertical = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = SubResource("Theme_qfeiu")
+theme_type_variation = &"FlatButton"
+text = "                                        "

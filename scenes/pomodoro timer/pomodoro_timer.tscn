@@ -4,7 +4,7 @@
 [ext_resource type="FontFile" uid="uid://cogm35cdl37e6" path="res://fonts/ComicMono/ComicMono.ttf" id="2_j8k3t"]
 [ext_resource type="Texture2D" uid="uid://ddcu2t7y2pmog" path="res://icon.svg" id="3_e0otb"]
 [ext_resource type="Texture2D" uid="uid://k7x3p5yr0wig" path="res://graphics/32x32-cog-icon.svg" id="3_sytma"]
-[ext_resource type="PackedScene" uid="uid://dckhpntr1d5jp" path="res://scenes/date/date.tscn" id="4_rjnu3"]
+[ext_resource type="PackedScene" uid="uid://dckhpntr1d5jp" path="res://scenes/date time/date_time.tscn" id="4_rjnu3"]
 [ext_resource type="Texture2D" uid="uid://3qjpc7elm4io" path="res://graphics/32x32-skip-icon.svg" id="5_3yb1t"]
 [ext_resource type="Texture2D" uid="uid://dp6ordq4ukkpq" path="res://graphics/256x128-toggled-off-icon.svg" id="5_b358n"]
 [ext_resource type="PackedScene" uid="uid://dewyfnpu3bvqr" path="res://scenes/journal/journal.tscn" id="5_byofp"]

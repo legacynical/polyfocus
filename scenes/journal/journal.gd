@@ -4,7 +4,7 @@ extends Panel
 var journal_data: Dictionary = {}
 
 @onready var entry_title: LineEdit = %EntryTitle
-@onready var entry_date: Label = %CurrentDateTime
+@onready var entry_date: Control = %DateTime
 @onready var entry_text: TextEdit = %EntryText
 
 # Path to the save file
@@ -48,7 +48,7 @@ func load_journal() -> void:
 	var saved_entry: Dictionary = JSON.parse_string(json)
 	
 	entry_title.text = saved_entry["entry_title"]
-	entry_date.text = saved_entry["entry_date"]
+	#entry_date.text = saved_entry["entry_date"]
 	entry_text.text = saved_entry["entry_text"] 
 	
 	file.close()	
