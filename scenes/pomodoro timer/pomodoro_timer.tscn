@@ -226,6 +226,7 @@ custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
 [node name="Label" type="Label" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer"]
+custom_minimum_size = Vector2(255, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 5.0
@@ -258,6 +259,7 @@ custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
 [node name="Label" type="Label" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer2"]
+custom_minimum_size = Vector2(255, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 5.0
@@ -286,24 +288,20 @@ text = "min"
 horizontal_alignment = 2
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="SettingMenu/ScrollContainer/Timer Setting"]
-custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
 [node name="Label" type="Label" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer3"]
+custom_minimum_size = Vector2(255, 0)
 layout_mode = 2
-size_flags_horizontal = 3
-tooltip_text = "Starts focus sessions with a short \"primer\" period 
-followed by a rating system for varying extentions."
-mouse_filter = 1
-theme = ExtResource("6_pybon")
-theme_type_variation = &"TooltipLabel"
+size_flags_horizontal = 0
+size_flags_stretch_ratio = 5.0
 text = " Progressive Pomodoro"
 
 [node name="ProgressivePomoToggle" type="TextureButton" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer3"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
-size_flags_horizontal = 6
+size_flags_horizontal = 3
 toggle_mode = true
 button_pressed = true
 texture_normal = ExtResource("5_b358n")
