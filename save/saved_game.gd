@@ -1,6 +1,7 @@
 class_name SavedGame
 extends Resource
 
+@export var default_window_size: Vector2 = Vector2(480, 270)
 @export var default_window_position: Vector2
 @export var window_position: Vector2
 @export var window_size: Vector2

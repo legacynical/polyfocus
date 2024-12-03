@@ -46,6 +46,8 @@ enum mode {
 var current_mode: mode = mode.FOCUS
 
 func _ready() -> void:
+	DisplayServer.window_set_min_size(default_window_size)
+	
 	session_time = 300 #initializes to 5 min
 	timer.wait_time = session_time # sets PomoTimer wait time
 	time_left = session_time # for TimerLabel processing

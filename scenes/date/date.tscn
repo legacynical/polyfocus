@@ -3,9 +3,13 @@
 [ext_resource type="Script" path="res://scenes/date/date.gd" id="1_qsb3r"]
 
 [node name="CurrentDateTime" type="Label"]
-anchors_preset = 15
-anchor_right = 1.0
+anchors_preset = 2
+anchor_top = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+offset_top = -16.0
+offset_right = 1.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 11
+text = "CurrentDateTime"
+vertical_alignment = 2
 script = ExtResource("1_qsb3r")
