@@ -316,8 +316,17 @@ func load_window() -> void:
 	print_window_stats()
 	print("\n")
 
-### ON WINDOW CLOSE
+### WINDOW RELATED
 func _notification(what) -> void:
-	if what == NOTIFICATION_WM_CLOSE_REQUEST:
-		save_window() # saves window position & size
-		get_tree().quit() # default behavior
+	match what:
+		NOTIFICATION_WM_CLOSE_REQUEST:
+			save_window() # saves window position & size
+			get_tree().quit() # default behavior
+		NOTIFICATION_WM_WINDOW_FOCUS_IN:
+			pass
+		NOTIFICATION_WM_WINDOW_FOCUS_OUT:
+			pass
+# unfocused window not dragging is a known issue that I didn't have to spend a few hours
+# troubleshooting what I did wrong...
+# issue: https://github.com/godotengine/godot/issues/95577
+# pull: https://github.com/godotengine/godot/pull/95606
