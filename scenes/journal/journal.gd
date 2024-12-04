@@ -1,4 +1,4 @@
-extends Panel
+extends Control
 
 # Dictionary to hold the journal data
 var journal_data: Dictionary = {}
