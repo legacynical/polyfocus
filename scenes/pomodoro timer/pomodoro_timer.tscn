@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cyssynqbw33oq"]
+[gd_scene load_steps=23 format=3 uid="uid://cyssynqbw33oq"]
 
 [ext_resource type="Script" path="res://scenes/pomodoro timer/PomodoroTimer.gd" id="1_dpc6i"]
 [ext_resource type="FontFile" uid="uid://cogm35cdl37e6" path="res://fonts/ComicMono/ComicMono.ttf" id="2_j8k3t"]
@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://dckhpntr1d5jp" path="res://scenes/date time/date_time.tscn" id="4_rjnu3"]
 [ext_resource type="Texture2D" uid="uid://3qjpc7elm4io" path="res://graphics/32x32-skip-icon.svg" id="5_3yb1t"]
 [ext_resource type="Texture2D" uid="uid://dp6ordq4ukkpq" path="res://graphics/256x128-toggled-off-icon.svg" id="5_b358n"]
-[ext_resource type="PackedScene" uid="uid://dewyfnpu3bvqr" path="res://scenes/journal/journal.tscn" id="5_byofp"]
 [ext_resource type="Texture2D" uid="uid://peqio3wcu2w6" path="res://graphics/256x128-toggled-on-icon.svg" id="6_ppuow"]
 [ext_resource type="Theme" uid="uid://bo63cmd85t6l4" path="res://themes/TooltipPanelDarker.tres" id="6_pybon"]
 
@@ -198,7 +197,6 @@ icon = ExtResource("5_3yb1t")
 
 [node name="SettingMenu" type="PanelContainer" parent="."]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 anchor_right = 1.0
 offset_left = 16.0
@@ -278,12 +276,16 @@ text = "min"
 [node name="HBoxContainer3" type="HBoxContainer" parent="SettingMenu/Timer Setting"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
+theme = ExtResource("6_pybon")
 
 [node name="Label" type="Label" parent="SettingMenu/Timer Setting/HBoxContainer3"]
 custom_minimum_size = Vector2(255, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 5.0
+tooltip_text = "Starts focus sessions with a short \"primer\" period 
+followed by a rating system for varying extentions."
+mouse_filter = 1
 text = " Progressive Pomodoro"
 
 [node name="Control" type="Control" parent="SettingMenu/Timer Setting/HBoxContainer3"]
@@ -417,15 +419,6 @@ offset_left = -480.0
 offset_top = -23.0
 offset_right = 0.0
 grow_horizontal = 0
-
-[node name="Journal" parent="." instance=ExtResource("5_byofp")]
-visible = false
-layout_mode = 0
-anchors_preset = 0
-anchor_right = 0.0
-anchor_bottom = 0.0
-grow_horizontal = 1
-grow_vertical = 1
 
 [node name="Utilities" type="Node" parent="."]
 

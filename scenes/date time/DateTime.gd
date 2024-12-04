@@ -39,9 +39,6 @@ func update_time() -> void:
 	# Determine if it's daytime or nighttime
 	is_daytime = hour_24 >= 6 and hour_24 < 18  # Daytime from 6 AM to 6 PM
 	
-
-
-	
 	# Set the label's text to the formatted time
 	date_time_label.text = format_date_time_string()	
 
