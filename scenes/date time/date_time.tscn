@@ -60,3 +60,5 @@ size_flags_vertical = 4
 theme = SubResource("Theme_qfeiu")
 theme_type_variation = &"FlatButton"
 text = "                                        "
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
