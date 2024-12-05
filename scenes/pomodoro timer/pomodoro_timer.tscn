@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://cyssynqbw33oq"]
+[gd_scene load_steps=24 format=3 uid="uid://cyssynqbw33oq"]
 
 [ext_resource type="Script" path="res://scenes/pomodoro timer/PomodoroTimer.gd" id="1_dpc6i"]
 [ext_resource type="FontFile" uid="uid://cogm35cdl37e6" path="res://fonts/ComicMono/ComicMono.ttf" id="2_j8k3t"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dp6ordq4ukkpq" path="res://graphics/256x128-toggled-off-icon.svg" id="5_b358n"]
 [ext_resource type="Texture2D" uid="uid://peqio3wcu2w6" path="res://graphics/256x128-toggled-on-icon.svg" id="6_ppuow"]
 [ext_resource type="Theme" uid="uid://bo63cmd85t6l4" path="res://themes/TooltipPanelDarker.tres" id="6_pybon"]
+[ext_resource type="PackedScene" uid="uid://inb5foqb6gjj" path="res://scenes/task timer/task_timer.tscn" id="10_l7cyc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_weg84"]
 bg_color = Color(0.435294, 0.741176, 0.564706, 1)
@@ -197,6 +198,7 @@ icon = ExtResource("5_3yb1t")
 
 [node name="SettingMenu" type="PanelContainer" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 anchor_right = 1.0
 offset_left = 16.0
@@ -425,6 +427,13 @@ grow_horizontal = 0
 [node name="PomoTimer" type="Timer" parent="Utilities"]
 unique_name_in_owner = true
 wait_time = 1500.0
+
+[node name="TaskTimer" parent="." instance=ExtResource("10_l7cyc")]
+layout_mode = 1
+offset_left = 24.0
+offset_top = 168.0
+offset_right = -392.0
+offset_bottom = -38.0
 
 [connection signal="toggled" from="BackgroundPanel/TimerElements/HBoxContainer/ModeToggle" to="." method="_on_mode_toggle_toggled"]
 [connection signal="pressed" from="BackgroundPanel/TimerElements/HBoxContainer/SettingMenuButton" to="." method="_on_setting_menu_button_pressed"]

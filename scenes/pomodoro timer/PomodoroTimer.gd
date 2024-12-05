@@ -85,7 +85,7 @@ func set_semi_transparent(node: Node) -> void:
 	for child in node.get_children():
 		set_semi_transparent(child)
 	
-
+##### Timer
 func update_label() -> void:
 	timer_label.text = convert_time(time_left)
 	
@@ -112,7 +112,7 @@ func convert_time(time: int) -> String:
 	var minutes: int = int(floor(time / 60))
 	var seconds: int = time % 60
 	return "%02d:%02d" % [minutes, seconds]
-	
+
 func _on_timer_button_pressed() -> void:
 	timer_button.disabled = true
 	AudioManager.click_basic.play()
@@ -177,8 +177,9 @@ func reset_timer(new_session_time: int) -> void:
 	time_left = session_time
 	update_label()
 	print("reset timer to " + convert_time(time_left))
+#####
 
-### SettingMenu
+##### SettingMenu
 func _on_setting_menu_button_pressed() -> void:
 	AudioManager.click_basic.play()
 	print("setting menu button pressed")
@@ -213,9 +214,9 @@ func _on_window_default_button_pressed() -> void:
 	print("resetting window")
 	DisplayServer.window_set_size(default_window_size)
 	DisplayServer.window_set_position(default_window_position)
-###
+#####
 
-### SessionRating
+##### SessionRating
 func rate_session() -> void:
 	AudioManager.alert_1_mb.play()
 	update_total_focus_time()
@@ -250,8 +251,9 @@ func session_resume(extend_time: int) -> void:
 	timer.start()
 	counting_down = true
 	timer_button.text = "PAUSE"
-###
+#####
 
+##### Progressive Pomo
 func _on_progressive_pomo_toggle_toggled(toggled_on: bool) -> void:
 	AudioManager.click_basic.play()
 	if toggled_on:
@@ -262,8 +264,9 @@ func _on_progressive_pomo_toggle_toggled(toggled_on: bool) -> void:
 		#progressive_pomo_toggle.modulate = Color(0.5, 0.1, 0.1) # red
 		progressive_pomo = false
 		print("progressive pomo: false")
+#####
 
-
+##### Focus/Break Toggle
 func _on_mode_toggle_toggled(_toggled_on: bool) -> void:
 	AudioManager.click_basic.play()
 	switchMode()
@@ -286,7 +289,9 @@ func switchMode() -> void:
 		mode_toggle.modulate = break_color.color
 		print("focus mode")
 	updatePanelColor()
+#####
 
+##### Window
 func print_window_stats() -> void:
 	print(" ⌈Window Stats")
 	print(" |win pos: " + str(DisplayServer.window_get_position()))
@@ -316,7 +321,6 @@ func load_window() -> void:
 	print_window_stats()
 	print("\n")
 
-### WINDOW RELATED
 func _notification(what) -> void:
 	match what:
 		NOTIFICATION_WM_CLOSE_REQUEST:
@@ -330,3 +334,4 @@ func _notification(what) -> void:
 # troubleshooting what I did wrong...
 # issue: https://github.com/godotengine/godot/issues/95577
 # pull: https://github.com/godotengine/godot/pull/95606
+#####
