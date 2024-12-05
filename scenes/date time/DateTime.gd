@@ -10,7 +10,7 @@ var hour_12: int
 var is_daytime: bool
 var period: String = "??"
 
-func _ready():
+func _ready() -> void:
 	update_date()
 	update_time()
 
