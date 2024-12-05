@@ -60,3 +60,15 @@ vertical_alignment = 1
 [node name="Utilities" type="Node" parent="."]
 
 [node name="TaskTimer" type="Timer" parent="Utilities"]
+
+[node name="TaskTimerButton" type="TextureButton" parent="."]
+modulate = Color(1, 1, 1, 0)
+clip_children = 1
+layout_mode = 0
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+texture_normal = ExtResource("3_5w4ep")
+
+[connection signal="pressed" from="TaskTimerButton" to="." method="_on_timer_button_pressed"]
