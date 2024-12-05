@@ -422,18 +422,19 @@ offset_top = -23.0
 offset_right = 0.0
 grow_horizontal = 0
 
+[node name="TaskTimer" parent="." instance=ExtResource("10_l7cyc")]
+layout_mode = 1
+offset_left = 80.0
+offset_top = 200.0
+offset_right = -400.0
+offset_bottom = -70.0
+scale = Vector2(0.5, 0.5)
+
 [node name="Utilities" type="Node" parent="."]
 
 [node name="PomoTimer" type="Timer" parent="Utilities"]
 unique_name_in_owner = true
 wait_time = 1500.0
-
-[node name="TaskTimer" parent="." instance=ExtResource("10_l7cyc")]
-layout_mode = 1
-offset_left = 24.0
-offset_top = 168.0
-offset_right = -392.0
-offset_bottom = -38.0
 
 [connection signal="toggled" from="BackgroundPanel/TimerElements/HBoxContainer/ModeToggle" to="." method="_on_mode_toggle_toggled"]
 [connection signal="pressed" from="BackgroundPanel/TimerElements/HBoxContainer/SettingMenuButton" to="." method="_on_setting_menu_button_pressed"]

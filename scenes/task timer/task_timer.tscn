@@ -15,21 +15,48 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wv6yg")
 
-[node name="ProgressBar" type="ProgressBar" parent="."]
-visible = false
-layout_mode = 0
-offset_right = 192.0
-offset_bottom = 27.0
-
 [node name="TextureProgressBar" type="TextureProgressBar" parent="."]
-layout_mode = 0
-offset_left = -32.0
-offset_top = -32.0
-offset_right = 96.0
-offset_bottom = 96.0
-scale = Vector2(0.5, 0.5)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
 pivot_offset = Vector2(64, 64)
 value = 35.0
 fill_mode = 4
 texture_under = ExtResource("2_7mirq")
 texture_progress = ExtResource("3_5w4ep")
+
+[node name="TimerLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = -40.0
+offset_top = -40.0
+offset_right = 28.0
+offset_bottom = -6.0
+scale = Vector2(1.17532, 1.18428)
+theme_override_font_sizes/font_size = 24
+text = "00:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TaskLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = -40.0
+offset_right = 28.0
+offset_bottom = 20.0
+scale = Vector2(1.17532, 1.18428)
+theme_override_font_sizes/font_size = 12
+text = "Language"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Utilities" type="Node" parent="."]
+
+[node name="TaskTimer" type="Timer" parent="Utilities"]
