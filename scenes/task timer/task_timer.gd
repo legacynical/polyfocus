@@ -5,7 +5,7 @@ extends Control
 @onready var task_label: Label = %TaskLabel
 @onready var task_timer_button: TextureButton = %TaskTimerButton
 
-const HOLD_THRESHOLD = 1000 # in msec
+const HOLD_THRESHOLD = 500 # in msec
 
 var press_time: int = 0
 var is_holding_task_timer_button: bool = false
@@ -20,7 +20,7 @@ func _process(_delta) -> void:
 	if is_holding_task_timer_button:
 		var hold_duration: int = Time.get_ticks_msec() - press_time
 		if hold_duration >= HOLD_THRESHOLD:
-			print("open task timer settings")
+			print("[Hold duration: " + str(hold_duration) + "] open task timer settings")
 			is_holding_task_timer_button = false # ensures no double action (1/2)
 		
 func _on_task_timer_timeout() -> void:
@@ -32,5 +32,5 @@ func _on_task_timer_button_down() -> void:
 	
 func _on_task_timer_button_up() -> void:
 	if is_holding_task_timer_button: # this fails if hold action already fired (2/2)
-		print("pause/unpause task timer")
+		print("[Hold duration: " + str(Time.get_ticks_msec() - press_time) + "] pause/unpause task timer")
 	is_holding_task_timer_button = false

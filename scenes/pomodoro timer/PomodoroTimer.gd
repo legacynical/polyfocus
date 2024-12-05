@@ -299,7 +299,7 @@ func print_window_stats() -> void:
 	print(" ⌊default win pos: " + str(default_window_position))
 
 func save_window() -> void:
-	print("saving window:")
+	print("\nsaving window:")
 	print_window_stats()
 	var saved_game: SavedGame = SavedGame.new()
 	saved_game.window_position = DisplayServer.window_get_position()
@@ -313,7 +313,7 @@ func save_window() -> void:
 	print("\n")
 	
 func load_window() -> void:
-	print("loading window:")
+	print("\nloading window:")
 	var saved_game: SavedGame = load(save_file) as SavedGame
 	DisplayServer.window_set_position(saved_game.window_position)
 	DisplayServer.window_set_size(saved_game.window_size)
