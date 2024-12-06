@@ -64,6 +64,7 @@ vertical_alignment = 1
 [node name="Utilities" type="Node" parent="."]
 
 [node name="TaskTimer" type="Timer" parent="Utilities"]
+unique_name_in_owner = true
 
 [node name="TaskTimerButton" type="TextureButton" parent="."]
 unique_name_in_owner = true
