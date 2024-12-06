@@ -14,24 +14,22 @@ extends Node
 @onready var background: Panel = %BackgroundPanel
 @onready var focus_color: ColorPickerButton = %FocusColor
 @onready var break_color: ColorPickerButton = %BreakColor
-@onready var progressive_pomo_toggle: TextureButton = %ProgressivePomoToggle
+@onready var is_progressive_pomo_toggle: TextureButton = %ProgressivePomoToggle
 @onready var mode_toggle: TextureButton = %ModeToggle
 
 @onready var save_file: String = "user://savegame.tres"
 
-
 var default_window_size: Vector2 = Vector2(480, 270)
 var default_window_position = null # sets to center of user's primary screen on 1st startup
 
-var progressive_pomo: bool = true
-var progressive_pomo_break_due: bool = false
+var is_progressive_pomo: bool = true
+var is_progressive_pomo_break_due: bool = false
+var is_switch_mode_on_timeout: bool = true
 var flow_session: int = 1800 # 30 min
 var focused_session: int = 1200 # 20 min
 var neutral_session: int = 600 # 10 min
-var switch_mode_on_timeout: bool = true
 
-
-var counting_down: bool = false
+var is_counting_down: bool = false
 var break_session_counter: int = 0
 var total_focus_time: int = 0
 var session_time: int = 0
@@ -69,7 +67,7 @@ func _ready() -> void:
 	# DisplayServer.window_set_size(Vector2(406, 265))
 	
 func _process(_delta: float) -> void:
-	if counting_down:
+	if is_counting_down:
 		time_left = round(timer.time_left)
 		# print(str(timer.time_left) + " -> " + str(time_left))
 		update_label()
@@ -90,7 +88,7 @@ func update_label() -> void:
 	timer_label.text = convert_time(time_left)
 	
 func update_focus_time_label() -> void:
-	if counting_down:
+	if is_counting_down:
 		focus_duration = session_time - time_left 
 		var current_total_time: int = total_focus_time + focus_duration
 		focus_time_label.text = "Total Focus Time [" + convert_time(current_total_time) + "]"
@@ -119,12 +117,12 @@ func _on_timer_button_pressed() -> void:
 	
 	if timer.is_paused(): # if paused, then unpause and count down
 		timer.paused = false
-		counting_down = true
+		is_counting_down = true
 		skip_button.visible = true
 		timer_button.text = "PAUSE"
-	elif counting_down: # if counting down, then pause
+	elif is_counting_down: # if counting down, then pause
 		timer.paused = true
-		counting_down = false
+		is_counting_down = false
 		skip_button.visible = false
 		timer_button.text = "RESUME"
 		if current_mode == mode.FOCUS:
@@ -132,7 +130,7 @@ func _on_timer_button_pressed() -> void:
 	#TODO: make consistent size images to use for texture button, resume has 1 more char space
 	else: # if neither paused nor counting down, then start timer and count down
 		timer.start()
-		counting_down = true
+		is_counting_down = true
 		skip_button.visible = true
 		timer_button.text = "PAUSE"
 		
@@ -157,19 +155,19 @@ func updatePanelColor() -> void:
 
 func _on_pomo_timer_timeout() -> void:
 	#AudioManager.timer_complete.play()
-	if progressive_pomo and current_mode == mode.FOCUS:
-		if progressive_pomo_break_due:
+	if is_progressive_pomo and current_mode == mode.FOCUS:
+		if is_progressive_pomo_break_due:
 			switchMode() # updates TFT
 		else:
 			rate_session() 
-	elif switch_mode_on_timeout:
+	elif is_switch_mode_on_timeout:
 		switchMode() # updates TFT
 	else:
 		pass # would user even want auto mode switch on timeout off?
 		
 func reset_timer(new_session_time: int) -> void:
 	timer.paused = false
-	counting_down = false
+	is_counting_down = false
 	timer.stop()
 	timer_button.text = "START"
 	session_time = new_session_time
@@ -221,7 +219,7 @@ func rate_session() -> void:
 	AudioManager.alert_1_mb.play()
 	update_total_focus_time()
 	timer.paused = true
-	counting_down = false
+	is_counting_down = false
 	#timer_elements.visible = false
 	session_rating.visible = true
 
@@ -246,23 +244,23 @@ func session_resume(extend_time: int) -> void:
 	AudioManager.alert_2_mb.play()
 	#timer_elements.visible = true
 	session_rating.visible = false
-	progressive_pomo_break_due = true
+	is_progressive_pomo_break_due = true
 	reset_timer(extend_time)
 	timer.start()
-	counting_down = true
+	is_counting_down = true
 	timer_button.text = "PAUSE"
 #####
 
 ##### Progressive Pomo
-func _on_progressive_pomo_toggle_toggled(toggled_on: bool) -> void:
+func _on_is_progressive_pomo_toggle_toggled(toggled_on: bool) -> void:
 	AudioManager.click_basic.play()
 	if toggled_on:
-		#progressive_pomo_toggle.modulate = Color(1, 1, 1) # normal
-		progressive_pomo = true
+		#is_progressive_pomo_toggle.modulate = Color(1, 1, 1) # normal
+		is_progressive_pomo = true
 		print("progressive pomo: true")
 	else:
-		#progressive_pomo_toggle.modulate = Color(0.5, 0.1, 0.1) # red
-		progressive_pomo = false
+		#is_progressive_pomo_toggle.modulate = Color(0.5, 0.1, 0.1) # red
+		is_progressive_pomo = false
 		print("progressive pomo: false")
 #####
 
@@ -272,7 +270,7 @@ func _on_mode_toggle_toggled(_toggled_on: bool) -> void:
 	switchMode()
 
 func switchMode() -> void:
-	progressive_pomo_break_due = false # prevents unintended breaks
+	is_progressive_pomo_break_due = false # prevents unintended breaks
 	if current_mode == mode.FOCUS:
 		update_total_focus_time()
 		AudioManager.time_to_break_mb.play()
