@@ -107,7 +107,7 @@ func update_total_focus_time() -> void:
 	
 func convert_time(time: int) -> String:
 	@warning_ignore("integer_division")
-	var minutes: int = int(floor(time / 60))
+	var minutes: int = int((time / 60)) # float() not required as int() also truncates remainder (decimals) for positive floats
 	var seconds: int = time % 60
 	return "%02d:%02d" % [minutes, seconds]
 
