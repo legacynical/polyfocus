@@ -102,6 +102,7 @@ offset_right = -16.0
 offset_bottom = 257.0
 grow_horizontal = 2
 theme_override_constants/separation = 0
+metadata/_edit_lock_ = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="BackgroundPanel/TimerElements"]
 z_index = 1
@@ -128,8 +129,7 @@ layout_mode = 2
 size_flags_horizontal = 6
 text = "Total Focus Time [00:00]"
 
-[node name="PlaceholderButton" type="TextureButton" parent="BackgroundPanel/TimerElements/HBoxContainer"]
-visible = false
+[node name="TaskTimerMenuButton" type="TextureButton" parent="BackgroundPanel/TimerElements/HBoxContainer"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 size_flags_horizontal = 8
@@ -424,9 +424,9 @@ grow_horizontal = 0
 
 [node name="TaskTimer" parent="." instance=ExtResource("10_l7cyc")]
 layout_mode = 1
-offset_left = 80.0
+offset_left = 88.0
 offset_top = 200.0
-offset_right = -400.0
+offset_right = -392.0
 offset_bottom = -70.0
 scale = Vector2(0.5, 0.5)
 

@@ -1,8 +1,10 @@
 extends Control
 
+@onready var background_panel: TextureRect = %BackgroundPanel
 @onready var progress_bar: TextureProgressBar = %TextureProgressBar
 @onready var timer_label: Label = %TimerLabel
 @onready var task_label: Label = %TaskLabel
+@onready var status_label: Label = %StatusLabel
 @onready var task_timer_button: TextureButton = %TaskTimerButton
 @onready var timer: Timer = %TaskTimer
 
@@ -20,8 +22,11 @@ var task_duration: int = 0
 
 func _ready() -> void:
 	# button.button_down.connect(_on_button_down)
+	
 	task_timer_button.button_down.connect(_on_task_timer_button_down)
 	task_timer_button.button_up.connect(_on_task_timer_button_up)
+	
+	background_panel.material.set_shader_parameter("fill_color", Color(0.2, 0.2, 0.2, 1.0))
 	
 	session_time = 300 #initializes to 5 min
 	timer.wait_time = session_time # sets PomoTimer wait time
@@ -37,6 +42,16 @@ func _process(_delta) -> void:
 	if is_counting_down:
 		time_left = round(timer.time_left)
 		update_task_label()
+
+func _on_task_timer_button_down() -> void:
+	press_time = Time.get_ticks_msec()
+	is_holding_task_timer_button = true
+	
+func _on_task_timer_button_up() -> void:
+	if is_holding_task_timer_button: # this fails if hold action already fired (2/2)
+		print("[Hold duration: " + str(Time.get_ticks_msec() - press_time) + "] pause/unpause task timer")
+		task_timer_pause_unpause()
+	is_holding_task_timer_button = false
 
 func update_task_label() -> void:
 	timer_label.text = convert_time(time_left)
@@ -56,20 +71,20 @@ func task_timer_pause_unpause() -> void:
 		is_counting_down = true
 		print("task timer unpaused")
 		#skip_button.visible = true
-		#timer_button.text = "PAUSE"
+		status_label.text = "PAUSE"
 	elif is_counting_down: # if counting down, then pause
 		timer.paused = true
 		is_counting_down = false
 		print("task timer paused")
 		#skip_button.visible = false
-		#timer_button.text = "RESUME"
+		status_label.text = "RESUME"
 	#TODO: make consistent size images to use for texture button, resume has 1 more char space
 	else: # if neither paused nor counting down, then start timer and count down
 		timer.start()
 		is_counting_down = true
 		print("task timer started")
 		#skip_button.visible = true
-		#timer_button.text = "PAUSE"
+		status_label.text = "PAUSE"
 	task_timer_button.disabled = false
 
 func _on_task_timer_timeout() -> void:
@@ -79,19 +94,9 @@ func reset_task_timer(new_session_time: int) -> void:
 	timer.paused = false
 	is_counting_down = false
 	timer.stop()
-	#timer_button.text = "START"
+	status_label.text = "START"
 	session_time = new_session_time
 	timer.wait_time = session_time
 	time_left = session_time
 	update_task_label()
 	print("reset task timer to " + convert_time(time_left))
-
-func _on_task_timer_button_down() -> void:
-	press_time = Time.get_ticks_msec()
-	is_holding_task_timer_button = true
-	
-func _on_task_timer_button_up() -> void:
-	if is_holding_task_timer_button: # this fails if hold action already fired (2/2)
-		print("[Hold duration: " + str(Time.get_ticks_msec() - press_time) + "] pause/unpause task timer")
-		task_timer_pause_unpause()
-	is_holding_task_timer_button = false

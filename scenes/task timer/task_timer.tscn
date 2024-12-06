@@ -1,8 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://inb5foqb6gjj"]
+[gd_scene load_steps=7 format=3 uid="uid://inb5foqb6gjj"]
 
 [ext_resource type="Script" path="res://scenes/task timer/task_timer.gd" id="1_wv6yg"]
+[ext_resource type="Shader" path="res://scenes/task timer/task_timer.gdshader" id="2_6y8h4"]
 [ext_resource type="Texture2D" uid="uid://na41aqi1owpq" path="res://graphics/128x128-circle-blank.svg" id="2_7mirq"]
 [ext_resource type="Texture2D" uid="uid://cbopcrt7ijq3l" path="res://graphics/128x128-circle.svg" id="3_5w4ep"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m3mh5"]
+shader = ExtResource("2_6y8h4")
+shader_parameter/fill_color = null
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ontpo"]
 
 [node name="TaskTimer" type="Control"]
 layout_mode = 3
@@ -14,6 +21,17 @@ offset_bottom = -270.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wv6yg")
+
+[node name="BackgroundPanel" type="TextureRect" parent="."]
+unique_name_in_owner = true
+modulate = Color(0.192696, 0.192696, 0.192696, 1)
+material = SubResource("ShaderMaterial_m3mh5")
+layout_mode = 0
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+texture = SubResource("ViewportTexture_ontpo")
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="."]
 unique_name_in_owner = true
@@ -35,6 +53,7 @@ fill_mode = 4
 texture_under = ExtResource("2_7mirq")
 texture_progress = ExtResource("3_5w4ep")
 tint_progress = Color(0.0666666, 1, 0, 1)
+metadata/_edit_lock_ = true
 
 [node name="TimerLabel" type="Label" parent="."]
 unique_name_in_owner = true
@@ -48,6 +67,7 @@ theme_override_font_sizes/font_size = 24
 text = "00:00"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_lock_ = true
 
 [node name="TaskLabel" type="Label" parent="."]
 unique_name_in_owner = true
@@ -60,6 +80,21 @@ theme_override_font_sizes/font_size = 12
 text = "Language"
 horizontal_alignment = 1
 vertical_alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="StatusLabel" type="Label" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = -32.0
+offset_top = 24.0
+offset_right = 22.0
+offset_bottom = 41.0
+scale = Vector2(1.17532, 1.18428)
+theme_override_font_sizes/font_size = 12
+text = "START"
+horizontal_alignment = 1
+vertical_alignment = 1
+metadata/_edit_lock_ = true
 
 [node name="Utilities" type="Node" parent="."]
 
@@ -77,5 +112,6 @@ offset_right = 64.0
 offset_bottom = 64.0
 action_mode = 0
 texture_normal = ExtResource("3_5w4ep")
+metadata/_edit_lock_ = true
 
 [connection signal="timeout" from="Utilities/TaskTimer" to="." method="_on_task_timer_timeout"]
