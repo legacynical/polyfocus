@@ -26,7 +26,7 @@ func _ready() -> void:
 	session_time = 300 #initializes to 5 min
 	timer.wait_time = session_time # sets PomoTimer wait time
 	time_left = session_time # for TimerLabel processing
-	update_label()
+	update_task_label()
 
 func _process(_delta) -> void:
 	if is_holding_task_timer_button:
@@ -36,9 +36,9 @@ func _process(_delta) -> void:
 			is_holding_task_timer_button = false # ensures no double action (1/2)
 	if is_counting_down:
 		time_left = round(timer.time_left)
-		update_label()
+		update_task_label()
 
-func update_label() -> void:
+func update_task_label() -> void:
 	timer_label.text = convert_time(time_left)
 
 func convert_time(time: int) -> String:
@@ -74,6 +74,17 @@ func task_timer_pause_unpause() -> void:
 
 func _on_task_timer_timeout() -> void:
 	pass # Replace with function body.
+
+func reset_task_timer(new_session_time: int) -> void:
+	timer.paused = false
+	is_counting_down = false
+	timer.stop()
+	#timer_button.text = "START"
+	session_time = new_session_time
+	timer.wait_time = session_time
+	time_left = session_time
+	update_task_label()
+	print("reset task timer to " + convert_time(time_left))
 
 func _on_task_timer_button_down() -> void:
 	press_time = Time.get_ticks_msec()
