@@ -464,6 +464,7 @@ unique_name_in_owner = true
 wait_time = 1500.0
 
 [connection signal="toggled" from="BackgroundPanel/TimerElements/HBoxContainer/ModeToggle" to="." method="_on_mode_toggle_toggled"]
+[connection signal="pressed" from="BackgroundPanel/TimerElements/HBoxContainer/TaskTimerMenuButton" to="." method="_on_task_timer_menu_button_pressed"]
 [connection signal="pressed" from="BackgroundPanel/TimerElements/HBoxContainer/SettingMenuButton" to="." method="_on_setting_menu_button_pressed"]
 [connection signal="pressed" from="BackgroundPanel/TimerElements/HBoxContainer2/TimerButton" to="." method="_on_timer_button_pressed"]
 [connection signal="pressed" from="BackgroundPanel/TimerElements/HBoxContainer2/SpacerRight/SkipButton" to="." method="_on_skip_button_pressed"]

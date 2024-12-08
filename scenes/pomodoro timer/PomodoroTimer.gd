@@ -7,6 +7,7 @@ extends Node
 @onready var timer_button: Button = %TimerButton
 @onready var skip_button: Button = %SkipButton
 @onready var setting_menu: PanelContainer = %SettingMenu
+@onready var task_timer_menu: PanelContainer = %TaskTimerMenu
 @onready var session_rating: Panel = %SessionRating
 @onready var pomo_session: SpinBox = %PomoSession
 @onready var break_session: SpinBox = %BreakSession
@@ -185,6 +186,7 @@ func _on_setting_menu_button_pressed() -> void:
 		setting_menu.visible = false
 	else:
 		setting_menu.visible = true
+		task_timer_menu.visible = false
 		
 func _on_pomo_session_value_changed(_custom_time: int) -> void:
 	print("pomo session time changed to " + str(pomo_session.value) + " min")
@@ -212,6 +214,17 @@ func _on_window_default_button_pressed() -> void:
 	print("resetting window")
 	DisplayServer.window_set_size(default_window_size)
 	DisplayServer.window_set_position(default_window_position)
+#####
+
+##### TaskTimerMenu
+func _on_task_timer_menu_button_pressed() -> void:
+	AudioManager.click_basic.play()
+	print("task timer menu button pressed")
+	if task_timer_menu.visible:
+		task_timer_menu.visible = false
+	else:
+		task_timer_menu.visible = true
+		setting_menu.visible = false
 #####
 
 ##### SessionRating
