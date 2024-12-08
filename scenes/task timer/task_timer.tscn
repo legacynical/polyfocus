@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://inb5foqb6gjj"]
+[gd_scene load_steps=6 format=3 uid="uid://inb5foqb6gjj"]
 
 [ext_resource type="Script" path="res://scenes/task timer/task_timer.gd" id="1_wv6yg"]
 [ext_resource type="Shader" path="res://scenes/task timer/task_timer.gdshader" id="2_6y8h4"]
@@ -9,29 +9,35 @@
 shader = ExtResource("2_6y8h4")
 shader_parameter/fill_color = null
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_ontpo"]
-
 [node name="TaskTimer" type="Control"]
+custom_minimum_size = Vector2(128, 128)
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -480.0
-offset_bottom = -270.0
+anchor_right = 0.267
+anchor_bottom = 0.474
+offset_right = -0.160004
+offset_bottom = 0.019989
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("1_wv6yg")
 
 [node name="BackgroundPanel" type="TextureRect" parent="."]
 unique_name_in_owner = true
 modulate = Color(0.192696, 0.192696, 0.192696, 1)
 material = SubResource("ShaderMaterial_m3mh5")
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 offset_left = -64.0
 offset_top = -64.0
 offset_right = 64.0
 offset_bottom = 64.0
-texture = SubResource("ViewportTexture_ontpo")
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="."]
 unique_name_in_owner = true
@@ -48,70 +54,78 @@ offset_bottom = 64.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(64, 64)
-value = 35.0
-fill_mode = 4
+fill_mode = 5
 texture_under = ExtResource("2_7mirq")
 texture_progress = ExtResource("3_5w4ep")
 tint_progress = Color(0.0666666, 1, 0, 1)
-metadata/_edit_lock_ = true
 
-[node name="TimerLabel" type="Label" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_top = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = -40
+
+[node name="TimerLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
-layout_mode = 0
-offset_left = -40.0
-offset_top = -40.0
-offset_right = 28.0
-offset_bottom = -6.0
-scale = Vector2(1.17532, 1.18428)
-theme_override_font_sizes/font_size = 24
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 36
 text = "00:00"
 horizontal_alignment = 1
 vertical_alignment = 1
-metadata/_edit_lock_ = true
 
-[node name="TaskLabel" type="Label" parent="."]
+[node name="TaskLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
-layout_mode = 0
-offset_left = -40.0
-offset_right = 28.0
-offset_bottom = 20.0
-scale = Vector2(1.17532, 1.18428)
-theme_override_font_sizes/font_size = 12
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 16
 text = "Language"
 horizontal_alignment = 1
 vertical_alignment = 1
-metadata/_edit_lock_ = true
 
-[node name="StatusLabel" type="Label" parent="."]
+[node name="StatusLabel" type="Label" parent="MarginContainer/VBoxContainer"]
 unique_name_in_owner = true
-layout_mode = 0
-offset_left = -32.0
-offset_top = 24.0
-offset_right = 22.0
-offset_bottom = 41.0
-scale = Vector2(1.17532, 1.18428)
-theme_override_font_sizes/font_size = 12
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 16
 text = "START"
 horizontal_alignment = 1
 vertical_alignment = 1
-metadata/_edit_lock_ = true
+
+[node name="TaskTimerButton" type="TextureButton" parent="."]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+action_mode = 0
+texture_normal = ExtResource("3_5w4ep")
 
 [node name="Utilities" type="Node" parent="."]
 
 [node name="TaskTimer" type="Timer" parent="Utilities"]
 unique_name_in_owner = true
-
-[node name="TaskTimerButton" type="TextureButton" parent="."]
-unique_name_in_owner = true
-modulate = Color(1, 1, 1, 0)
-clip_children = 1
-layout_mode = 0
-offset_left = -64.0
-offset_top = -64.0
-offset_right = 64.0
-offset_bottom = 64.0
-action_mode = 0
-texture_normal = ExtResource("3_5w4ep")
-metadata/_edit_lock_ = true
 
 [connection signal="timeout" from="Utilities/TaskTimer" to="." method="_on_task_timer_timeout"]

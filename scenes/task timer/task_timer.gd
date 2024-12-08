@@ -31,7 +31,9 @@ func _ready() -> void:
 	session_time = 300 #initializes to 5 min
 	timer.wait_time = session_time # sets PomoTimer wait time
 	time_left = session_time # for TimerLabel processing
+	progress_bar.max_value = session_time # sets circle progress bar
 	update_task_label()
+	update_task_progress_bar()
 
 func _process(_delta) -> void:
 	if is_holding_task_timer_button:
@@ -42,6 +44,7 @@ func _process(_delta) -> void:
 	if is_counting_down:
 		time_left = round(timer.time_left)
 		update_task_label()
+		update_task_progress_bar()
 
 func _on_task_timer_button_down() -> void:
 	press_time = Time.get_ticks_msec()
@@ -62,6 +65,9 @@ func convert_time(time: int) -> String:
 	var seconds: int = time % 60
 	return "%02d:%02d" % [minutes, seconds]
 
+func update_task_progress_bar() -> void:
+	progress_bar.value = time_left
+	
 func task_timer_pause_unpause() -> void:
 	task_timer_button.disabled = true
 	AudioManager.click_basic.play()
