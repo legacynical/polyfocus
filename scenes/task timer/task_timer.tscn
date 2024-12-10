@@ -134,7 +134,6 @@ texture_normal = ExtResource("3_5w4ep")
 
 [node name="TaskTimerQuickMenu" type="PanelContainer" parent="."]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -155,7 +154,7 @@ layout_mode = 2
 layout_mode = 2
 alignment = 2
 
-[node name="Button4" type="Button" parent="TaskTimerQuickMenu/VBoxContainer/HBoxContainer"]
+[node name="Exit" type="Button" parent="TaskTimerQuickMenu/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -182,4 +181,5 @@ text = "Add"
 [node name="TaskTimer" type="Timer" parent="Utilities"]
 unique_name_in_owner = true
 
+[connection signal="pressed" from="TaskTimerQuickMenu/VBoxContainer/HBoxContainer/Exit" to="." method="_on_exit_pressed"]
 [connection signal="timeout" from="Utilities/TaskTimer" to="." method="_on_task_timer_timeout"]

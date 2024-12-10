@@ -368,18 +368,48 @@ offset_top = 44.0
 offset_right = -16.0
 offset_bottom = -14.0
 
-[node name="GridContainer" type="GridContainer" parent="TaskTimerMenu"]
+[node name="TTGridContainer" type="GridContainer" parent="TaskTimerMenu"]
+unique_name_in_owner = true
 layout_mode = 2
 columns = 4
-metadata/_edit_lock_ = true
 
-[node name="Control" type="Control" parent="TaskTimerMenu/GridContainer"]
+[node name="Control1" type="Control" parent="TaskTimerMenu/TTGridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 1
 
-[node name="TaskTimer" parent="TaskTimerMenu/GridContainer/Control" instance=ExtResource("10_l7cyc")]
+[node name="TaskTimer" parent="TaskTimerMenu/TTGridContainer/Control1" instance=ExtResource("10_l7cyc")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 16.0
+offset_bottom = 30.0
+scale = Vector2(0.875, 0.875)
+
+[node name="Control2" type="Control" parent="TaskTimerMenu/TTGridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+
+[node name="TaskTimer" parent="TaskTimerMenu/TTGridContainer/Control2" instance=ExtResource("10_l7cyc")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 16.0
+offset_bottom = 30.0
+scale = Vector2(0.875, 0.875)
+
+[node name="Control3" type="Control" parent="TaskTimerMenu/TTGridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+
+[node name="TaskTimer" parent="TaskTimerMenu/TTGridContainer/Control3" instance=ExtResource("10_l7cyc")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -475,6 +505,7 @@ wait_time = 1500.0
 [connection signal="pressed" from="SettingMenu/Timer Setting/HBoxContainer4/WindowReset" to="." method="_on_window_reset_button_pressed"]
 [connection signal="pressed" from="SettingMenu/Timer Setting/HBoxContainer4/WindowSave" to="." method="_on_window_save_button_pressed"]
 [connection signal="pressed" from="SettingMenu/Timer Setting/HBoxContainer4/WindowDefault" to="." method="_on_window_default_button_pressed"]
+[connection signal="gui_input" from="TaskTimerMenu" to="." method="_on_tt_grid_container_gui_input"]
 [connection signal="pressed" from="SessionRating/VBoxContainer/Flow" to="." method="_on_flow_pressed"]
 [connection signal="pressed" from="SessionRating/VBoxContainer/Focused" to="." method="_on_focused_pressed"]
 [connection signal="pressed" from="SessionRating/VBoxContainer/Neutral" to="." method="_on_neutral_pressed"]

@@ -8,6 +8,7 @@ extends Node
 @onready var skip_button: Button = %SkipButton
 @onready var setting_menu: PanelContainer = %SettingMenu
 @onready var task_timer_menu: PanelContainer = %TaskTimerMenu
+@onready var task_timer_grid_container: GridContainer = %TTGridContainer
 @onready var session_rating: Panel = %SessionRating
 @onready var pomo_session: SpinBox = %PomoSession
 @onready var break_session: SpinBox = %BreakSession
@@ -180,12 +181,25 @@ func reset_timer(new_session_time: int) -> void:
 func _on_background_panel_gui_input(event) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			print("pt background panel pressed")
 			close_pomodoro_menus()
 
 func close_pomodoro_menus() -> void:
 	setting_menu.visible = false
 	task_timer_menu.visible = false
+	
+func _on_tt_grid_container_gui_input(event) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			print("tt grid container pressed")
+			close_task_timer_quick_menus()
+			
+func close_task_timer_quick_menus() -> void:
+	for timer in task_timer_grid_container.get_children():
+		print(timer)
+		timer.get_node("TaskTimer").task_timer_quick_menu.visible = false
 #####
+
 
 ##### SettingMenu
 func _on_setting_menu_button_pressed() -> void:

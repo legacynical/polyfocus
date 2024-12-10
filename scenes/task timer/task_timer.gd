@@ -54,6 +54,7 @@ func _on_task_timer_button_down() -> void:
 	
 func _on_task_timer_button_up() -> void:
 	if is_holding_task_timer_button: # this fails if hold action already fired (2/2)
+		AudioManager.click_basic.play()
 		print("[Hold duration: " + str(Time.get_ticks_msec() - press_time) + "] pause/unpause task timer")
 		task_timer_pause_unpause()
 	is_holding_task_timer_button = false
@@ -114,6 +115,6 @@ func reset_task_timer(new_session_time: int) -> void:
 	update_task_label()
 	print("reset task timer to " + convert_time(time_left))
 
-func _on_task_timer_quick_menu_mouse_exited():
-	print("task timer quick menu mouse exited")
+func _on_exit_pressed():
+	AudioManager.click_basic.play()
 	task_timer_quick_menu.visible = false
