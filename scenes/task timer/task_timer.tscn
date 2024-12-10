@@ -190,6 +190,7 @@ text = "Add"
 
 [node name="TaskTimerSettingMenu" type="PanelContainer" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -253,6 +254,7 @@ text = "min"
 unique_name_in_owner = true
 
 [connection signal="pressed" from="TaskTimerQuickMenu/VBoxContainer/HBoxContainer/QMExit" to="." method="_on_qm_exit_pressed"]
+[connection signal="pressed" from="TaskTimerQuickMenu/VBoxContainer/QMEdit" to="." method="_on_qm_edit_pressed"]
 [connection signal="pressed" from="TaskTimerQuickMenu/VBoxContainer/QMReset" to="." method="_on_qm_reset_pressed"]
 [connection signal="pressed" from="TaskTimerSettingMenu/VBoxContainer/HBoxContainer/SMExit" to="." method="_on_sm_exit_pressed"]
 [connection signal="pressed" from="TaskTimerSettingMenu/VBoxContainer/HBoxContainer/SMConfirm" to="." method="_on_sm_confirm_pressed"]

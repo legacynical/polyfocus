@@ -125,6 +125,9 @@ func _on_qm_exit_pressed():
 	AudioManager.click_basic.play()
 	task_timer_quick_menu.visible = false
 
+func _on_qm_edit_pressed():
+	task_timer_setting_menu.visible = true
+	
 func _on_qm_reset_pressed():
 	reset_task_timer(session_time)
 #####
