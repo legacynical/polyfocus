@@ -463,6 +463,7 @@ grow_horizontal = 0
 unique_name_in_owner = true
 wait_time = 1500.0
 
+[connection signal="gui_input" from="BackgroundPanel" to="." method="_on_background_panel_gui_input"]
 [connection signal="toggled" from="BackgroundPanel/TimerElements/HBoxContainer/ModeToggle" to="." method="_on_mode_toggle_toggled"]
 [connection signal="pressed" from="BackgroundPanel/TimerElements/HBoxContainer/TaskTimerMenuButton" to="." method="_on_task_timer_menu_button_pressed"]
 [connection signal="pressed" from="BackgroundPanel/TimerElements/HBoxContainer/SettingMenuButton" to="." method="_on_setting_menu_button_pressed"]

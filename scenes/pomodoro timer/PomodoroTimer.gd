@@ -180,6 +180,16 @@ func reset_timer(new_session_time: int) -> void:
 	time_left = session_time
 	update_label()
 	print("reset timer to " + convert_time(time_left))
+
+# closes menus when clicking outside to the background panel
+func _on_background_panel_gui_input(event) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			close_pomodoro_menus()
+
+func close_pomodoro_menus() -> void:
+	setting_menu.visible = false
+	task_timer_menu.visible = false
 #####
 
 ##### SettingMenu
@@ -219,6 +229,7 @@ func _on_window_default_button_pressed() -> void:
 	DisplayServer.window_set_size(default_window_size)
 	DisplayServer.window_set_position(default_window_position)
 #####
+
 
 ##### TaskTimerMenu
 func _on_task_timer_menu_button_pressed() -> void:
@@ -305,6 +316,7 @@ func switchMode() -> void:
 		print("focus mode")
 	updatePanelColor()
 #####
+
 
 ##### Window
 func print_window_stats() -> void:
