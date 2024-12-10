@@ -116,6 +116,7 @@ func reset_task_timer(new_session_time: int) -> void:
 	timer.wait_time = session_time
 	time_left = session_time
 	update_task_label()
+	progress_bar.max_value = new_session_time
 	update_task_progress_bar()
 	print("reset task timer to " + convert_time(time_left))
 
