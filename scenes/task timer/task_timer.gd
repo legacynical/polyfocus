@@ -8,6 +8,7 @@ extends Control
 @onready var task_timer_button: TextureButton = %TaskTimerButton
 @onready var timer: Timer = %TaskTimer
 @onready var task_timer_quick_menu: PanelContainer = %TaskTimerQuickMenu
+@onready var task_timer_setting_menu: PanelContainer = %TaskTimerSettingMenu
 	
 const HOLD_THRESHOLD = 500 # in msec
 
@@ -115,6 +116,15 @@ func reset_task_timer(new_session_time: int) -> void:
 	update_task_label()
 	print("reset task timer to " + convert_time(time_left))
 
-func _on_exit_pressed():
+func _on_qm_exit_pressed():
 	AudioManager.click_basic.play()
 	task_timer_quick_menu.visible = false
+
+func _on_sm_exit_pressed():
+	AudioManager.click_basic.play()
+	task_timer_setting_menu.visible = false
+
+func _on_sm_confirm_pressed():
+	task_timer_quick_menu.visible = false
+	task_timer_setting_menu.visible = false
+	pass # Replace with function body.
