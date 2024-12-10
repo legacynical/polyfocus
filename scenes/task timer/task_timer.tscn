@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://inb5foqb6gjj"]
+[gd_scene load_steps=9 format=3 uid="uid://inb5foqb6gjj"]
 
 [ext_resource type="Script" path="res://scenes/task timer/task_timer.gd" id="1_wv6yg"]
 [ext_resource type="Shader" path="res://scenes/task timer/task_timer.gdshader" id="2_6y8h4"]
@@ -8,6 +8,14 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_m3mh5"]
 shader = ExtResource("2_6y8h4")
 shader_parameter/fill_color = null
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d8e5y"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vb6kc"]
+bg_color = Color(0.074, 0.074, 0.074, 0.9)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w8f8n"]
+bg_color = Color(0.0745098, 0.0745098, 0.0745098, 0.901961)
 
 [node name="TaskTimer" type="Control"]
 custom_minimum_size = Vector2(128, 128)
@@ -54,6 +62,7 @@ offset_bottom = 64.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(64, 64)
+value = 75.0
 fill_mode = 5
 texture_under = ExtResource("2_7mirq")
 texture_progress = ExtResource("3_5w4ep")
@@ -122,6 +131,40 @@ grow_horizontal = 2
 grow_vertical = 2
 action_mode = 0
 texture_normal = ExtResource("3_5w4ep")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 128.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="Button4" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_d8e5y")
+text = "X"
+
+[node name="Button" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_vb6kc")
+text = "Edit"
+
+[node name="Button2" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_w8f8n")
+text = "Move"
+
+[node name="Button3" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_w8f8n")
+text = "Add"
 
 [node name="Utilities" type="Node" parent="."]
 
