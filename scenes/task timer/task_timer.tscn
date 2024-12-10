@@ -132,36 +132,47 @@ grow_vertical = 2
 action_mode = 0
 texture_normal = ExtResource("3_5w4ep")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
-layout_mode = 0
-offset_right = 128.0
-offset_bottom = 128.0
+[node name="TaskTimerQuickMenu" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="TaskTimerQuickMenu"]
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="TaskTimerQuickMenu/VBoxContainer"]
 layout_mode = 2
 alignment = 2
 
-[node name="Button4" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="Button4" type="Button" parent="TaskTimerQuickMenu/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_styles/normal = SubResource("StyleBoxFlat_d8e5y")
 text = "X"
 
-[node name="Button" type="Button" parent="PanelContainer/VBoxContainer"]
+[node name="Button" type="Button" parent="TaskTimerQuickMenu/VBoxContainer"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_vb6kc")
 text = "Edit"
 
-[node name="Button2" type="Button" parent="PanelContainer/VBoxContainer"]
+[node name="Button2" type="Button" parent="TaskTimerQuickMenu/VBoxContainer"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_w8f8n")
 text = "Move"
 
-[node name="Button3" type="Button" parent="PanelContainer/VBoxContainer"]
+[node name="Button3" type="Button" parent="TaskTimerQuickMenu/VBoxContainer"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_w8f8n")
 text = "Add"

@@ -7,7 +7,7 @@ extends Control
 @onready var status_label: Label = %StatusLabel
 @onready var task_timer_button: TextureButton = %TaskTimerButton
 @onready var timer: Timer = %TaskTimer
-
+@onready var task_timer_quick_menu: PanelContainer = %TaskTimerQuickMenu
 	
 const HOLD_THRESHOLD = 500 # in msec
 
@@ -40,6 +40,7 @@ func _process(_delta) -> void:
 	if is_holding_task_timer_button:
 		var hold_duration: int = Time.get_ticks_msec() - press_time
 		if hold_duration >= HOLD_THRESHOLD:
+			task_timer_quick_menu.visible = true
 			print("[Hold duration: " + str(hold_duration) + "] open task timer settings")
 			is_holding_task_timer_button = false # ensures no double action (1/2)
 	if is_counting_down:
@@ -112,3 +113,7 @@ func reset_task_timer(new_session_time: int) -> void:
 	time_left = session_time
 	update_task_label()
 	print("reset task timer to " + convert_time(time_left))
+
+func _on_task_timer_quick_menu_mouse_exited():
+	print("task timer quick menu mouse exited")
+	task_timer_quick_menu.visible = false
