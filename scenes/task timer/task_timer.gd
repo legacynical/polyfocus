@@ -61,10 +61,15 @@ func update_task_label() -> void:
 
 func convert_time(time: int) -> String:
 	@warning_ignore("integer_division")
-	var minutes: int = int((time / 60)) # float() not required as int() also truncates remainder (decimals) for positive floats
+	var hours: int = int(time / 3600)
+	var minutes: int = int((time % 3600) / 60) # float() not required as int() also truncates remainder (decimals) for positive floats
 	var seconds: int = time % 60
-	return "%02d:%02d" % [minutes, seconds]
-
+	if hours > 0:
+		return "%d:%02d:%02d" % [hours, minutes, seconds]
+	else:	
+		return "%2d:%02d" % [minutes, seconds]
+	
+	
 func update_task_progress_bar() -> void:
 	progress_bar.value = time_left
 	
