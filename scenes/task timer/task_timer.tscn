@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://inb5foqb6gjj"]
+[gd_scene load_steps=11 format=3 uid="uid://inb5foqb6gjj"]
 
 [ext_resource type="Script" path="res://scenes/task timer/task_timer.gd" id="1_wv6yg"]
 [ext_resource type="Shader" path="res://scenes/task timer/task_timer.gdshader" id="2_6y8h4"]
@@ -9,7 +9,7 @@
 shader = ExtResource("2_6y8h4")
 shader_parameter/fill_color = null
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d8e5y"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3nisa"]
 bg_color = Color(0.922031, 0.412388, 0.466332, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vb6kc"]
@@ -17,6 +17,8 @@ bg_color = Color(0.074, 0.074, 0.074, 0.9)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_w8f8n"]
 bg_color = Color(0.0745098, 0.0745098, 0.0745098, 0.901961)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d8e5y"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5q7to"]
 bg_color = Color(0.277748, 0.705089, 0.286956, 1)
@@ -163,25 +165,25 @@ alignment = 2
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_styles/normal = SubResource("StyleBoxFlat_d8e5y")
+theme_override_styles/normal = SubResource("StyleBoxFlat_3nisa")
 text = "X"
 
-[node name="Edit" type="Button" parent="TaskTimerQuickMenu/VBoxContainer"]
+[node name="QMEdit" type="Button" parent="TaskTimerQuickMenu/VBoxContainer"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_vb6kc")
 text = "Edit"
 
-[node name="Reset" type="Button" parent="TaskTimerQuickMenu/VBoxContainer"]
+[node name="QMReset" type="Button" parent="TaskTimerQuickMenu/VBoxContainer"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_w8f8n")
 text = "Reset"
 
-[node name="Move" type="Button" parent="TaskTimerQuickMenu/VBoxContainer"]
+[node name="QMMove" type="Button" parent="TaskTimerQuickMenu/VBoxContainer"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_w8f8n")
 text = "Move"
 
-[node name="Add" type="Button" parent="TaskTimerQuickMenu/VBoxContainer"]
+[node name="QMAdd" type="Button" parent="TaskTimerQuickMenu/VBoxContainer"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_w8f8n")
 text = "Add"
@@ -214,7 +216,7 @@ custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 size_flags_horizontal = 4
 theme_override_styles/normal = SubResource("StyleBoxFlat_d8e5y")
-text = "X"
+text = "↩"
 
 [node name="SMConfirm" type="Button" parent="TaskTimerSettingMenu/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(24, 24)
@@ -251,6 +253,7 @@ text = "min"
 unique_name_in_owner = true
 
 [connection signal="pressed" from="TaskTimerQuickMenu/VBoxContainer/HBoxContainer/QMExit" to="." method="_on_qm_exit_pressed"]
+[connection signal="pressed" from="TaskTimerQuickMenu/VBoxContainer/QMReset" to="." method="_on_qm_reset_pressed"]
 [connection signal="pressed" from="TaskTimerSettingMenu/VBoxContainer/HBoxContainer/SMExit" to="." method="_on_sm_exit_pressed"]
 [connection signal="pressed" from="TaskTimerSettingMenu/VBoxContainer/HBoxContainer/SMConfirm" to="." method="_on_sm_confirm_pressed"]
 [connection signal="timeout" from="Utilities/TaskTimer" to="." method="_on_task_timer_timeout"]

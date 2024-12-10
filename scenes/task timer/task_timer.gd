@@ -114,17 +114,26 @@ func reset_task_timer(new_session_time: int) -> void:
 	timer.wait_time = session_time
 	time_left = session_time
 	update_task_label()
+	update_task_progress_bar()
 	print("reset task timer to " + convert_time(time_left))
 
+##### Quick Menu
 func _on_qm_exit_pressed():
 	AudioManager.click_basic.play()
 	task_timer_quick_menu.visible = false
 
+func _on_qm_reset_pressed():
+	reset_task_timer(session_time)
+#####
+
+##### Setting Menu
 func _on_sm_exit_pressed():
 	AudioManager.click_basic.play()
 	task_timer_setting_menu.visible = false
 
 func _on_sm_confirm_pressed():
+	AudioManager.click_basic.play()
 	task_timer_quick_menu.visible = false
 	task_timer_setting_menu.visible = false
-	pass # Replace with function body.
+	#TODO apply and save settings
+#####
