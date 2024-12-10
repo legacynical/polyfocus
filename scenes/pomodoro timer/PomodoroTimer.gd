@@ -53,19 +53,14 @@ func _ready() -> void:
 	update_label()
 	update_focus_time_label()
 	
-	
 	#TODO finish transparent mode feature
 	# get_tree().get_root().set_transparent_background(true) # sets window transparency
 	# DisplayServer.window_set_flag(DisplayServer.WINDOW_FLAG_BORDERLESS, true) # sets window bar
 	# set_semi_transparent(get_tree().get_root())
+	
 	if not FileAccess.file_exists(save_file):
 		save_window()
 	load_window()
-		
-	# manual win pos & size setting for previous debug
-	# note irregular Vector2 coords (3000+??), it's probably due to my multi-monitor setup
-	# DisplayServer.window_set_position(Vector2(3028, 799))
-	# DisplayServer.window_set_size(Vector2(406, 265))
 	
 func _process(_delta: float) -> void:
 	if is_counting_down:
