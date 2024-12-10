@@ -110,7 +110,7 @@ func convert_time(time: int) -> String:
 	if hours > 0:
 		return "%d:%02d:%02d" % [hours, minutes, seconds]
 	else:	
-		return "%2d:%02d" % [minutes, seconds]
+		return "%02d:%02d" % [minutes, seconds]
 
 func _on_timer_button_pressed() -> void:
 	timer_button.disabled = true

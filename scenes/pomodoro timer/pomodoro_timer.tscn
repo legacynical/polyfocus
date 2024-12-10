@@ -358,6 +358,7 @@ text = "default"
 
 [node name="TaskTimerMenu" type="PanelContainer" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_direction = 1
 layout_mode = 1
 anchors_preset = -1
@@ -492,6 +493,13 @@ grow_horizontal = 0
 [node name="PomoTimer" type="Timer" parent="Utilities"]
 unique_name_in_owner = true
 wait_time = 1500.0
+
+[node name="TaskTimer" parent="." instance=ExtResource("10_l7cyc")]
+layout_mode = 1
+offset_left = 345.0
+offset_top = 136.0
+offset_right = 344.84
+offset_bottom = 136.02
 
 [connection signal="gui_input" from="BackgroundPanel" to="." method="_on_background_panel_gui_input"]
 [connection signal="toggled" from="BackgroundPanel/TimerElements/HBoxContainer/ModeToggle" to="." method="_on_mode_toggle_toggled"]

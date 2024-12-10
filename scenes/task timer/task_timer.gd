@@ -20,9 +20,9 @@ var session_time: int = 0
 var time_left: int = 0
 var task_duration: int = 0
 
-var edit_color: Color
-var edit_text: String
-var edit_time: int
+var edit_color: Color = Color(0.067, 1.0, 0.0, 1.0)
+var edit_text: String = "task"
+var edit_time: int = 900
 
 func _ready() -> void:
 	# button.button_down.connect(_on_button_down)
@@ -30,7 +30,7 @@ func _ready() -> void:
 	task_timer_button.button_down.connect(_on_task_timer_button_down)
 	task_timer_button.button_up.connect(_on_task_timer_button_up)
 	
-	background_panel.material.set_shader_parameter("fill_color", Color(0.2, 0.2, 0.2, 1.0))
+	background_panel.material.set_shader_parameter("fill_color", Color(0.2, 0.2, 0.2, 0.8))
 	
 	session_time = 300 #initializes to 5 min
 	timer.wait_time = session_time # sets PomoTimer wait time
@@ -43,6 +43,7 @@ func _process(_delta) -> void:
 	if is_holding_task_timer_button:
 		var hold_duration: int = Time.get_ticks_msec() - press_time
 		if hold_duration >= HOLD_THRESHOLD:
+			AudioManager.click_basic.play()
 			task_timer_quick_menu.visible = true
 			print("[Hold duration: " + str(hold_duration) + "] open task timer settings")
 			is_holding_task_timer_button = false # ensures no double action (1/2)
@@ -77,6 +78,7 @@ func convert_time(time: int) -> String:
 	
 	
 func update_task_progress_bar() -> void:
+	progress_bar.max_value = session_time
 	progress_bar.value = time_left
 	
 func task_timer_pause_unpause() -> void:
@@ -116,7 +118,6 @@ func reset_task_timer(new_session_time: int) -> void:
 	timer.wait_time = session_time
 	time_left = session_time
 	update_task_label()
-	progress_bar.max_value = new_session_time
 	update_task_progress_bar()
 	print("reset task timer to " + convert_time(time_left))
 
@@ -126,9 +127,11 @@ func _on_qm_exit_pressed():
 	task_timer_quick_menu.visible = false
 
 func _on_qm_edit_pressed():
+	AudioManager.click_basic.play()
 	task_timer_setting_menu.visible = true
 	
 func _on_qm_reset_pressed():
+	AudioManager.click_basic.play()
 	reset_task_timer(session_time)
 #####
 
@@ -152,6 +155,6 @@ func _on_color_picker_button_color_changed(color):
 func _on_line_edit_text_changed(new_text):
 	edit_text = new_text
 
-func _on_line_edit_value_changed(value):
+func _on_task_session_value_changed(value):
 	edit_time = value * 60
 #####
