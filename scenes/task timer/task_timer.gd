@@ -20,7 +20,9 @@ var session_time: int = 0
 var time_left: int = 0
 var task_duration: int = 0
 
-
+var edit_color: Color
+var edit_text: String
+var edit_time: int
 
 func _ready() -> void:
 	# button.button_down.connect(_on_button_down)
@@ -135,5 +137,17 @@ func _on_sm_confirm_pressed():
 	AudioManager.click_basic.play()
 	task_timer_quick_menu.visible = false
 	task_timer_setting_menu.visible = false
+	progress_bar.tint_progress = edit_color
+	task_label.text = edit_text
+	reset_task_timer(edit_time)
 	#TODO apply and save settings
+
+func _on_color_picker_button_color_changed(color):
+	edit_color = color
+
+func _on_line_edit_text_changed(new_text):
+	edit_text = new_text
+
+func _on_line_edit_value_changed(value):
+	edit_time = value * 60
 #####
