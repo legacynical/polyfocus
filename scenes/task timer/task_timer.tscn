@@ -40,6 +40,7 @@ script = ExtResource("1_wv6yg")
 
 [node name="BackgroundPanel" type="TextureRect" parent="."]
 unique_name_in_owner = true
+visible = false
 material = SubResource("ShaderMaterial_m3mh5")
 layout_mode = 1
 anchors_preset = 8
