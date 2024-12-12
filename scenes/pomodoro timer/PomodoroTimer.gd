@@ -323,7 +323,7 @@ func switchMode() -> void:
 		AudioManager.time_to_break_mb.play()
 		@warning_ignore("narrowing_conversion")
 		break_session_counter += 1
-		print("break counter: " + str(break_session_counter))
+		print("\nbreak counter: " + str(break_session_counter))
 		if break_session_counter % break_session_interval == 0:
 			reset_timer(long_break_session.value * 60)
 		else:
@@ -334,6 +334,7 @@ func switchMode() -> void:
 	else:
 		AudioManager.time_to_focus_mb.play()
 		@warning_ignore("narrowing_conversion")
+		print("")
 		reset_timer(pomo_session.value * 60)
 		current_mode = mode.FOCUS
 		mode_toggle.modulate = break_color_picker.color
@@ -354,7 +355,6 @@ func save_window() -> void:
 	else:
 		saved_game.default_window_position = default_window_position
 	ResourceSaver.save(saved_game, save_file)
-	print("\n")
 	
 func load_window() -> void:
 	print("\nloading window:")
@@ -363,7 +363,6 @@ func load_window() -> void:
 	DisplayServer.window_set_size(saved_game.window_size)
 	default_window_position = saved_game.default_window_position
 	print_window_stats()
-	print("\n")
 
 func print_window_stats() -> void:
 	print(" ⌈Window Stats")
