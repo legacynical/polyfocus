@@ -10,10 +10,10 @@ extends Resource
 @export var default_focus_color: Color = Color.html("6fbd90")
 @export var default_break_color: Color = Color.html("5370a6")
 
-@export var focus_color: Color
-@export var break_color: Color
-@export var focus_color_presets: Array
-@export var break_color_presets: Array
+@export var focus_color_picker: Color
+@export var break_color_picker: Color
+@export var focus_color_picker_presets: Array
+@export var break_color_picker_presets: Array
 @export var is_progressive_pomo: bool
 
 @export var pomodoro_session: int

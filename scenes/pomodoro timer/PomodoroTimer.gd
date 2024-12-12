@@ -14,8 +14,8 @@ extends Node
 @onready var break_session: SpinBox = %BreakSession
 @onready var timer: Timer = %PomoTimer
 @onready var background: Panel = %BackgroundPanel
-@onready var focus_color: ColorPickerButton = %FocusColor
-@onready var break_color: ColorPickerButton = %BreakColor
+@onready var focus_color_picker: ColorPickerButton = %FocusColorPicker
+@onready var break_color_picker: ColorPickerButton = %BreakColorPicker
 @onready var is_progressive_pomo_toggle: TextureButton = %ProgressivePomoToggle
 @onready var mode_toggle: TextureButton = %ModeToggle
 
@@ -145,10 +145,10 @@ func _on_skip_button_pressed() -> void:
 func updatePanelColor() -> void:
 	var new_stylebox: StyleBox = background.get_theme_stylebox("panel").duplicate()
 	if current_mode == mode.FOCUS:
-		new_stylebox.bg_color = focus_color.color
+		new_stylebox.bg_color = focus_color_picker.color
 		background.add_theme_stylebox_override("panel", new_stylebox)
 	elif current_mode == mode.BREAK:
-		new_stylebox.bg_color = break_color.color
+		new_stylebox.bg_color = break_color_picker.color
 		background.add_theme_stylebox_override("panel", new_stylebox)
 	#else:
 		#new_stylebox.bg_color = Color.html("999999")
@@ -314,14 +314,14 @@ func switchMode() -> void:
 		@warning_ignore("narrowing_conversion")
 		reset_timer(break_session.value * 60)
 		current_mode = mode.BREAK
-		mode_toggle.modulate = focus_color.color
+		mode_toggle.modulate = focus_color_picker.color
 		print("break mode")
 	else:
 		AudioManager.time_to_focus_mb.play()
 		@warning_ignore("narrowing_conversion")
 		reset_timer(pomo_session.value * 60)
 		current_mode = mode.FOCUS
-		mode_toggle.modulate = break_color.color
+		mode_toggle.modulate = break_color_picker.color
 		print("focus mode")
 	updatePanelColor()
 #####

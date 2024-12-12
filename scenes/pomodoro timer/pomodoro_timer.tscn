@@ -228,7 +228,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 5.0
 text = " Pomodoro Session"
 
-[node name="FocusColor" type="ColorPickerButton" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer"]
+[node name="FocusColorPicker" type="ColorPickerButton" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
@@ -264,7 +264,7 @@ size_flags_horizontal = 3
 size_flags_stretch_ratio = 5.0
 text = " Break Session"
 
-[node name="BreakColor" type="ColorPickerButton" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer2"]
+[node name="BreakColorPicker" type="ColorPickerButton" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer2"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
