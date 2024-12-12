@@ -13,6 +13,11 @@ extends Node
 @onready var pomo_session: SpinBox = %PomoSession
 @onready var break_session: SpinBox = %BreakSession
 @onready var long_break_session: SpinBox = %LongBreakSession
+@onready var break_session_interval: SpinBox = %BreakSessionInterval
+@onready var primer_session: SpinBox = %ProgressivePrimerSession
+@onready var neutral_session: SpinBox = %NeutralSession
+@onready var focused_session: SpinBox = %FocusedSession
+@onready var flow_session: SpinBox = %FlowSession
 @onready var timer: Timer = %PomoTimer
 @onready var background: Panel = %BackgroundPanel
 @onready var focus_color_picker: ColorPickerButton = %FocusColorPicker
@@ -32,13 +37,6 @@ var is_progressive_pomo_enabled: bool = true
 var is_progressive_pomo_break_due: bool = false
 var is_switch_mode_on_timeout: bool = true
 var is_long_breaks_enabled: bool = true
-
-var primer_session: int = 300 # 5min
-var flow_session: int = 1800 # 30 min
-var focused_session: int = 1200 # 20 min
-var neutral_session: int = 600 # 10 min
-
-var break_session_interval: int = 4
 
 var is_counting_down: bool = false
 var break_session_counter: int = 0
@@ -70,8 +68,9 @@ func _ready() -> void:
 	
 	if not FileAccess.file_exists(save_file):
 		save_window()
-		
+		save_pomodoro_timer()
 	load_window()
+	load_pomodoro_timer()
 	
 func _process(_delta: float) -> void:
 	if is_counting_down:
@@ -176,12 +175,12 @@ func _on_pomo_timer_timeout() -> void:
 	else:
 		pass # would user even want auto mode switch on timeout off?
 		
-func reset_timer(new_session_time: int) -> void:
+func reset_timer(new_session_time_in_minutes: int) -> void:
 	timer.paused = false
 	is_counting_down = false
 	timer.stop()
 	timer_button.text = "START"
-	session_time = new_session_time
+	session_time = new_session_time_in_minutes * 60 # conversion to seconds
 	timer.wait_time = session_time
 	time_left = session_time
 	update_label()
@@ -226,14 +225,14 @@ func _on_pomo_session_value_changed(_custom_time: int) -> void:
 	update_total_focus_time() # prevents desync? hopefully
 	if current_mode == mode.FOCUS:
 		@warning_ignore("narrowing_conversion")
-		session_time = pomo_session.value * 60 # minute value to seconds
+		session_time = pomo_session.value
 		reset_timer(session_time)
 
 func _on_break_session_value_changed(_custom_time: int) -> void:
 	print("break session time changed to " + str(break_session.value) + " min")
 	if current_mode == mode.BREAK:
 		@warning_ignore("narrowing_conversion")
-		session_time = break_session.value * 60 # minute value to seconds
+		session_time = break_session.value
 		reset_timer(session_time)
 
 func _on_window_reset_button_pressed() -> void:
@@ -271,20 +270,20 @@ func rate_session() -> void:
 	session_rating.visible = true
 
 func _on_flow_pressed() -> void:
-	session_resume(flow_session)
+	session_resume(flow_session.value)
 
 func _on_focused_pressed() -> void:
-	session_resume(focused_session)
+	session_resume(focused_session.value)
 	
 func _on_neutral_pressed() -> void:
-	session_resume(neutral_session)
+	session_resume(neutral_session.value)
 
 func _on_distracted_pressed() -> void:
 	AudioManager.click_basic.play()
 	AudioManager.distracted.play()
 	#timer_elements.visible = true
 	session_rating.visible = false
-	reset_timer(300)
+	reset_timer(primer_session.value)
 	
 func session_resume(extend_time: int) -> void:
 	AudioManager.click_basic.play()
@@ -318,24 +317,27 @@ func _on_mode_toggle_toggled(_toggled_on: bool) -> void:
 
 func switchMode() -> void:
 	is_progressive_pomo_break_due = false # prevents unintended breaks
-	if current_mode == mode.FOCUS:
+	if current_mode == mode.FOCUS: # switches to break
 		update_total_focus_time()
 		AudioManager.time_to_break_mb.play()
 		@warning_ignore("narrowing_conversion")
 		break_session_counter += 1
 		print("\nbreak counter: " + str(break_session_counter))
-		if break_session_counter % break_session_interval == 0:
-			reset_timer(long_break_session.value * 60)
+		if break_session_counter % int(break_session_interval.value) == 0:
+			reset_timer(long_break_session.value)
 		else:
-			reset_timer(break_session.value * 60)
+			reset_timer(break_session.value)
 		current_mode = mode.BREAK
 		mode_toggle.modulate = focus_color_picker.color
 		print("break mode")
-	else:
+	else: # switches to focus
 		AudioManager.time_to_focus_mb.play()
 		@warning_ignore("narrowing_conversion")
 		print("")
-		reset_timer(pomo_session.value * 60)
+		if is_progressive_pomo_enabled:
+			reset_timer(primer_session.value)
+		else:
+			reset_timer(pomo_session.value)
 		current_mode = mode.FOCUS
 		mode_toggle.modulate = break_color_picker.color
 		print("focus mode")
@@ -371,10 +373,41 @@ func print_window_stats() -> void:
 	print(" ⌊default win pos: " + str(default_window_position))
 
 func save_pomodoro_timer() -> void:
+	print("\nsaving pomodoro timer:")
 	saved_game.focus_color_picker = focus_color_picker.color
 	saved_game.break_color_picker = break_color_picker.color
+	#TODO focus color presets
+	#TODO break color presets
 	saved_game.is_progressive_pomo_enabled = is_progressive_pomo_enabled
 	
+	saved_game.pomodoro_session = pomo_session.value
+	saved_game.break_session = break_session.value
+	saved_game.long_break_session = long_break_session.value
+	saved_game.break_session_interval = break_session_interval.value
+
+	saved_game.primer_session = primer_session.value
+	saved_game.flow_session = flow_session.value
+	saved_game.focused_session = focused_session.value
+	saved_game.neutral_session = neutral_session.value
+
+func load_pomodoro_timer() -> void:
+	print("\nloading pomodoro timer:")
+	var saved_game: SavedGame = load(save_file) as SavedGame
+	focus_color_picker.color = saved_game.focus_color_picker
+	break_color_picker.color = saved_game.break_color_picker
+	#TODO focus color presets
+	#TODO break color presets
+	is_progressive_pomo_enabled = saved_game.is_progressive_pomo_enabled
+	
+	pomo_session.value = saved_game.pomodoro_session
+	break_session.value = saved_game.break_session
+	long_break_session.value = saved_game.long_break_session
+	break_session_interval.value = saved_game.break_session_interval
+
+	primer_session.value = saved_game.primer_session
+	flow_session.value = saved_game.flow_session
+	focused_session.value = saved_game.focused_session
+	neutral_session.value = saved_game.neutral_session
 
 func _notification(what) -> void:
 	match what:
