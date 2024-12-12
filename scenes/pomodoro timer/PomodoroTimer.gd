@@ -12,6 +12,7 @@ extends Node
 @onready var session_rating: Panel = %SessionRating
 @onready var pomo_session: SpinBox = %PomoSession
 @onready var break_session: SpinBox = %BreakSession
+@onready var long_break_session: SpinBox = %LongBreakSession
 @onready var timer: Timer = %PomoTimer
 @onready var background: Panel = %BackgroundPanel
 @onready var focus_color_picker: ColorPickerButton = %FocusColorPicker
@@ -19,17 +20,25 @@ extends Node
 @onready var is_progressive_pomo_toggle: TextureButton = %ProgressivePomoToggle
 @onready var mode_toggle: TextureButton = %ModeToggle
 
+
+@onready var saved_game: SavedGame = SavedGame.new()
 @onready var save_file: String = "user://savegame.tres"
+
 
 var default_window_size: Vector2 = Vector2(480, 270)
 var default_window_position = null # sets to center of user's primary screen on 1st startup
 
-var is_progressive_pomo: bool = true
+var is_progressive_pomo_enabled: bool = true
 var is_progressive_pomo_break_due: bool = false
 var is_switch_mode_on_timeout: bool = true
+var is_long_breaks_enabled: bool = true
+
+var primer_session: int = 300 # 5min
 var flow_session: int = 1800 # 30 min
 var focused_session: int = 1200 # 20 min
 var neutral_session: int = 600 # 10 min
+
+var break_session_interval: int = 4
 
 var is_counting_down: bool = false
 var break_session_counter: int = 0
@@ -61,6 +70,7 @@ func _ready() -> void:
 	
 	if not FileAccess.file_exists(save_file):
 		save_window()
+		
 	load_window()
 	
 func _process(_delta: float) -> void:
@@ -156,7 +166,7 @@ func updatePanelColor() -> void:
 
 func _on_pomo_timer_timeout() -> void:
 	#AudioManager.timer_complete.play()
-	if is_progressive_pomo and current_mode == mode.FOCUS:
+	if is_progressive_pomo_enabled and current_mode == mode.FOCUS:
 		if is_progressive_pomo_break_due:
 			switchMode() # updates TFT
 		else:
@@ -293,11 +303,11 @@ func _on_is_progressive_pomo_toggle_toggled(toggled_on: bool) -> void:
 	AudioManager.click_basic.play()
 	if toggled_on:
 		#is_progressive_pomo_toggle.modulate = Color(1, 1, 1) # normal
-		is_progressive_pomo = true
+		is_progressive_pomo_enabled = true
 		print("progressive pomo: true")
 	else:
 		#is_progressive_pomo_toggle.modulate = Color(0.5, 0.1, 0.1) # red
-		is_progressive_pomo = false
+		is_progressive_pomo_enabled = false
 		print("progressive pomo: false")
 #####
 
@@ -312,7 +322,12 @@ func switchMode() -> void:
 		update_total_focus_time()
 		AudioManager.time_to_break_mb.play()
 		@warning_ignore("narrowing_conversion")
-		reset_timer(break_session.value * 60)
+		break_session_counter += 1
+		print("break counter: " + str(break_session_counter))
+		if break_session_counter % break_session_interval == 0:
+			reset_timer(long_break_session.value * 60)
+		else:
+			reset_timer(break_session.value * 60)
 		current_mode = mode.BREAK
 		mode_toggle.modulate = focus_color_picker.color
 		print("break mode")
@@ -327,17 +342,10 @@ func switchMode() -> void:
 #####
 
 
-##### Window
-func print_window_stats() -> void:
-	print(" ⌈Window Stats")
-	print(" |win pos: " + str(DisplayServer.window_get_position()))
-	print(" |win size: " + str(DisplayServer.window_get_size()))
-	print(" ⌊default win pos: " + str(default_window_position))
-
+##### Save/Load 
 func save_window() -> void:
 	print("\nsaving window:")
 	print_window_stats()
-	var saved_game: SavedGame = SavedGame.new()
 	saved_game.window_position = DisplayServer.window_get_position()
 	saved_game.window_size = DisplayServer.window_get_size()
 	if default_window_position == null:
@@ -356,6 +364,18 @@ func load_window() -> void:
 	default_window_position = saved_game.default_window_position
 	print_window_stats()
 	print("\n")
+
+func print_window_stats() -> void:
+	print(" ⌈Window Stats")
+	print(" |win pos: " + str(DisplayServer.window_get_position()))
+	print(" |win size: " + str(DisplayServer.window_get_size()))
+	print(" ⌊default win pos: " + str(default_window_position))
+
+func save_pomodoro_timer() -> void:
+	saved_game.focus_color_picker = focus_color_picker.color
+	saved_game.break_color_picker = break_color_picker.color
+	saved_game.is_progressive_pomo_enabled = is_progressive_pomo_enabled
+	
 
 func _notification(what) -> void:
 	match what:

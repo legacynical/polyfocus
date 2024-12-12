@@ -305,6 +305,7 @@ custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
 [node name="LongBreakSession" type="SpinBox" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer3"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
