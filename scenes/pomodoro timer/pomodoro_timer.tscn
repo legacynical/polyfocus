@@ -351,7 +351,7 @@ layout_mode = 2
 text = "every"
 horizontal_alignment = 1
 
-[node name="BreakSession" type="SpinBox" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer4"]
+[node name="LongBreakInterval" type="SpinBox" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer4"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -395,14 +395,14 @@ texture_pressed = ExtResource("6_ppuow")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="Label3" type="Label" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer5"]
+[node name="Label2" type="Label" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer5"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 text = "primer"
 horizontal_alignment = 1
 
-[node name="LongBreakSession" type="SpinBox" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer5"]
+[node name="ProgressivePrimerSession" type="SpinBox" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer5"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -411,7 +411,7 @@ max_value = 999.0
 value = 5.0
 alignment = 2
 
-[node name="Label2" type="Label" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer5"]
+[node name="Label3" type="Label" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer5"]
 custom_minimum_size = Vector2(70, 0)
 layout_mode = 2
 size_flags_horizontal = 3
