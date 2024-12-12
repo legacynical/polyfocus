@@ -7,6 +7,7 @@ extends Node
 @onready var timer_button: Button = %TimerButton
 @onready var skip_button: Button = %SkipButton
 @onready var setting_menu: PanelContainer = %SettingMenu
+@onready var setting_menu_scroll: ScrollContainer = %SettingMenuScroll
 @onready var task_timer_menu: PanelContainer = %TaskTimerMenu
 @onready var task_timer_grid_container: GridContainer = %TTGridContainer
 @onready var session_rating: Panel = %SessionRating
@@ -59,6 +60,7 @@ func _ready() -> void:
 	timer.wait_time = session_time # sets PomoTimer wait time
 	time_left = session_time # for TimerLabel processing
 	update_label()
+	setting_menu_scroll.scroll_vertical = 0
 	update_focus_time_label()
 	
 	#TODO finish transparent mode feature
@@ -195,6 +197,7 @@ func _on_background_panel_gui_input(event) -> void:
 
 func close_pomodoro_menus() -> void:
 	setting_menu.visible = false
+	setting_menu_scroll.scroll_vertical = 0
 	task_timer_menu.visible = false
 	
 func _on_tt_grid_container_gui_input(event) -> void:
@@ -216,6 +219,7 @@ func _on_setting_menu_button_pressed() -> void:
 	print("setting menu button pressed")
 	if setting_menu.visible:
 		setting_menu.visible = false
+		setting_menu_scroll.scroll_vertical = 0
 	else:
 		setting_menu.visible = true
 		task_timer_menu.visible = false
@@ -258,6 +262,7 @@ func _on_task_timer_menu_button_pressed() -> void:
 	else:
 		task_timer_menu.visible = true
 		setting_menu.visible = false
+		setting_menu_scroll.scroll_vertical = 0
 #####
 
 ##### SessionRating
