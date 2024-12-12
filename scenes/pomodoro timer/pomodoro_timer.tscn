@@ -351,7 +351,8 @@ layout_mode = 2
 text = "every"
 horizontal_alignment = 1
 
-[node name="LongBreakInterval" type="SpinBox" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer4"]
+[node name="BreakSessionInterval" type="SpinBox" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer4"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -403,6 +404,7 @@ text = "primer"
 horizontal_alignment = 1
 
 [node name="ProgressivePrimerSession" type="SpinBox" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer5"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -420,8 +422,134 @@ text = "min"
 [node name="HBoxContainer6" type="HBoxContainer" parent="SettingMenu/ScrollContainer/Timer Setting"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
+theme = ExtResource("6_pybon")
 
-[node name="Label" type="Label" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer6"]
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer6"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+size_flags_stretch_ratio = 5.0
+
+[node name="Label" type="Label" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer6/HBoxContainer"]
+layout_mode = 2
+size_flags_stretch_ratio = 5.0
+tooltip_text = "Starts focus sessions with a short \"primer\" period 
+followed by a rating system for varying extentions."
+mouse_filter = 1
+text = " "
+
+[node name="Label2" type="Label" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer6"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Neutral"
+horizontal_alignment = 1
+
+[node name="NeutralSession" type="SpinBox" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer6"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+min_value = 1.0
+max_value = 999.0
+value = 10.0
+alignment = 2
+
+[node name="Label3" type="Label" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer6"]
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "min"
+
+[node name="HBoxContainer7" type="HBoxContainer" parent="SettingMenu/ScrollContainer/Timer Setting"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme = ExtResource("6_pybon")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer7"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+size_flags_stretch_ratio = 5.0
+
+[node name="Label" type="Label" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer7/HBoxContainer"]
+layout_mode = 2
+size_flags_stretch_ratio = 5.0
+tooltip_text = "Starts focus sessions with a short \"primer\" period 
+followed by a rating system for varying extentions."
+mouse_filter = 1
+text = " "
+
+[node name="Label2" type="Label" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer7"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "FOCUSED"
+horizontal_alignment = 1
+
+[node name="FocusedSession" type="SpinBox" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer7"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+min_value = 1.0
+max_value = 999.0
+value = 20.0
+alignment = 2
+
+[node name="Label3" type="Label" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer7"]
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "min"
+
+[node name="HBoxContainer8" type="HBoxContainer" parent="SettingMenu/ScrollContainer/Timer Setting"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+theme = ExtResource("6_pybon")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer8"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+size_flags_stretch_ratio = 5.0
+
+[node name="Label" type="Label" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer8/HBoxContainer"]
+layout_mode = 2
+size_flags_stretch_ratio = 5.0
+tooltip_text = "Starts focus sessions with a short \"primer\" period 
+followed by a rating system for varying extentions."
+mouse_filter = 1
+text = " "
+
+[node name="Label2" type="Label" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer8"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "FLOW!!!"
+horizontal_alignment = 1
+
+[node name="FlowSession" type="SpinBox" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer8"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+min_value = 1.0
+max_value = 999.0
+value = 30.0
+alignment = 2
+
+[node name="Label3" type="Label" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer8"]
+custom_minimum_size = Vector2(70, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "min"
+
+[node name="HBoxContainerA" type="HBoxContainer" parent="SettingMenu/ScrollContainer/Timer Setting"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainerA"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_stretch_ratio = 5.0
@@ -430,7 +558,7 @@ mouse_filter = 1
 theme = ExtResource("6_pybon")
 text = " Window"
 
-[node name="WindowReset" type="Button" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer6"]
+[node name="WindowReset" type="Button" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainerA"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -440,7 +568,7 @@ theme = ExtResource("6_pybon")
 theme_override_font_sizes/font_size = 15
 text = "reset"
 
-[node name="WindowSave" type="Button" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer6"]
+[node name="WindowSave" type="Button" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainerA"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -451,7 +579,7 @@ theme = ExtResource("6_pybon")
 theme_override_font_sizes/font_size = 15
 text = "save"
 
-[node name="WindowDefault" type="Button" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer6"]
+[node name="WindowDefault" type="Button" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainerA"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -463,7 +591,7 @@ theme = ExtResource("6_pybon")
 theme_override_font_sizes/font_size = 15
 text = "default"
 
-[node name="Control" type="Control" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer6"]
+[node name="Control" type="Control" parent="SettingMenu/ScrollContainer/Timer Setting/HBoxContainerA"]
 layout_mode = 2
 
 [node name="TaskTimerMenu" type="PanelContainer" parent="."]
@@ -622,9 +750,9 @@ scale = Vector2(0.545, 0.545)
 [connection signal="value_changed" from="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer/PomoSession" to="." method="_on_pomo_session_value_changed"]
 [connection signal="value_changed" from="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer2/BreakSession" to="." method="_on_break_session_value_changed"]
 [connection signal="toggled" from="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer5/HBoxContainer/ProgressivePomoToggle" to="." method="_on_progressive_pomo_toggle_toggled"]
-[connection signal="pressed" from="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer6/WindowReset" to="." method="_on_window_reset_button_pressed"]
-[connection signal="pressed" from="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer6/WindowSave" to="." method="_on_window_save_button_pressed"]
-[connection signal="pressed" from="SettingMenu/ScrollContainer/Timer Setting/HBoxContainer6/WindowDefault" to="." method="_on_window_default_button_pressed"]
+[connection signal="pressed" from="SettingMenu/ScrollContainer/Timer Setting/HBoxContainerA/WindowReset" to="." method="_on_window_reset_button_pressed"]
+[connection signal="pressed" from="SettingMenu/ScrollContainer/Timer Setting/HBoxContainerA/WindowSave" to="." method="_on_window_save_button_pressed"]
+[connection signal="pressed" from="SettingMenu/ScrollContainer/Timer Setting/HBoxContainerA/WindowDefault" to="." method="_on_window_default_button_pressed"]
 [connection signal="gui_input" from="TaskTimerMenu" to="." method="_on_tt_grid_container_gui_input"]
 [connection signal="pressed" from="SessionRating/VBoxContainer/Flow" to="." method="_on_flow_pressed"]
 [connection signal="pressed" from="SessionRating/VBoxContainer/Focused" to="." method="_on_focused_pressed"]

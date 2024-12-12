@@ -21,8 +21,9 @@ extends Resource
 @export var pomodoro_session: int
 @export var break_session: int
 @export var long_break_session: int
-@export var break_session_counter: int
+@export var break_session_interval: int
 
+@export var primer_session: int
 @export var flow_session: int
 @export var focused_session: int
 @export var neutral_session: int
