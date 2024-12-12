@@ -26,7 +26,6 @@ extends Node
 @onready var is_progressive_pomo_toggle: TextureButton = %ProgressivePomoToggle
 @onready var mode_toggle: TextureButton = %ModeToggle
 
-
 @onready var saved_game: SavedGame = SavedGame.new()
 @onready var save_file: String = "user://savegame.tres"
 
@@ -56,11 +55,11 @@ var current_mode: mode = mode.FOCUS
 func _ready() -> void:
 	DisplayServer.window_set_min_size(default_window_size)
 	
-	session_time = 300 #initializes to 5 min
-	timer.wait_time = session_time # sets PomoTimer wait time
-	time_left = session_time # for TimerLabel processing
-	update_label()
 	setting_menu_scroll.scroll_vertical = 0
+	if is_progressive_pomo_enabled:
+		reset_timer(primer_session.value)
+	else:
+		reset_timer(pomo_session.value)
 	update_focus_time_label()
 	
 	#TODO finish transparent mode feature
@@ -73,6 +72,7 @@ func _ready() -> void:
 		save_pomodoro_timer()
 	load_window()
 	load_pomodoro_timer()
+	
 	
 func _process(_delta: float) -> void:
 	if is_counting_down:
