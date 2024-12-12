@@ -389,7 +389,8 @@ func save_pomodoro_timer() -> void:
 	saved_game.flow_session = flow_session.value
 	saved_game.focused_session = focused_session.value
 	saved_game.neutral_session = neutral_session.value
-
+	ResourceSaver.save(saved_game, save_file)
+	
 func load_pomodoro_timer() -> void:
 	print("\nloading pomodoro timer:")
 	var saved_game: SavedGame = load(save_file) as SavedGame
@@ -413,6 +414,7 @@ func _notification(what) -> void:
 	match what:
 		NOTIFICATION_WM_CLOSE_REQUEST:
 			save_window() # saves window position & size
+			save_pomodoro_timer() # saves pomodoro timer settings
 			get_tree().quit() # default behavior
 		NOTIFICATION_WM_WINDOW_FOCUS_IN:
 			pass
