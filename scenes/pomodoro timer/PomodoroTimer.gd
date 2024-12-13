@@ -27,8 +27,10 @@ extends Node
 @onready var mode_toggle: TextureButton = %ModeToggle
 
 @onready var saved_game: SavedGame = SavedGame.new()
-@onready var save_file: String = "user://savegame.tres"
+#@onready var save_file: String = "user://savegame.tres"
+@onready var save_file: String = "user://savegame[dev-v0.4.1].tres"
 
+#const task_timer = preload("res://scenes/task timer/task_timer.tscn")
 
 var default_window_size: Vector2 = Vector2(480, 270)
 var default_window_position = null # sets to center of user's primary screen on 1st startup
@@ -70,9 +72,10 @@ func _ready() -> void:
 	if not FileAccess.file_exists(save_file):
 		save_window()
 		save_pomodoro_timer()
+		save_task_timers()
 	load_window()
 	load_pomodoro_timer()
-	
+	load_task_timers()
 	
 func _process(_delta: float) -> void:
 	if is_counting_down:
@@ -417,11 +420,63 @@ func load_pomodoro_timer() -> void:
 	focused_session.value = saved_game.focused_session
 	neutral_session.value = saved_game.neutral_session
 
+func save_task_timers() -> void:
+	print("\nsaving task timers:")
+	for timer in task_timer_grid_container.get_children():
+		print(timer)
+		var task_timer_settings: Dictionary = {
+			"Control Node": timer.name,
+			"ProgressBar Color": timer.get_node("TaskTimer").progress_bar.tint_progress,
+			"TaskLabel Text": timer.get_node("TaskTimer").task_label.text,
+			"TaskSession Time": timer.get_node("TaskTimer").task_session.value
+		}
+		print("task timer settings: " + str(task_timer_settings))
+		saved_game.task_timers.append(task_timer_settings)
+		timer.queue_free()
+	print("saved task timers: " + str(saved_game.task_timers))
+	ResourceSaver.save(saved_game, save_file)
+
+func load_task_timers() -> void:
+	print("\nloading task timers:")
+	var saved_game: SavedGame = load(save_file) as SavedGame
+
+	print("total saved timers: " + str(saved_game.task_timers.size()))
+	for i in range(saved_game.task_timers.size()):
+		var task_timer_settings = saved_game.task_timers[i]
+		#adding/removing instances can be cumbersome with saving/loading... 
+		#...will make a static but simple implementation for now
+		
+		#var control_node = Control.new()
+		#var task_timer_instance = task_timer.instantiate()
+		
+		#print("loading task timer at index: ", i)
+		#task_timer_grid_container.add_child(control_node)
+		#control_node.name = "TaskTimerControl%d" % i
+		#control_node.size_flags_horizontal = Control.SIZE_EXPAND | Control.SIZE_FILL
+		#control_node.size_flags_vertical = Control.SIZE_EXPAND | Control.SIZE_FILL
+		
+		#control_node.add_child(task_timer_instance)
+		
+		#task_timer_instance.progress_bar.tint_progress = task_timer_settings["ProgressBar Color"]
+		#task_timer_instance.task_label.text = task_timer_settings["TaskLabel Text"]
+		#task_timer_instance.task_session.value = task_timer_settings["TaskSession Time"]
+		print("loading task timer at index: ", i)
+		var target_timer = task_timer_grid_container.get_child(i).get_node("TaskTimer")
+		print("  control: ", task_timer_grid_container.get_child(i))
+		print("    control: ", task_timer_grid_container.get_child(i).get_node("TaskTimer"))
+		target_timer.progress_bar.tint_progress = task_timer_settings["ProgressBar Color"]
+		print("      ProgressBar Color: ", task_timer_settings["ProgressBar Color"])
+		target_timer.task_label.text = task_timer_settings["TaskLabel Text"]
+		print("      TaskLabel Text: ", task_timer_settings["TaskLabel Text"])
+		target_timer.task_session.value = task_timer_settings["TaskSession Time"]
+		print("      TaskSession Time: ", task_timer_settings["TaskSession Time"])
+		
 func _notification(what) -> void:
 	match what:
 		NOTIFICATION_WM_CLOSE_REQUEST:
 			save_window() # saves window position & size
 			save_pomodoro_timer() # saves pomodoro timer settings
+			save_task_timers() # saves task timers
 			get_tree().quit() # default behavior
 		NOTIFICATION_WM_WINDOW_FOCUS_IN:
 			pass
