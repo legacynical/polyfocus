@@ -198,6 +198,7 @@ icon = ExtResource("5_3yb1t")
 
 [node name="SettingMenu" type="PanelContainer" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -391,7 +392,6 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 toggle_mode = true
-button_pressed = true
 texture_normal = ExtResource("5_b358n")
 texture_pressed = ExtResource("6_ppuow")
 ignore_texture_size = true

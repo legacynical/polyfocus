@@ -425,6 +425,8 @@ func _notification(what) -> void:
 			pass
 		NOTIFICATION_WM_WINDOW_FOCUS_OUT:
 			pass
+		NOTIFICATION_WM_SIZE_CHANGED:
+			pass
 # unfocused window not dragging is a known issue that I didn't have to spend a few hours
 # troubleshooting what I did wrong...
 # issue: https://github.com/godotengine/godot/issues/95577
