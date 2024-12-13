@@ -308,10 +308,12 @@ func _on_progressive_pomo_toggle_toggled(toggled_on: bool) -> void:
 	if toggled_on:
 		#is_progressive_pomo_toggle.modulate = Color(1, 1, 1) # normal
 		is_progressive_pomo_enabled = true
+		reset_timer(primer_session.value)
 		print("progressive pomo: true")
 	else:
 		#is_progressive_pomo_toggle.modulate = Color(0.5, 0.1, 0.1) # red
 		is_progressive_pomo_enabled = false
+		reset_timer(pomo_session.value)
 		print("progressive pomo: false")
 #####
 
