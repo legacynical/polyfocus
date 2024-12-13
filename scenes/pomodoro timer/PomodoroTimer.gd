@@ -461,15 +461,16 @@ func load_task_timers() -> void:
 		#task_timer_instance.task_label.text = task_timer_settings["TaskLabel Text"]
 		#task_timer_instance.task_session.value = task_timer_settings["TaskSession Time"]
 		print("loading task timer at index: ", i)
-		var target_timer = task_timer_grid_container.get_child(i).get_node("TaskTimer")
+		var target_timer = task_timer_grid_container.get_child(i).get_node("TaskTimer") as Control
 		print("  control: ", task_timer_grid_container.get_child(i))
 		print("    control: ", task_timer_grid_container.get_child(i).get_node("TaskTimer"))
-		target_timer.progress_bar.tint_progress = task_timer_settings["ProgressBar Color"]
+		target_timer.color_picker_button.color = task_timer_settings["ProgressBar Color"]
 		print("      ProgressBar Color: ", task_timer_settings["ProgressBar Color"])
-		target_timer.task_label.text = task_timer_settings["TaskLabel Text"]
+		target_timer.task_label_edit.text = task_timer_settings["TaskLabel Text"]
 		print("      TaskLabel Text: ", task_timer_settings["TaskLabel Text"])
 		target_timer.task_session.value = task_timer_settings["TaskSession Time"]
 		print("      TaskSession Time: ", task_timer_settings["TaskSession Time"])
+		target_timer.set_setting_values()
 		
 func _notification(what) -> void:
 	match what:
