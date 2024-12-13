@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dewyfnpu3bvqr"]
 
 [ext_resource type="Script" path="res://scenes/journal/journal.gd" id="1_inerv"]
-[ext_resource type="PackedScene" uid="uid://dckhpntr1d5jp" path="res://scenes/date time/date_time.tscn" id="2_d4d1p"]
+[ext_resource type="PackedScene" uid="uid://dckhpntr1d5jp" path="res://globals/date time/date_time.tscn" id="2_d4d1p"]
 
 [node name="Journal" type="Control"]
 layout_mode = 3

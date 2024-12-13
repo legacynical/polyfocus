@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dckhpntr1d5jp"]
 
-[ext_resource type="Script" path="res://scenes/date time/DateTime.gd" id="1_qsb3r"]
+[ext_resource type="Script" path="res://globals/date time/DateTime.gd" id="1_qsb3r"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_icpvt"]
 content_margin_left = 0.0
