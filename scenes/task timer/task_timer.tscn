@@ -9,7 +9,8 @@
 shader = ExtResource("2_6y8h4")
 shader_parameter/fill_color = null
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_t4r7r"]
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_b2e1g"]
+size = Vector2(128, 128)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3nisa"]
 bg_color = Color(0.922031, 0.412388, 0.466332, 1)
@@ -53,7 +54,7 @@ offset_right = 64.0
 offset_bottom = 64.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = SubResource("ViewportTexture_t4r7r")
+texture = SubResource("PlaceholderTexture2D_b2e1g")
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="."]
 unique_name_in_owner = true
