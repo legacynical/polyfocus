@@ -597,7 +597,6 @@ layout_mode = 2
 
 [node name="TaskTimerMenu" type="PanelContainer" parent="."]
 unique_name_in_owner = true
-visible = false
 layout_direction = 1
 layout_mode = 1
 anchors_preset = -1
@@ -611,52 +610,129 @@ offset_bottom = -14.0
 [node name="TTGridContainer" type="GridContainer" parent="TaskTimerMenu"]
 unique_name_in_owner = true
 layout_mode = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
 columns = 4
 
-[node name="Control1" type="Control" parent="TaskTimerMenu/TTGridContainer"]
+[node name="TaskTimerControl1" type="Control" parent="TaskTimerMenu/TTGridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 1
 
-[node name="TaskTimer" parent="TaskTimerMenu/TTGridContainer/Control1" instance=ExtResource("10_l7cyc")]
+[node name="TaskTimer" parent="TaskTimerMenu/TTGridContainer/TaskTimerControl1" instance=ExtResource("10_l7cyc")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_right = 16.0
-offset_bottom = 30.0
-scale = Vector2(0.875, 0.875)
+offset_bottom = 22.0
+scale = Vector2(0.828, 0.828)
 
-[node name="Control2" type="Control" parent="TaskTimerMenu/TTGridContainer"]
+[node name="TaskTimerControl2" type="Control" parent="TaskTimerMenu/TTGridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 1
 
-[node name="TaskTimer" parent="TaskTimerMenu/TTGridContainer/Control2" instance=ExtResource("10_l7cyc")]
+[node name="TaskTimer" parent="TaskTimerMenu/TTGridContainer/TaskTimerControl2" instance=ExtResource("10_l7cyc")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_right = 16.0
-offset_bottom = 30.0
-scale = Vector2(0.875, 0.875)
+offset_bottom = 22.0
+scale = Vector2(0.828, 0.828)
 
-[node name="Control3" type="Control" parent="TaskTimerMenu/TTGridContainer"]
+[node name="TaskTimerControl3" type="Control" parent="TaskTimerMenu/TTGridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 1
 
-[node name="TaskTimer" parent="TaskTimerMenu/TTGridContainer/Control3" instance=ExtResource("10_l7cyc")]
+[node name="TaskTimer" parent="TaskTimerMenu/TTGridContainer/TaskTimerControl3" instance=ExtResource("10_l7cyc")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_right = 16.0
-offset_bottom = 30.0
-scale = Vector2(0.875, 0.875)
+offset_bottom = 22.0
+scale = Vector2(0.828, 0.828)
+
+[node name="TaskTimerControl4" type="Control" parent="TaskTimerMenu/TTGridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+
+[node name="TaskTimer" parent="TaskTimerMenu/TTGridContainer/TaskTimerControl4" instance=ExtResource("10_l7cyc")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 16.0
+offset_bottom = 22.0
+scale = Vector2(0.828, 0.828)
+
+[node name="TaskTimerControl5" type="Control" parent="TaskTimerMenu/TTGridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+
+[node name="TaskTimer" parent="TaskTimerMenu/TTGridContainer/TaskTimerControl5" instance=ExtResource("10_l7cyc")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 16.0
+offset_bottom = 22.0
+scale = Vector2(0.828, 0.828)
+
+[node name="TaskTimerControl6" type="Control" parent="TaskTimerMenu/TTGridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+
+[node name="TaskTimer" parent="TaskTimerMenu/TTGridContainer/TaskTimerControl6" instance=ExtResource("10_l7cyc")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 16.0
+offset_bottom = 22.0
+scale = Vector2(0.828, 0.828)
+
+[node name="TaskTimerControl7" type="Control" parent="TaskTimerMenu/TTGridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+
+[node name="TaskTimer" parent="TaskTimerMenu/TTGridContainer/TaskTimerControl7" instance=ExtResource("10_l7cyc")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 16.0
+offset_bottom = 22.0
+scale = Vector2(0.828, 0.828)
+
+[node name="TaskTimerControl8" type="Control" parent="TaskTimerMenu/TTGridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+
+[node name="TaskTimer" parent="TaskTimerMenu/TTGridContainer/TaskTimerControl8" instance=ExtResource("10_l7cyc")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 16.0
+offset_bottom = 22.0
+scale = Vector2(0.828, 0.828)
 
 [node name="SessionRating" type="Panel" parent="."]
 unique_name_in_owner = true
