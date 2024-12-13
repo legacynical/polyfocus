@@ -9,7 +9,8 @@ extends Control
 @onready var timer: Timer = %TaskTimer
 @onready var task_timer_quick_menu: PanelContainer = %TaskTimerQuickMenu
 @onready var task_timer_setting_menu: PanelContainer = %TaskTimerSettingMenu
-	
+@onready var task_session: SpinBox = %TaskSession
+
 const HOLD_THRESHOLD = 500 # in msec
 
 var press_time: int = 0
@@ -21,23 +22,17 @@ var time_left: int = 0
 var task_duration: int = 0
 
 var edit_color: Color = Color(0.067, 1.0, 0.0, 1.0)
-var edit_text: String = "task"
-var edit_time: int = 900
+var edit_text: String = "coding"
+var edit_time: int = 15
 
 func _ready() -> void:
 	# button.button_down.connect(_on_button_down)
-	
 	task_timer_button.button_down.connect(_on_task_timer_button_down)
 	task_timer_button.button_up.connect(_on_task_timer_button_up)
 	
 	background_panel.material.set_shader_parameter("fill_color", Color(0.2, 0.2, 0.2, 0.8))
-	
-	session_time = 300 #initializes to 5 min
-	timer.wait_time = session_time # sets PomoTimer wait time
-	time_left = session_time # for TimerLabel processing
-	progress_bar.max_value = session_time # sets circle progress bar
-	update_task_label()
-	update_task_progress_bar()
+
+	reset_task_timer(task_session.value)
 
 func _process(_delta) -> void:
 	if is_holding_task_timer_button:
@@ -109,14 +104,15 @@ func task_timer_pause_unpause() -> void:
 func _on_task_timer_timeout() -> void:
 	pass # Replace with function body.
 
-func reset_task_timer(new_session_time: int) -> void:
+func reset_task_timer(new_session_time_in_minutes: int) -> void:
 	timer.paused = false
 	is_counting_down = false
 	timer.stop()
 	status_label.text = "START"
-	session_time = new_session_time
+	session_time = new_session_time_in_minutes * 60
 	timer.wait_time = session_time
 	time_left = session_time
+	progress_bar.max_value = session_time # sets circle progress bar
 	update_task_label()
 	update_task_progress_bar()
 	print("reset task timer to " + convert_time(time_left))
@@ -132,7 +128,7 @@ func _on_qm_edit_pressed():
 	
 func _on_qm_reset_pressed():
 	AudioManager.click_basic.play()
-	reset_task_timer(session_time)
+	reset_task_timer(task_session.value)
 #####
 
 ##### Setting Menu
@@ -156,5 +152,5 @@ func _on_line_edit_text_changed(new_text):
 	edit_text = new_text
 
 func _on_task_session_value_changed(value):
-	edit_time = value * 60
+	edit_time = value
 #####
