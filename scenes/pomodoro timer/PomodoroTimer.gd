@@ -33,7 +33,7 @@ extends Node
 var default_window_size: Vector2 = Vector2(480, 270)
 var default_window_position = null # sets to center of user's primary screen on 1st startup
 
-var is_progressive_pomo_enabled: bool = true
+var is_progressive_pomo_enabled: bool = false
 var is_progressive_pomo_break_due: bool = false
 var is_switch_mode_on_timeout: bool = true
 var is_long_breaks_enabled: bool = true
@@ -303,7 +303,7 @@ func session_resume(extend_time: int) -> void:
 #####
 
 ##### Progressive Pomo
-func _on_is_progressive_pomo_toggle_toggled(toggled_on: bool) -> void:
+func _on_progressive_pomo_toggle_toggled(toggled_on: bool) -> void:
 	AudioManager.click_basic.play()
 	if toggled_on:
 		#is_progressive_pomo_toggle.modulate = Color(1, 1, 1) # normal
