@@ -9,6 +9,9 @@ extends Control
 @onready var timer: Timer = %TaskTimer
 @onready var task_timer_quick_menu: PanelContainer = %TaskTimerQuickMenu
 @onready var task_timer_setting_menu: PanelContainer = %TaskTimerSettingMenu
+
+@onready var color_picker_button = %ColorPickerButton
+@onready var task_label_edit: LineEdit = %TaskLabelEdit
 @onready var task_session: SpinBox = %TaskSession
 
 const HOLD_THRESHOLD = 500 # in msec
@@ -118,39 +121,42 @@ func reset_task_timer(new_session_time_in_minutes: int) -> void:
 	print("reset task timer to " + convert_time(time_left))
 
 ##### Quick Menu
-func _on_qm_exit_pressed():
+func _on_qm_exit_pressed() -> void:
 	AudioManager.click_basic.play()
 	task_timer_quick_menu.visible = false
 
-func _on_qm_edit_pressed():
+func _on_qm_edit_pressed() -> void:
 	AudioManager.click_basic.play()
 	task_timer_setting_menu.visible = true
 	
-func _on_qm_reset_pressed():
+func _on_qm_reset_pressed() -> void:
 	AudioManager.click_basic.play()
 	reset_task_timer(task_session.value)
 #####
 
 ##### Setting Menu
-func _on_sm_exit_pressed():
+func _on_sm_exit_pressed() -> void:
 	AudioManager.click_basic.play()
 	task_timer_setting_menu.visible = false
 
-func _on_sm_confirm_pressed():
+func _on_sm_confirm_pressed() -> void:
 	AudioManager.click_basic.play()
 	task_timer_quick_menu.visible = false
 	task_timer_setting_menu.visible = false
-	progress_bar.tint_progress = edit_color
-	task_label.text = edit_text
-	reset_task_timer(edit_time)
+	set_setting_values()
 	#TODO apply and save settings
 
-func _on_color_picker_button_color_changed(color):
-	edit_color = color
+func _on_color_picker_button_color_changed(color) -> void:
+	pass
 
-func _on_line_edit_text_changed(new_text):
-	edit_text = new_text
+func _on_line_edit_text_changed(new_text) -> void:
+	pass
 
-func _on_task_session_value_changed(value):
-	edit_time = value
+func _on_task_session_value_changed(value) -> void:
+	pass
 #####
+
+func set_setting_values() -> void:
+	progress_bar.tint_progress = color_picker_button.color
+	task_label.text = task_label_edit.text
+	reset_task_timer(task_session.value)
