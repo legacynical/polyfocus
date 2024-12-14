@@ -253,6 +253,7 @@ layout_mode = 2
 [node name="TaskSession" type="SpinBox" parent="TaskTimerSettingMenu/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
+min_value = 1.0
 max_value = 600.0
 value = 15.0
 
@@ -264,6 +265,7 @@ text = "min"
 
 [node name="TaskTimer" type="Timer" parent="Utilities"]
 unique_name_in_owner = true
+one_shot = true
 
 [connection signal="pressed" from="TaskTimerQuickMenu/VBoxContainer/HBoxContainer/QMExit" to="." method="_on_qm_exit_pressed"]
 [connection signal="pressed" from="TaskTimerQuickMenu/VBoxContainer/QMEdit" to="." method="_on_qm_edit_pressed"]
