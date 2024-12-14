@@ -267,7 +267,4 @@ unique_name_in_owner = true
 [connection signal="pressed" from="TaskTimerQuickMenu/VBoxContainer/QMReset" to="." method="_on_qm_reset_pressed"]
 [connection signal="pressed" from="TaskTimerSettingMenu/VBoxContainer/HBoxContainer/SMExit" to="." method="_on_sm_exit_pressed"]
 [connection signal="pressed" from="TaskTimerSettingMenu/VBoxContainer/HBoxContainer/SMConfirm" to="." method="_on_sm_confirm_pressed"]
-[connection signal="color_changed" from="TaskTimerSettingMenu/VBoxContainer/ColorPickerButton" to="." method="_on_color_picker_button_color_changed"]
-[connection signal="text_changed" from="TaskTimerSettingMenu/VBoxContainer/TaskLabelEdit" to="." method="_on_line_edit_text_changed"]
-[connection signal="value_changed" from="TaskTimerSettingMenu/VBoxContainer/HBoxContainer2/TaskSession" to="." method="_on_task_session_value_changed"]
 [connection signal="timeout" from="Utilities/TaskTimer" to="." method="_on_task_timer_timeout"]

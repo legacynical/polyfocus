@@ -147,15 +147,6 @@ func _on_sm_confirm_pressed(is_muted: bool = false) -> void:
 	task_timer_setting_menu.visible = false
 	set_setting_values(color_picker_button.color, task_label_edit.text, task_session.value)
 	#TODO apply and save settings
-
-func _on_color_picker_button_color_changed(color) -> void:
-	pass
-
-func _on_line_edit_text_changed(new_text) -> void:
-	pass
-
-func _on_task_session_value_changed(value) -> void:
-	pass
 #####
 
 func set_setting_values(color: Color, text: String, session: int) -> void:
