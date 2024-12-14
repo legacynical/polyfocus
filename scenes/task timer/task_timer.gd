@@ -24,9 +24,9 @@ var session_time: int = 0
 var time_left: int = 0
 var task_duration: int = 0
 
-var edit_color: Color = Color(0.067, 1.0, 0.0, 1.0)
-var edit_text: String = "coding"
-var edit_time: int = 15
+#var edit_color: Color = Color(0.067, 1.0, 0.0, 1.0)
+#var edit_text: String = "coding"
+#var edit_time: int = 15
 
 func _ready() -> void:
 	# button.button_down.connect(_on_button_down)
@@ -35,7 +35,7 @@ func _ready() -> void:
 	
 	background_panel.material.set_shader_parameter("fill_color", Color(0.2, 0.2, 0.2, 0.8))
 
-	reset_task_timer(task_session.value)
+	#reset_task_timer(task_session.value)
 
 func _process(_delta) -> void:
 	if is_holding_task_timer_button:
@@ -140,11 +140,12 @@ func _on_sm_exit_pressed() -> void:
 	AudioManager.click_basic.play()
 	task_timer_setting_menu.visible = false
 
-func _on_sm_confirm_pressed() -> void:
-	AudioManager.click_basic.play()
+func _on_sm_confirm_pressed(is_muted: bool = false) -> void:
+	if not is_muted:
+		AudioManager.click_basic.play()
 	task_timer_quick_menu.visible = false
 	task_timer_setting_menu.visible = false
-	set_setting_values()
+	set_setting_values(color_picker_button.color, task_label_edit.text, task_session.value)
 	#TODO apply and save settings
 
 func _on_color_picker_button_color_changed(color) -> void:
@@ -157,10 +158,13 @@ func _on_task_session_value_changed(value) -> void:
 	pass
 #####
 
-func set_setting_values(color: Color = Color.html("11ff00"), text: String = "coding", session: int = 15) -> void:
+func set_setting_values(color: Color, text: String, session: int) -> void:
 	color_picker_button.color = color
 	task_label_edit.text = text
 	task_session.value = session
 	progress_bar.tint_progress = color_picker_button.color
+	print("[set_setting_values] tint_progress set to: ", color_picker_button.color)
 	task_label.text = task_label_edit.text
+	print("[set_setting_values] text set to: ", task_label_edit.text)
+	print("[set_setting_values] resetting timer")
 	reset_task_timer(task_session.value)
