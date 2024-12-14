@@ -1,0 +1,16 @@
+[remap]
+
+importer="bitmap"
+type="BitMap"
+uid="uid://dqhbhtvg0pu4w"
+path="res://.godot/imported/128x128-circle-click-mask.bmp-a74a7b800d74b9796102d5abed52dd7a.res"
+
+[deps]
+
+source_file="res://graphics/128x128-circle-click-mask.bmp"
+dest_files=["res://.godot/imported/128x128-circle-click-mask.bmp-a74a7b800d74b9796102d5abed52dd7a.res"]
+
+[params]
+
+create_from=0
+threshold=0.5
