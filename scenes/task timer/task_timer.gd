@@ -20,6 +20,7 @@ var press_time: int = 0
 var is_holding_task_timer_button: bool = false
 
 var is_counting_down: bool = false
+var session_time_in_minutes: int = 15 # used for resetting task_session.value
 var session_time: int = 0
 var time_left: int = 0
 var task_duration: int = 0
@@ -112,6 +113,7 @@ func reset_task_timer(new_session_time_in_minutes: int) -> void:
 	is_counting_down = false
 	timer.stop()
 	status_label.text = "START"
+	session_time_in_minutes = new_session_time_in_minutes
 	session_time = new_session_time_in_minutes * 60
 	timer.wait_time = session_time
 	time_left = session_time
@@ -121,8 +123,9 @@ func reset_task_timer(new_session_time_in_minutes: int) -> void:
 	print("reset task timer to " + convert_time(time_left))
 
 ##### Quick Menu
-func _on_qm_exit_pressed() -> void:
-	AudioManager.click_basic.play()
+func _on_qm_exit_pressed(is_muted: bool = false) -> void:
+	if not is_muted:
+		AudioManager.click_basic.play()
 	task_timer_quick_menu.visible = false
 
 func _on_qm_edit_pressed() -> void:
@@ -136,8 +139,10 @@ func _on_qm_reset_pressed() -> void:
 #####
 
 ##### Setting Menu
-func _on_sm_exit_pressed() -> void:
-	AudioManager.click_basic.play()
+func _on_sm_exit_pressed(is_muted: bool = false) -> void:
+	if not is_muted:
+		AudioManager.click_basic.play()
+	reset_setting_menu()
 	task_timer_setting_menu.visible = false
 
 func _on_sm_confirm_pressed(is_muted: bool = false) -> void:
@@ -159,3 +164,8 @@ func set_setting_values(color: Color, text: String, session: int) -> void:
 	print("[set_setting_values] text set to: ", task_label_edit.text)
 	print("[set_setting_values] resetting timer")
 	reset_task_timer(task_session.value)
+
+func reset_setting_menu() -> void:
+	color_picker_button.color = progress_bar.tint_progress
+	task_label_edit.text = task_label.text
+	task_session.value = session_time_in_minutes
