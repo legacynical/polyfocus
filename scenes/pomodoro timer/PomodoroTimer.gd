@@ -422,6 +422,7 @@ func load_pomodoro_timer() -> void:
 
 func save_task_timers() -> void:
 	print("\nsaving task timers:")
+	var new_task_timers: Array = []
 	for timer in task_timer_grid_container.get_children():
 		print(timer)
 		var task_timer_settings: Dictionary = {
@@ -431,8 +432,8 @@ func save_task_timers() -> void:
 			"TaskSession Time": timer.get_node("TaskTimer").task_session.value
 		}
 		print("task timer settings: " + str(task_timer_settings))
-		saved_game.task_timers.append(task_timer_settings)
-		timer.queue_free()
+		new_task_timers.append(task_timer_settings)
+	saved_game.task_timers = new_task_timers
 	print("saved task timers: " + str(saved_game.task_timers))
 	ResourceSaver.save(saved_game, save_file)
 
@@ -470,8 +471,7 @@ func load_task_timers() -> void:
 		print("      TaskLabel Text: ", task_timer_settings["TaskLabel Text"])
 		target_timer.task_session.value = task_timer_settings["TaskSession Time"]
 		print("      TaskSession Time: ", task_timer_settings["TaskSession Time"])
-		target_timer.set_setting_values()
-		
+		target_timer._on_sm_confirm_pressed(true)
 func _notification(what) -> void:
 	match what:
 		NOTIFICATION_WM_CLOSE_REQUEST:

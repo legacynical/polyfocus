@@ -614,6 +614,21 @@ theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 4
 
+[node name="TaskTimerControl0" type="Control" parent="TaskTimerMenu/TTGridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+
+[node name="TaskTimer" parent="TaskTimerMenu/TTGridContainer/TaskTimerControl0" instance=ExtResource("10_l7cyc")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 16.0
+offset_bottom = 22.0
+scale = Vector2(0.828, 0.828)
+
 [node name="TaskTimerControl1" type="Control" parent="TaskTimerMenu/TTGridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -719,21 +734,6 @@ offset_right = 16.0
 offset_bottom = 22.0
 scale = Vector2(0.828, 0.828)
 
-[node name="TaskTimerControl8" type="Control" parent="TaskTimerMenu/TTGridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-mouse_filter = 1
-
-[node name="TaskTimer" parent="TaskTimerMenu/TTGridContainer/TaskTimerControl8" instance=ExtResource("10_l7cyc")]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = 16.0
-offset_bottom = 22.0
-scale = Vector2(0.828, 0.828)
-
 [node name="SessionRating" type="Panel" parent="."]
 unique_name_in_owner = true
 visible = false
@@ -810,7 +810,6 @@ unique_name_in_owner = true
 wait_time = 1500.0
 
 [node name="TaskTimer" parent="." instance=ExtResource("10_l7cyc")]
-visible = false
 layout_mode = 1
 offset_left = 40.0
 offset_top = 160.0
