@@ -615,12 +615,14 @@ theme_override_constants/v_separation = 0
 columns = 4
 
 [node name="TaskTimerControl0" type="Control" parent="TaskTimerMenu/TTGridContainer"]
+clip_children = 1
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 mouse_filter = 1
 
 [node name="TaskTimer" parent="TaskTimerMenu/TTGridContainer/TaskTimerControl0" instance=ExtResource("10_l7cyc")]
+clip_children = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -810,6 +812,7 @@ unique_name_in_owner = true
 wait_time = 1500.0
 
 [node name="TaskTimer" parent="." instance=ExtResource("10_l7cyc")]
+visible = false
 layout_mode = 1
 offset_left = 40.0
 offset_top = 160.0
