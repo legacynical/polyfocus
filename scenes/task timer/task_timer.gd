@@ -106,7 +106,7 @@ func task_timer_pause_unpause() -> void:
 	task_timer_button.disabled = false
 
 func _on_task_timer_timeout() -> void:
-	pass # Replace with function body.
+	reset_task_timer(task_session.value)
 
 func reset_task_timer(new_session_time_in_minutes: int) -> void:
 	timer.paused = false
