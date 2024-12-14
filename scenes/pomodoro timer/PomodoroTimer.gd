@@ -72,6 +72,7 @@ func _ready() -> void:
 	if not FileAccess.file_exists(save_file):
 		save_window()
 		save_pomodoro_timer()
+		set_default_task_timers()
 		save_task_timers()
 	load_window()
 	load_pomodoro_timer()
@@ -472,6 +473,17 @@ func load_task_timers() -> void:
 		target_timer.task_session.value = task_timer_settings["TaskSession Time"]
 		print("      TaskSession Time: ", task_timer_settings["TaskSession Time"])
 		target_timer._on_sm_confirm_pressed(true)
+
+func set_default_task_timers() -> void:
+	task_timer_grid_container.get_child(0).get_node("TaskTimer").set_setting_values(Color.html("59B300"), "Language", 15)
+	task_timer_grid_container.get_child(1).get_node("TaskTimer").set_setting_values(Color.html("2874A6"), "Chess", 15)
+	task_timer_grid_container.get_child(2).get_node("TaskTimer").set_setting_values(Color.html("F7DC6F"), "Drawing", 15)
+	task_timer_grid_container.get_child(3).get_node("TaskTimer").set_setting_values(Color.html("FFFFFF"), "Piano", 15)
+	task_timer_grid_container.get_child(4).get_node("TaskTimer").set_setting_values(Color.html("F5B041"), "Reading", 20)
+	task_timer_grid_container.get_child(5).get_node("TaskTimer").set_setting_values(Color.html("E67AB8"), "Writing", 20)
+	task_timer_grid_container.get_child(6).get_node("TaskTimer").set_setting_values(Color.html("82E0AA"), "Cleaning", 20)
+	task_timer_grid_container.get_child(7).get_node("TaskTimer").set_setting_values(Color.html("5DADE2"), "Laundry", 80)
+
 func _notification(what) -> void:
 	match what:
 		NOTIFICATION_WM_CLOSE_REQUEST:
