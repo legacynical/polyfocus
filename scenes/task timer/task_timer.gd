@@ -10,7 +10,7 @@ extends Control
 @onready var task_timer_quick_menu: PanelContainer = %TaskTimerQuickMenu
 @onready var task_timer_setting_menu: PanelContainer = %TaskTimerSettingMenu
 
-@onready var color_picker_button = %ColorPickerButton
+@onready var color_picker_button: ColorPickerButton = %ColorPickerButton
 @onready var task_label_edit: LineEdit = %TaskLabelEdit
 @onready var task_session: SpinBox = %TaskSession
 
@@ -157,7 +157,10 @@ func _on_task_session_value_changed(value) -> void:
 	pass
 #####
 
-func set_setting_values() -> void:
+func set_setting_values(color: Color = Color.html("11ff00"), text: String = "coding", session: int = 15) -> void:
+	color_picker_button.color = color
+	task_label_edit.text = text
+	task_session.value = session
 	progress_bar.tint_progress = color_picker_button.color
 	task_label.text = task_label_edit.text
 	reset_task_timer(task_session.value)
