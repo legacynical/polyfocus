@@ -597,6 +597,7 @@ layout_mode = 2
 
 [node name="TaskTimerMenu" type="PanelContainer" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_direction = 1
 layout_mode = 1
 anchors_preset = -1
