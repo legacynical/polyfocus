@@ -30,7 +30,6 @@ extends Node
 #@onready var save_file: String = "user://savegame.tres"
 @onready var save_file: String = "user://savegame[dev-v0.4.1].tres"
 
-#const task_timer = preload("res://scenes/task timer/task_timer.tscn")
 
 var default_window_size: Vector2 = Vector2(480, 270)
 var default_window_position = null # sets to center of user's primary screen on 1st startup
@@ -46,6 +45,7 @@ var total_focus_time: int = 0
 var session_time: int = 0
 var time_left: int = 0
 var focus_duration: int = 0
+var is_muted: bool = true
 
 enum mode {
 	FOCUS,
@@ -211,9 +211,10 @@ func _on_tt_grid_container_gui_input(event) -> void:
 			close_task_timer_quick_menus()
 			
 func close_task_timer_quick_menus() -> void:
-	for timer in task_timer_grid_container.get_children():
-		print(timer)
-		timer.get_node("TaskTimer").task_timer_quick_menu.visible = false
+	for task_timer_control in task_timer_grid_container.get_children():
+		print(task_timer_control)
+		task_timer_control.get_node("TaskTimer")._on_sm_exit_pressed(is_muted)
+		task_timer_control.get_node("TaskTimer")._on_qm_exit_pressed(is_muted)
 #####
 
 
@@ -397,9 +398,9 @@ func save_pomodoro_timer() -> void:
 	saved_game.break_session_interval = break_session_interval.value
 
 	saved_game.primer_session = primer_session.value
-	saved_game.flow_session = flow_session.value
-	saved_game.focused_session = focused_session.value
 	saved_game.neutral_session = neutral_session.value
+	saved_game.focused_session = focused_session.value
+	saved_game.flow_session = flow_session.value
 	ResourceSaver.save(saved_game, save_file)
 	
 func load_pomodoro_timer() -> void:
@@ -417,20 +418,20 @@ func load_pomodoro_timer() -> void:
 	break_session_interval.value = saved_game.break_session_interval
 
 	primer_session.value = saved_game.primer_session
+	neutral_session.value = saved_game.neutral_session
 	flow_session.value = saved_game.flow_session
 	focused_session.value = saved_game.focused_session
-	neutral_session.value = saved_game.neutral_session
 
 func save_task_timers() -> void:
 	print("\nsaving task timers:")
 	var new_task_timers: Array = []
-	for timer in task_timer_grid_container.get_children():
-		print(timer)
+	for task_timer_control in task_timer_grid_container.get_children():
+		print(task_timer_control)
 		var task_timer_settings: Dictionary = {
-			"Control Node": timer.name,
-			"ProgressBar Color": timer.get_node("TaskTimer").progress_bar.tint_progress,
-			"TaskLabel Text": timer.get_node("TaskTimer").task_label.text,
-			"TaskSession Time": timer.get_node("TaskTimer").task_session.value
+			"Control Node": task_timer_control.name,
+			"ProgressBar Color": task_timer_control.get_node("TaskTimer").progress_bar.tint_progress,
+			"TaskLabel Text": task_timer_control.get_node("TaskTimer").task_label.text,
+			"TaskSession Time": task_timer_control.get_node("TaskTimer").task_session.value
 		}
 		print("task timer settings: " + str(task_timer_settings))
 		new_task_timers.append(task_timer_settings)
@@ -444,7 +445,7 @@ func load_task_timers() -> void:
 
 	print("total saved timers: " + str(saved_game.task_timers.size()))
 	for i in range(saved_game.task_timers.size()):
-		var task_timer_settings = saved_game.task_timers[i]
+		var task_timer_settings: Dictionary = saved_game.task_timers[i]
 		#adding/removing instances can be cumbersome with saving/loading... 
 		#...will make a static but simple implementation for now
 		
@@ -463,7 +464,7 @@ func load_task_timers() -> void:
 		#task_timer_instance.task_label.text = task_timer_settings["TaskLabel Text"]
 		#task_timer_instance.task_session.value = task_timer_settings["TaskSession Time"]
 		print("loading task timer at index: ", i)
-		var target_timer = task_timer_grid_container.get_child(i).get_node("TaskTimer") as Control
+		var target_timer: Control = task_timer_grid_container.get_child(i).get_node("TaskTimer") as Control
 		print("  control: ", task_timer_grid_container.get_child(i))
 		print("    control: ", task_timer_grid_container.get_child(i).get_node("TaskTimer"))
 		target_timer.color_picker_button.color = task_timer_settings["ProgressBar Color"]
@@ -472,7 +473,7 @@ func load_task_timers() -> void:
 		print("      TaskLabel Text: ", task_timer_settings["TaskLabel Text"])
 		target_timer.task_session.value = task_timer_settings["TaskSession Time"]
 		print("      TaskSession Time: ", task_timer_settings["TaskSession Time"])
-		target_timer._on_sm_confirm_pressed(true)
+		target_timer._on_sm_confirm_pressed(is_muted)
 
 func set_default_task_timers() -> void:
 	task_timer_grid_container.get_child(0).get_node("TaskTimer").set_setting_values(Color.html("59B300"), "Language", 15)
