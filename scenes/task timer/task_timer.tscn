@@ -28,6 +28,7 @@ bg_color = Color(0.0745098, 0.0745098, 0.0745098, 0.901961)
 bg_color = Color(0.277748, 0.705089, 0.286956, 1)
 
 [node name="TaskTimer" type="Control"]
+clip_children = 1
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 3
 anchor_right = 0.267
@@ -38,6 +39,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+mouse_filter = 1
 script = ExtResource("1_wv6yg")
 
 [node name="BackgroundPanel" type="TextureRect" parent="."]
@@ -127,6 +129,7 @@ vertical_alignment = 1
 [node name="TaskTimerButton" type="TextureButton" parent="."]
 unique_name_in_owner = true
 modulate = Color(1, 1, 1, 0)
+clip_children = 1
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
