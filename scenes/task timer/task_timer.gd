@@ -106,7 +106,9 @@ func task_timer_pause_unpause() -> void:
 	task_timer_button.disabled = false
 
 func _on_task_timer_timeout() -> void:
+	AudioManager.alert_1_mb.play()
 	reset_task_timer(task_session.value)
+	status_label.text = "COMPLETED"
 
 func reset_task_timer(new_session_time_in_minutes: int) -> void:
 	timer.paused = false
