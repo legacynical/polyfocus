@@ -198,7 +198,6 @@ icon = ExtResource("5_3yb1t")
 
 [node name="SettingMenu" type="PanelContainer" parent="."]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -212,6 +211,7 @@ metadata/_edit_use_anchors_ = true
 [node name="SettingMenuScroll" type="ScrollContainer" parent="SettingMenu"]
 unique_name_in_owner = true
 layout_mode = 2
+scroll_vertical = 79
 
 [node name="Timer Setting" type="VBoxContainer" parent="SettingMenu/SettingMenuScroll"]
 layout_mode = 2
@@ -248,12 +248,11 @@ min_value = 1.0
 max_value = 999.0
 value = 25.0
 alignment = 2
+suffix = "min"
 
-[node name="Label2" type="Label" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer"]
-custom_minimum_size = Vector2(70, 0)
+[node name="Spacer" type="Control" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer"]
+custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
-size_flags_horizontal = 3
-text = "min"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="SettingMenu/SettingMenuScroll/Timer Setting"]
 custom_minimum_size = Vector2(0, 40)
@@ -284,12 +283,11 @@ min_value = 1.0
 max_value = 999.0
 value = 5.0
 alignment = 2
+suffix = "min"
 
-[node name="Label2" type="Label" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer2"]
-custom_minimum_size = Vector2(70, 0)
+[node name="Spacer" type="Control" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer2"]
+custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
-size_flags_horizontal = 3
-text = "min"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="SettingMenu/SettingMenuScroll/Timer Setting"]
 custom_minimum_size = Vector2(0, 40)
@@ -315,12 +313,11 @@ min_value = 1.0
 max_value = 999.0
 value = 15.0
 alignment = 2
+suffix = "min"
 
-[node name="Label2" type="Label" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer3"]
-custom_minimum_size = Vector2(70, 0)
+[node name="Spacer" type="Control" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer3"]
+custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
-size_flags_horizontal = 3
-text = "min"
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="SettingMenu/SettingMenuScroll/Timer Setting"]
 custom_minimum_size = Vector2(0, 40)
@@ -348,10 +345,11 @@ ignore_texture_size = true
 stretch_mode = 5
 
 [node name="Label2" type="Label" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer4"]
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(54, 0)
 layout_mode = 2
-text = "every"
-horizontal_alignment = 1
+theme_override_font_sizes/font_size = 14
+text = "interval"
+horizontal_alignment = 2
 
 [node name="BreakSessionInterval" type="SpinBox" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer4"]
 unique_name_in_owner = true
@@ -360,13 +358,11 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 min_value = 2.0
 value = 4.0
-alignment = 2
+alignment = 1
 
-[node name="Label3" type="Label" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer4"]
-custom_minimum_size = Vector2(70, 0)
+[node name="Spacer" type="Control" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer4"]
+custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
-size_flags_horizontal = 3
-text = "break(s) "
 
 [node name="HBoxContainer5" type="HBoxContainer" parent="SettingMenu/SettingMenuScroll/Timer Setting"]
 custom_minimum_size = Vector2(0, 40)
@@ -398,11 +394,11 @@ ignore_texture_size = true
 stretch_mode = 5
 
 [node name="Label2" type="Label" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer5"]
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(54, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 text = "primer"
-horizontal_alignment = 1
+horizontal_alignment = 2
 
 [node name="ProgressivePrimerSession" type="SpinBox" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer5"]
 unique_name_in_owner = true
@@ -413,12 +409,11 @@ min_value = 1.0
 max_value = 999.0
 value = 5.0
 alignment = 2
+suffix = "min"
 
-[node name="Label3" type="Label" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer5"]
-custom_minimum_size = Vector2(70, 0)
+[node name="Spacer" type="Control" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer5"]
+custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
-size_flags_horizontal = 3
-text = "min"
 
 [node name="HBoxContainer6" type="HBoxContainer" parent="SettingMenu/SettingMenuScroll/Timer Setting"]
 custom_minimum_size = Vector2(0, 40)
@@ -426,25 +421,43 @@ layout_mode = 2
 theme = ExtResource("6_pybon")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer6"]
+custom_minimum_size = Vector2(225, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 size_flags_stretch_ratio = 5.0
 
 [node name="Label" type="Label" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer6/HBoxContainer"]
+custom_minimum_size = Vector2(125, 0)
 layout_mode = 2
 size_flags_stretch_ratio = 5.0
 tooltip_text = "Starts focus sessions with a short \"primer\" period 
 followed by a rating system for varying extentions."
 mouse_filter = 1
-text = " "
+theme_override_font_sizes/font_size = 14
+text = "Auto Extend To"
+horizontal_alignment = 2
 
-[node name="Label2" type="Label" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer6"]
-custom_minimum_size = Vector2(50, 0)
+[node name="ItemList" type="OptionButton" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer6/HBoxContainer"]
+custom_minimum_size = Vector2(90, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
-text = "Neutral"
-horizontal_alignment = 1
+selected = 0
+item_count = 4
+popup/item_0/text = "none"
+popup/item_1/text = "neutral"
+popup/item_1/id = 1
+popup/item_2/text = "focused"
+popup/item_2/id = 2
+popup/item_3/text = "flow"
+popup/item_3/id = 3
+
+[node name="Label2" type="Label" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer6"]
+custom_minimum_size = Vector2(54, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "neutral"
+horizontal_alignment = 2
 
 [node name="NeutralSession" type="SpinBox" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer6"]
 unique_name_in_owner = true
@@ -455,12 +468,11 @@ min_value = 1.0
 max_value = 999.0
 value = 10.0
 alignment = 2
+suffix = "min"
 
-[node name="Label3" type="Label" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer6"]
-custom_minimum_size = Vector2(70, 0)
+[node name="Spacer" type="Control" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer6"]
+custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
-size_flags_horizontal = 3
-text = "min"
 
 [node name="HBoxContainer7" type="HBoxContainer" parent="SettingMenu/SettingMenuScroll/Timer Setting"]
 custom_minimum_size = Vector2(0, 40)
@@ -474,19 +486,33 @@ size_flags_vertical = 4
 size_flags_stretch_ratio = 5.0
 
 [node name="Label" type="Label" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer7/HBoxContainer"]
+custom_minimum_size = Vector2(125, 0)
 layout_mode = 2
 size_flags_stretch_ratio = 5.0
 tooltip_text = "Starts focus sessions with a short \"primer\" period 
 followed by a rating system for varying extentions."
 mouse_filter = 1
-text = " "
+theme_override_font_sizes/font_size = 14
+text = "Rating Timeout"
+horizontal_alignment = 2
+
+[node name="RatingTimeout" type="SpinBox" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer7/HBoxContainer"]
+custom_minimum_size = Vector2(90, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+min_value = 3.0
+max_value = 60.0
+value = 5.0
+alignment = 1
+suffix = "sec"
 
 [node name="Label2" type="Label" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer7"]
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(54, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
-text = "FOCUSED"
-horizontal_alignment = 1
+text = "focused"
+horizontal_alignment = 2
 
 [node name="FocusedSession" type="SpinBox" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer7"]
 unique_name_in_owner = true
@@ -497,12 +523,11 @@ min_value = 1.0
 max_value = 999.0
 value = 20.0
 alignment = 2
+suffix = "min"
 
-[node name="Label3" type="Label" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer7"]
-custom_minimum_size = Vector2(70, 0)
+[node name="Spacer" type="Control" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer7"]
+custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
-size_flags_horizontal = 3
-text = "min"
 
 [node name="HBoxContainer8" type="HBoxContainer" parent="SettingMenu/SettingMenuScroll/Timer Setting"]
 custom_minimum_size = Vector2(0, 40)
@@ -524,11 +549,11 @@ mouse_filter = 1
 text = " "
 
 [node name="Label2" type="Label" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer8"]
-custom_minimum_size = Vector2(50, 0)
+custom_minimum_size = Vector2(54, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
-text = "FLOW!!!"
-horizontal_alignment = 1
+text = "FLOW"
+horizontal_alignment = 2
 
 [node name="FlowSession" type="SpinBox" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer8"]
 unique_name_in_owner = true
@@ -539,12 +564,11 @@ min_value = 1.0
 max_value = 999.0
 value = 30.0
 alignment = 2
+suffix = "min"
 
-[node name="Label3" type="Label" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer8"]
-custom_minimum_size = Vector2(70, 0)
+[node name="Spacer" type="Control" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer8"]
+custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
-size_flags_horizontal = 3
-text = "min"
 
 [node name="HBoxContainerA" type="HBoxContainer" parent="SettingMenu/SettingMenuScroll/Timer Setting"]
 custom_minimum_size = Vector2(0, 40)
@@ -623,7 +647,6 @@ size_flags_vertical = 3
 mouse_filter = 1
 
 [node name="TaskTimer" parent="TaskTimerMenu/TTGridContainer/TaskTimerControl0" instance=ExtResource("10_l7cyc")]
-clip_children = 1
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
