@@ -159,12 +159,13 @@ func _on_skip_button_pressed() -> void:
 
 func updatePanelColor() -> void:
 	var new_stylebox: StyleBox = background.get_theme_stylebox("panel").duplicate()
-	if current_mode == mode.FOCUS:
-		new_stylebox.bg_color = focus_color_picker.color
-		background.add_theme_stylebox_override("panel", new_stylebox)
-	elif current_mode == mode.BREAK:
-		new_stylebox.bg_color = break_color_picker.color
-		background.add_theme_stylebox_override("panel", new_stylebox)
+	match current_mode:
+		mode.FOCUS:
+			new_stylebox.bg_color = focus_color_picker.color
+			background.add_theme_stylebox_override("panel", new_stylebox)
+		mode.BREAK:
+			new_stylebox.bg_color = break_color_picker.color
+			background.add_theme_stylebox_override("panel", new_stylebox)
 	#else:
 		#new_stylebox.bg_color = Color.html("999999")
 		#background.add_theme_stylebox_override("panel", new_stylebox)
@@ -337,30 +338,31 @@ func _on_mode_toggle_toggled(_toggled_on: bool) -> void:
 
 func switchMode() -> void:
 	is_progressive_pomo_break_due = false # prevents unintended breaks
-	if current_mode == mode.FOCUS: # switches to break
-		update_total_focus_time()
-		AudioManager.time_to_break_mb.play()
-		@warning_ignore("narrowing_conversion")
-		break_session_counter += 1
-		print("\nbreak counter: " + str(break_session_counter))
-		if break_session_counter % int(break_session_interval.value) == 0:
-			reset_timer(long_break_session.value)
-		else:
-			reset_timer(break_session.value)
-		current_mode = mode.BREAK
-		mode_toggle.modulate = focus_color_picker.color
-		print("break mode")
-	else: # switches to focus
-		AudioManager.time_to_focus_mb.play()
-		@warning_ignore("narrowing_conversion")
-		print("")
-		if is_progressive_pomo_enabled:
-			reset_timer(primer_session.value)
-		else:
-			reset_timer(pomo_session.value)
-		current_mode = mode.FOCUS
-		mode_toggle.modulate = break_color_picker.color
-		print("focus mode")
+	match current_mode:
+		mode.FOCUS: # switches to break
+			update_total_focus_time()
+			AudioManager.time_to_break_mb.play()
+			@warning_ignore("narrowing_conversion")
+			break_session_counter += 1
+			print("\nbreak counter: " + str(break_session_counter))
+			if break_session_counter % int(break_session_interval.value) == 0:
+				reset_timer(long_break_session.value)
+			else:
+				reset_timer(break_session.value)
+			current_mode = mode.BREAK
+			mode_toggle.modulate = focus_color_picker.color
+			print("break mode")
+		mode.BREAK: # switches to focus
+			AudioManager.time_to_focus_mb.play()
+			@warning_ignore("narrowing_conversion")
+			print("")
+			if is_progressive_pomo_enabled:
+				reset_timer(primer_session.value)
+			else:
+				reset_timer(pomo_session.value)
+			current_mode = mode.FOCUS
+			mode_toggle.modulate = break_color_picker.color
+			print("focus mode")
 	updatePanelColor()
 #####
 
