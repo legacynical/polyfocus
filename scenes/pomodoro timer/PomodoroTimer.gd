@@ -40,12 +40,13 @@ var is_switch_mode_on_timeout: bool = true
 var is_long_breaks_enabled: bool = true
 
 var is_counting_down: bool = false
+var is_muted: bool = true
+
 var break_session_counter: int = 0
 var total_focus_time: int = 0
-var session_time: int = 0
-var time_left: int = 0
 var focus_duration: int = 0
-var is_muted: bool = true
+var session_time: int = 0
+#var time_left_floor: int = 0
 
 enum mode {
 	FOCUS,
@@ -58,6 +59,8 @@ func _ready() -> void:
 	DisplayServer.window_set_min_size(default_window_size)
 	
 	setting_menu_scroll.scroll_vertical = 0
+	
+	timer.paused = true
 	if is_progressive_pomo_enabled:
 		reset_timer(primer_session.value)
 	else:
@@ -79,14 +82,16 @@ func _ready() -> void:
 	load_task_timers()
 	
 func _process(_delta: float) -> void:
-	if is_counting_down:
-		time_left = round(timer.time_left)
-		# print(str(timer.time_left) + " -> " + str(time_left))
+	#if is_counting_down:
+	if not timer.paused:
+		#time_left_floor = floor(timer.time_left) 
+		## print(str(timer.time_left) + " -> " + str(time_left))
+		#print("time_left_floor: ", time_left_floor)
 		update_label()
 		match current_mode:
 			mode.FOCUS:
+				focus_duration = floor(timer.wait_time - timer.time_left)
 				update_focus_time_label()
-
 # TODO finish transparent mode feature
 func set_semi_transparent(node: Node) -> void:
 	if node is CanvasItem:
@@ -98,20 +103,22 @@ func set_semi_transparent(node: Node) -> void:
 	
 ##### Timer
 func update_label() -> void:
-	timer_label.text = convert_time(time_left)
+	timer_label.text = convert_time(timer.time_left)
 	
 func update_focus_time_label() -> void:
-	if is_counting_down:
-		focus_duration = session_time - time_left 
+	#if is_counting_down:
+	if not timer.paused:		
 		var current_total_time: int = total_focus_time + focus_duration
 		focus_time_label.text = "Total Focus Time [" + convert_time(current_total_time) + "]"
-	else:
+		
+	else: # timer.paused
 		update_total_focus_time()
 		focus_time_label.text = "Total Focus Time [" + convert_time(total_focus_time) + "]"
-		
-		
+	if current_mode == mode.BREAK:
+			print("HOW DID YOU GET HERE? (this should be called only during focus mode??)")		
+			print("[SUS] Called from function: ", get_caller_function_name())
 func update_total_focus_time() -> void:
-	focus_duration = session_time - time_left
+
 	if focus_duration > 0 and session_time > 0:
 		print("Adding focus duration: %d seconds" % focus_duration)
 		total_focus_time += focus_duration
@@ -132,22 +139,27 @@ func _on_timer_button_pressed() -> void:
 	timer_button.disabled = true
 	AudioManager.click_basic.play()
 	
-	if timer.is_paused(): # if paused, then unpause and count down
-		timer.paused = false
-		is_counting_down = true
+	# .is_paused() method checks if the timer is paused and whether locally or globally (useful for scene/node pauses)
+	# for this use case, we care about local timer pause state so we use .paused
+	if timer.paused: # if paused...
+		timer.paused = false #...then unpause
+		#is_counting_down = true # we can instead check the .paused value
 		skip_button.visible = true
 		timer_button.text = "PAUSE"
-	elif is_counting_down: # if counting down, then pause
-		timer.paused = true
-		is_counting_down = false
+	elif not timer.paused: # if not paused...
+		timer.paused = true #...then pause
+		#is_counting_down = false
 		skip_button.visible = false
 		timer_button.text = "RESUME"
 		if current_mode == mode.FOCUS:
 			update_focus_time_label()
 	#TODO: make consistent size images to use for texture button, resume has 1 more char space
 	else: # if neither paused nor counting down, then start timer and count down
-		timer.start()
-		is_counting_down = true
+		timer.start() # does not unpause, but will start countdown if .paused = false
+			# sets .is_stopped() = false
+			# resets running timers time_left with new duration or default wait time
+		
+		#is_counting_down = true
 		skip_button.visible = true
 		timer_button.text = "PAUSE"
 		
@@ -184,19 +196,28 @@ func _on_pomo_timer_timeout() -> void:
 				switchMode()  # also updates TFT
 			else: # would user even want auto mode switch on timeout off?
 				pass # auto mode switch on timeout for now
-		
+
+# 
 func reset_timer(new_session_time_in_minutes: int) -> void:
-	timer.paused = false
-	is_counting_down = false
-	timer.stop()
+	print("resetting timer to: ", new_session_time_in_minutes, " min")
+	# timer.paused = false # redundant
+	#is_counting_down = false
+	#timer.stop()
+		# WARNING: this also sets timer.paused = false
+	timer.paused = true
 	timer_button.text = "START"
 	session_time = new_session_time_in_minutes * 60 # conversion to seconds
-	timer.wait_time = session_time
-	time_left = session_time
+	print("resetting timer to: ", session_time, " sec")
+	timer.start(session_time)
+	print("timer wait_time: ", timer.wait_time)
+	print("timer time_left: ", timer.time_left)
+		# this also sets both .wait_time and .time_left to session_time
+		# this does not unpause the timer
 	update_label()
-	print("reset timer to " + convert_time(time_left))
+	print("reset timer to " + convert_time(int(timer.time_left)))
 
-# closes menus when clicking outside to the background panel
+
+# closes pomo menus when clicking outside to the background panel
 func _on_background_panel_gui_input(event) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
@@ -207,7 +228,8 @@ func close_pomodoro_menus() -> void:
 	setting_menu.visible = false
 	setting_menu_scroll.scroll_vertical = 0
 	task_timer_menu.visible = false
-	
+
+# closes task timer menus when clicking on empty grid container space
 func _on_tt_grid_container_gui_input(event) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
@@ -219,7 +241,7 @@ func close_task_timer_quick_menus() -> void:
 		print(task_timer_control)
 		task_timer_control.get_node("TaskTimer")._on_sm_exit_pressed(is_muted)
 		task_timer_control.get_node("TaskTimer")._on_qm_exit_pressed(is_muted)
-#####
+##### END Timer
 
 
 ##### SettingMenu
@@ -259,7 +281,7 @@ func _on_window_default_button_pressed() -> void:
 	print("resetting window")
 	DisplayServer.window_set_size(default_window_size)
 	DisplayServer.window_set_position(default_window_position)
-#####
+##### END SettingMenu
 
 
 ##### TaskTimerMenu
@@ -272,14 +294,14 @@ func _on_task_timer_menu_button_pressed() -> void:
 		task_timer_menu.visible = true
 		setting_menu.visible = false
 		setting_menu_scroll.scroll_vertical = 0
-#####
+##### END TaskTimerMenu
 
 ##### SessionRating
 func rate_session() -> void:
 	AudioManager.alert_1_mb.play()
 	update_total_focus_time()
 	timer.paused = true
-	is_counting_down = false
+	#is_counting_down = false
 	#timer_elements.visible = false
 	session_rating.visible = true
 
@@ -307,9 +329,9 @@ func session_resume(extend_time: int) -> void:
 	is_progressive_pomo_break_due = true
 	reset_timer(extend_time)
 	timer.start()
-	is_counting_down = true
+	#is_counting_down = true
 	timer_button.text = "PAUSE"
-#####
+##### END SessionRating
 
 ##### Progressive Pomo
 func _on_progressive_pomo_toggle_toggled(toggled_on: bool) -> void:
@@ -319,6 +341,10 @@ func _on_progressive_pomo_toggle_toggled(toggled_on: bool) -> void:
 		is_progressive_pomo_enabled = true
 		match current_mode:
 			mode.FOCUS:
+				# update_focus_time_label() must be called before reset_timer()
+				# calls during focus mode to 
+				is_counting_down = false
+				update_focus_time_label()
 				reset_timer(primer_session.value)
 			mode.BREAK:
 				pass
@@ -328,11 +354,13 @@ func _on_progressive_pomo_toggle_toggled(toggled_on: bool) -> void:
 		is_progressive_pomo_enabled = false
 		match current_mode:
 			mode.FOCUS:
+				is_counting_down = false
+				update_focus_time_label()
 				reset_timer(pomo_session.value)
 			mode.BREAK:
 				pass
 		print("progressive pomo: false")
-#####
+##### END Progressive Pomo
 
 ##### Focus/Break Toggle
 func _on_mode_toggle_toggled(_toggled_on: bool) -> void:
@@ -367,7 +395,7 @@ func switchMode() -> void:
 			mode_toggle.modulate = break_color_picker.color
 			print("focus mode")
 	updatePanelColor()
-#####
+##### END Focus/Break Toggle
 
 
 ##### Save/Load 
@@ -511,8 +539,18 @@ func _notification(what) -> void:
 			pass
 		NOTIFICATION_WM_SIZE_CHANGED:
 			pass
+##### END Save/Load 
+
 # unfocused window not dragging is a known issue that I didn't have to spend a few hours
 # troubleshooting what I did wrong...
 # issue: https://github.com/godotengine/godot/issues/95577
 # pull: https://github.com/godotengine/godot/pull/95606
-#####
+
+### DEBUG
+func get_caller_function_name():
+	var stack = get_stack()
+	if stack.size() > 1:
+		# stack[0] is the current function, stack[1] is the caller
+		return stack[1]["function"]
+	return "Unknown"
+### END DEBUG
