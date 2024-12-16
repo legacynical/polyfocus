@@ -9,7 +9,7 @@ void vertex() {
 void fragment() {
 	vec2 center = vec2(0.5); // The center of the circle in UV space
     float radius = 0.47;      // Circle radius in UV space a bit less than .5 to avoid sticking out of progressbar
-    
+
 	// Calculate distance from the fragment to the circle center
     float dist = distance(UV, center);
 

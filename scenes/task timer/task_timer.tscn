@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://na41aqi1owpq" path="res://graphics/128x128-circle-blank.svg" id="2_7mirq"]
 [ext_resource type="Texture2D" uid="uid://cbopcrt7ijq3l" path="res://graphics/128x128-circle.svg" id="3_5w4ep"]
 [ext_resource type="BitMap" uid="uid://dqhbhtvg0pu4w" path="res://graphics/128x128-circle-click-mask.bmp" id="5_rfhvt"]
+[ext_resource type="StyleBox" uid="uid://csusgeo1f8t8c" path="res://themes/Exitbutton.tres" id="6_jo5bn"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_m3mh5"]
 shader = ExtResource("2_6y8h4")
@@ -12,9 +13,6 @@ shader_parameter/fill_color = null
 
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_b2e1g"]
 size = Vector2(128, 128)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3nisa"]
-bg_color = Color(0.922031, 0.412388, 0.466332, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vb6kc"]
 bg_color = Color(0.074, 0.074, 0.074, 0.9)
@@ -148,7 +146,6 @@ texture_click_mask = ExtResource("5_rfhvt")
 
 [node name="TaskTimerQuickMenu" type="PanelContainer" parent="."]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -174,7 +171,7 @@ alignment = 2
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 size_flags_horizontal = 4
-theme_override_styles/normal = SubResource("StyleBoxFlat_3nisa")
+theme_override_styles/normal = ExtResource("6_jo5bn")
 text = "X"
 
 [node name="QMEdit" type="Button" parent="TaskTimerQuickMenu/VBoxContainer"]
