@@ -45,7 +45,7 @@ var break_session_counter: int = 0
 var total_focus_time: int = 0
 var focus_duration: int = 0
 var session_time: int = 0
-#var time_left_floor: int = 0
+var time_left_rounded: int = 0
 
 enum mode {
 	FOCUS,
@@ -83,13 +83,12 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	#if is_counting_down:
 	if not timer.paused:
-		#time_left_floor = floor(timer.time_left) 
+		time_left_rounded = round(timer.time_left) 
 		## print(str(timer.time_left) + " -> " + str(time_left))
 		#print("time_left_floor: ", time_left_floor)
 		update_label()
 		match current_mode:
 			mode.FOCUS:
-				focus_duration = floor(timer.wait_time - timer.time_left)
 				update_focus_time_label()
 # TODO finish transparent mode feature
 func set_semi_transparent(node: Node) -> void:
@@ -102,11 +101,12 @@ func set_semi_transparent(node: Node) -> void:
 	
 ##### Timer
 func update_label() -> void:
-	timer_label.text = convert_time(timer.time_left)
+	timer_label.text = convert_time(time_left_rounded)
 	
 func update_focus_time_label() -> void:
 	#if is_counting_down:
-	if not timer.paused:		
+	if not timer.paused:	
+		focus_duration = timer.wait_time - time_left_rounded
 		var current_total_time: int = total_focus_time + focus_duration
 		focus_time_label.text = "Total Focus Time [" + convert_time(current_total_time) + "]"
 		
@@ -212,6 +212,7 @@ func reset_timer(new_session_time_in_minutes: int) -> void:
 	print("timer time_left: ", timer.time_left)
 		# this also sets both .wait_time and .time_left to session_time
 		# this does not unpause the timer
+	time_left_rounded = round(timer.time_left)
 	update_label()
 	print("reset timer to " + convert_time(int(timer.time_left)))
 
