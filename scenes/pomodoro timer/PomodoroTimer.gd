@@ -83,8 +83,9 @@ func _process(_delta: float) -> void:
 		time_left = round(timer.time_left)
 		# print(str(timer.time_left) + " -> " + str(time_left))
 		update_label()
-		if current_mode == mode.FOCUS:
-			update_focus_time_label()
+		match current_mode:
+			mode.FOCUS:
+				update_focus_time_label()
 
 # TODO finish transparent mode feature
 func set_semi_transparent(node: Node) -> void:
@@ -172,15 +173,17 @@ func updatePanelColor() -> void:
 
 func _on_pomo_timer_timeout() -> void:
 	#AudioManager.timer_complete.play()
-	if is_progressive_pomo_enabled and current_mode == mode.FOCUS:
-		if is_progressive_pomo_break_due:
-			switchMode() # updates TFT
-		else:
-			rate_session() 
-	elif is_switch_mode_on_timeout:
-		switchMode() # updates TFT
-	else:
-		pass # would user even want auto mode switch on timeout off?
+	match current_mode:
+		mode.FOCUS:
+			if is_progressive_pomo_enabled and is_progressive_pomo_break_due:
+				switchMode()  # also updates TFT
+			else:
+				rate_session()
+		mode.BREAK:
+			if is_switch_mode_on_timeout:
+				switchMode()  # also updates TFT
+			else: # would user even want auto mode switch on timeout off?
+				pass # auto mode switch on timeout for now
 		
 func reset_timer(new_session_time_in_minutes: int) -> void:
 	timer.paused = false
@@ -340,8 +343,8 @@ func switchMode() -> void:
 	is_progressive_pomo_break_due = false # prevents unintended breaks
 	match current_mode:
 		mode.FOCUS: # switches to break
-			update_total_focus_time()
 			AudioManager.time_to_break_mb.play()
+			update_total_focus_time()
 			@warning_ignore("narrowing_conversion")
 			break_session_counter += 1
 			print("\nbreak counter: " + str(break_session_counter))
