@@ -39,7 +39,6 @@ var is_progressive_pomo_break_due: bool = false
 var is_switch_mode_on_timeout: bool = true
 var is_long_breaks_enabled: bool = true
 
-var is_counting_down: bool = false
 var is_muted: bool = true
 
 var break_session_counter: int = 0
@@ -343,7 +342,6 @@ func _on_progressive_pomo_toggle_toggled(toggled_on: bool) -> void:
 			mode.FOCUS:
 				# update_focus_time_label() must be called before reset_timer()
 				# calls during focus mode to 
-				is_counting_down = false
 				update_focus_time_label()
 				reset_timer(primer_session.value)
 			mode.BREAK:
@@ -354,7 +352,6 @@ func _on_progressive_pomo_toggle_toggled(toggled_on: bool) -> void:
 		is_progressive_pomo_enabled = false
 		match current_mode:
 			mode.FOCUS:
-				is_counting_down = false
 				update_focus_time_label()
 				reset_timer(pomo_session.value)
 			mode.BREAK:
