@@ -154,7 +154,7 @@ func _on_timer_button_pressed() -> void:
 			update_focus_time_label()
 	#TODO: make consistent size images to use for texture button, resume has 1 more char space
 	else: # if neither paused nor counting down, then start timer and count down
-		timer.start() # does not unpause, but will start countdown if .paused = false
+		# timer.start() # does not unpause, but will start countdown if .paused = false
 			# sets .is_stopped() = false
 			# resets running timers time_left with new duration or default wait time
 		
@@ -260,15 +260,13 @@ func _on_pomo_session_value_changed(_custom_time: int) -> void:
 	update_total_focus_time() # prevents desync? hopefully
 	if current_mode == mode.FOCUS:
 		@warning_ignore("narrowing_conversion")
-		session_time = pomo_session.value
-		reset_timer(session_time)
+		reset_timer(pomo_session.value)
 
 func _on_break_session_value_changed(_custom_time: int) -> void:
 	print("break session time changed to " + str(break_session.value) + " min")
 	if current_mode == mode.BREAK:
 		@warning_ignore("narrowing_conversion")
-		session_time = break_session.value
-		reset_timer(session_time)
+		reset_timer(break_session.value)
 
 func _on_window_reset_button_pressed() -> void:
 	load_window()
