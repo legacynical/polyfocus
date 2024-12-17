@@ -105,8 +105,9 @@ func update_label() -> void:
 	
 func update_focus_time_label() -> void:
 	#if is_counting_down:
-	if not timer.paused:	
-		focus_duration = timer.wait_time - time_left_rounded
+	if not timer.paused:
+		# important to use session_time instead of timer.wait_time
+		focus_duration = session_time - time_left_rounded
 		var current_total_time: int = total_focus_time + focus_duration
 		focus_time_label.text = "Total Focus Time [" + convert_time(current_total_time) + "]"
 		
@@ -117,7 +118,7 @@ func update_focus_time_label() -> void:
 			print("HOW DID YOU GET HERE? (this should be called only during focus mode??)")		
 			print("[SUS] Called from function: ", get_caller_function_name())
 func update_total_focus_time() -> void:
-
+	# session_time is set to .wait_time on timer reset and is used here to prevent overshoot
 	if focus_duration > 0 and session_time > 0:
 		print("Adding focus duration: %d seconds" % focus_duration)
 		total_focus_time += focus_duration
