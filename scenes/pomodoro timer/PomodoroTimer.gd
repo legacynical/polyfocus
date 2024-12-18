@@ -329,7 +329,7 @@ func session_resume(extend_time: int) -> void:
 	session_rating.visible = false
 	is_progressive_pomo_break_due = true
 	reset_timer(extend_time)
-	timer.start()
+	timer.paused = false # auto starts timer after session_resume reset
 	#is_counting_down = true
 	timer_button.text = "PAUSE"
 ##### END SessionRating
