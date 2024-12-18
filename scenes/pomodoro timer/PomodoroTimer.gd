@@ -64,7 +64,7 @@ func _ready() -> void:
 		reset_timer(primer_session.value)
 	else:
 		reset_timer(pomo_session.value)
-	update_focus_time_label()
+	update_total_focus_time()
 	
 	#TODO finish transparent mode feature
 	# get_tree().get_root().set_transparent_background(true) # sets window transparency
@@ -84,12 +84,10 @@ func _process(_delta: float) -> void:
 	#if is_counting_down:
 	if not timer.paused:
 		time_left_rounded = round(timer.time_left) 
-		## print(str(timer.time_left) + " -> " + str(time_left))
-		#print("time_left_floor: ", time_left_floor)
 		update_label()
 		match current_mode:
 			mode.FOCUS:
-				update_focus_time_label()
+				update_total_focus_time()
 # TODO finish transparent mode feature
 func set_semi_transparent(node: Node) -> void:
 	if node is CanvasItem:
@@ -102,28 +100,26 @@ func set_semi_transparent(node: Node) -> void:
 ##### Timer
 func update_label() -> void:
 	timer_label.text = convert_time(time_left_rounded)
-	
-func update_focus_time_label() -> void:
+
+func update_total_focus_time() -> void:
 	#if is_counting_down:
 	if not timer.paused:
 		# important to use session_time instead of timer.wait_time
 		focus_duration = session_time - time_left_rounded
 		var current_total_time: int = total_focus_time + focus_duration
 		focus_time_label.text = "Total Focus Time [" + convert_time(current_total_time) + "]"
-		
 	else: # timer.paused
-		update_total_focus_time()
-		focus_time_label.text = "Total Focus Time [" + convert_time(total_focus_time) + "]"
+		# session_time is set to .wait_time on timer reset and is used here to prevent overshoot
+		if focus_duration > 0 and session_time > 0:
+			print("Adding focus duration: %d seconds" % focus_duration)
+			total_focus_time += focus_duration
+			session_time -= focus_duration
+			print("New total focus time: %d seconds" % total_focus_time)
+			focus_time_label.text = "Total Focus Time [" + convert_time(total_focus_time) + "]"
 	if current_mode == mode.BREAK:
 			print("HOW DID YOU GET HERE? (this should be called only during focus mode??)")		
 			print("[SUS] Called from function: ", get_caller_function_name())
-func update_total_focus_time() -> void:
-	# session_time is set to .wait_time on timer reset and is used here to prevent overshoot
-	if focus_duration > 0 and session_time > 0:
-		print("Adding focus duration: %d seconds" % focus_duration)
-		total_focus_time += focus_duration
-		session_time -= focus_duration
-		print("New total focus time: %d seconds" % total_focus_time)
+			
 	
 func convert_time(time: int) -> String:
 	@warning_ignore("integer_division")
@@ -152,7 +148,7 @@ func _on_timer_button_pressed() -> void:
 		skip_button.visible = false
 		timer_button.text = "RESUME"
 		if current_mode == mode.FOCUS:
-			update_focus_time_label()
+			update_total_focus_time()
 	#TODO: make consistent size images to use for texture button, resume has 1 more char space
 	else: # if neither paused nor counting down, then start timer and count down
 		# timer.start() # does not unpause, but will start countdown if .paused = false
@@ -342,7 +338,7 @@ func _on_progressive_pomo_toggle_toggled(toggled_on: bool) -> void:
 			mode.FOCUS:
 				# update_focus_time_label() must be called before reset_timer()
 				# calls during focus mode to 
-				update_focus_time_label()
+				update_total_focus_time()
 				reset_timer(primer_session.value)
 			mode.BREAK:
 				pass
@@ -352,7 +348,7 @@ func _on_progressive_pomo_toggle_toggled(toggled_on: bool) -> void:
 		is_progressive_pomo_enabled = false
 		match current_mode:
 			mode.FOCUS:
-				update_focus_time_label()
+				update_total_focus_time()
 				reset_timer(pomo_session.value)
 			mode.BREAK:
 				pass
