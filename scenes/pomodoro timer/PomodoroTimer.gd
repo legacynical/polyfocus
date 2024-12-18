@@ -153,8 +153,8 @@ func _on_timer_button_pressed() -> void:
 		#is_counting_down = false
 		skip_button.visible = false
 		timer_button.text = "RESUME"
-		if current_mode == mode.FOCUS:
-			update_total_focus_time()
+		#if current_mode == mode.FOCUS:
+			#update_total_focus_time()
 	#TODO: make consistent size images to use for texture button, resume has 1 more char space
 	else: # if neither paused nor counting down, then start timer and count down
 		# timer.start() # does not unpause, but will start countdown if .paused = false
@@ -260,9 +260,8 @@ func _on_setting_menu_button_pressed() -> void:
 		
 func _on_pomo_session_value_changed(_custom_time: int) -> void:
 	print("pomo session time changed to " + str(pomo_session.value) + " min")
-	update_total_focus_time() # prevents desync? hopefully
-	if current_mode == mode.FOCUS:
-		@warning_ignore("narrowing_conversion")
+	#update_total_focus_time() # prevents desync? hopefully
+	if current_mode == mode.FOCUS and not is_progressive_pomo_enabled:
 		reset_timer(pomo_session.value)
 
 func _on_break_session_value_changed(_custom_time: int) -> void:
@@ -300,7 +299,7 @@ func _on_task_timer_menu_button_pressed() -> void:
 ##### SessionRating
 func rate_session() -> void:
 	AudioManager.alert_1_mb.play()
-	update_total_focus_time()
+	#update_total_focus_time()
 	timer.paused = true
 	#is_counting_down = false
 	#timer_elements.visible = false
@@ -344,7 +343,7 @@ func _on_progressive_pomo_toggle_toggled(toggled_on: bool) -> void:
 			mode.FOCUS:
 				# update_focus_time_label() must be called before reset_timer()
 				# calls during focus mode to 
-				update_total_focus_time()
+				#update_total_focus_time()
 				reset_timer(primer_session.value)
 			mode.BREAK:
 				pass
@@ -354,7 +353,7 @@ func _on_progressive_pomo_toggle_toggled(toggled_on: bool) -> void:
 		is_progressive_pomo_enabled = false
 		match current_mode:
 			mode.FOCUS:
-				update_total_focus_time()
+				#update_total_focus_time()
 				reset_timer(pomo_session.value)
 			mode.BREAK:
 				pass
@@ -371,7 +370,7 @@ func switchMode() -> void:
 	match current_mode:
 		mode.FOCUS: # switches to break
 			AudioManager.time_to_break_mb.play()
-			update_total_focus_time()
+			#update_total_focus_time()
 			@warning_ignore("narrowing_conversion")
 			break_session_counter += 1
 			print("\nbreak counter: " + str(break_session_counter))
