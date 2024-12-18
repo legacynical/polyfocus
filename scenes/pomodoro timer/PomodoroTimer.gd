@@ -244,6 +244,9 @@ func close_task_timer_quick_menus() -> void:
 		print(task_timer_control)
 		task_timer_control.get_node("TaskTimer")._on_sm_exit_pressed(is_muted)
 		task_timer_control.get_node("TaskTimer")._on_qm_exit_pressed(is_muted)
+
+func is_long_break_due() -> bool:
+	return break_session_counter % int(break_session_interval.value) == 0
 ##### END Timer
 
 
@@ -266,10 +269,14 @@ func _on_pomo_session_value_changed(_custom_time: int) -> void:
 
 func _on_break_session_value_changed(_custom_time: int) -> void:
 	print("break session time changed to " + str(break_session.value) + " min")
-	if current_mode == mode.BREAK:
+	if current_mode == mode.BREAK and not is_long_break_due():
 		@warning_ignore("narrowing_conversion")
 		reset_timer(break_session.value)
 
+func _on_long_break_session_value_changed(_custom_time: int) -> void:
+	print("long break session time changed to " + str(long_break_session.value) + " min")
+	if current_mode == mode.BREAK and is_long_break_due():
+		reset_timer(long_break_session.value)
 func _on_window_reset_button_pressed() -> void:
 	load_window()
 
@@ -374,7 +381,7 @@ func switchMode() -> void:
 			@warning_ignore("narrowing_conversion")
 			break_session_counter += 1
 			print("\nbreak counter: " + str(break_session_counter))
-			if break_session_counter % int(break_session_interval.value) == 0:
+			if is_long_break_due():
 				reset_timer(long_break_session.value)
 			else:
 				reset_timer(break_session.value)
