@@ -487,6 +487,8 @@ func save_pomodoro_timer() -> void:
 	saved_game.neutral_session = neutral_session.value
 	saved_game.focused_session = focused_session.value
 	saved_game.flow_session = flow_session.value
+	saved_game.auto_extend_id = auto_session_extend.get_selected_id()
+	saved_game.rating_timeout = rating_timeout.value
 	ResourceSaver.save(saved_game, save_file)
 	
 func load_pomodoro_timer() -> void:
@@ -507,6 +509,8 @@ func load_pomodoro_timer() -> void:
 	neutral_session.value = saved_game.neutral_session
 	flow_session.value = saved_game.flow_session
 	focused_session.value = saved_game.focused_session
+	auto_session_extend.selected = saved_game.auto_extend_id
+	rating_timeout.value = saved_game.rating_timeout
 
 func save_task_timers() -> void:
 	print("\nsaving task timers:")

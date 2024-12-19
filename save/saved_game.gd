@@ -27,6 +27,9 @@ extends Resource
 @export var flow_session: int
 @export var focused_session: int
 @export var neutral_session: int
+
+@export var auto_extend_id: int
+@export var rating_timeout: int
 #####
 
 ##### save_stats() & load_stats()
