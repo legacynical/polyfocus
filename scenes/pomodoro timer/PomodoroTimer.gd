@@ -6,25 +6,38 @@ extends Node
 @onready var focus_time_label: Label = %TotalFocusTime
 @onready var timer_button: Button = %TimerButton
 @onready var skip_button: Button = %SkipButton
+
 @onready var setting_menu: PanelContainer = %SettingMenu
 @onready var setting_menu_scroll: ScrollContainer = %SettingMenuScroll
 @onready var task_timer_menu: PanelContainer = %TaskTimerMenu
 @onready var task_timer_grid_container: GridContainer = %TTGridContainer
 @onready var session_rating: Panel = %SessionRating
+@onready var sr_exit_button: Button = %SRExitButton
+
 @onready var pomo_session: SpinBox = %PomoSession
 @onready var break_session: SpinBox = %BreakSession
 @onready var long_break_session: SpinBox = %LongBreakSession
 @onready var break_session_interval: SpinBox = %BreakSessionInterval
+
 @onready var primer_session: SpinBox = %ProgressivePrimerSession
 @onready var neutral_session: SpinBox = %NeutralSession
 @onready var focused_session: SpinBox = %FocusedSession
 @onready var flow_session: SpinBox = %FlowSession
+
+@onready var distracted_label: Label = %DistractedLabel
+@onready var neutral_label: Label = %NeutralLabel
+@onready var focused_label: Label = %FocusedLabel
+@onready var flow_label: Label = %FlowLabel
+
 @onready var timer: Timer = %PomoTimer
 @onready var background: Panel = %BackgroundPanel
 @onready var focus_color_picker: ColorPickerButton = %FocusColorPicker
 @onready var break_color_picker: ColorPickerButton = %BreakColorPicker
 @onready var is_progressive_pomo_toggle: TextureButton = %ProgressivePomoToggle
 @onready var mode_toggle: TextureButton = %ModeToggle
+
+@onready var auto_session_extend: OptionButton = %AutoSessionExtend
+@onready var rating_timeout: SpinBox = %RatingTimeout
 
 @onready var saved_game: SavedGame = SavedGame.new()
 #@onready var save_file: String = "user://savegame.tres"
@@ -310,8 +323,26 @@ func rate_session() -> void:
 	timer.paused = true
 	#is_counting_down = false
 	#timer_elements.visible = false
+	flow_label.text = "+%dm" % flow_session.value
+	focused_label.text = "+%dm" % focused_session.value
+	neutral_label.text = "+%dm" % neutral_session.value
+	distracted_label.text = "↺%dm" % primer_session.value
 	session_rating.visible = true
+	
+	await get_tree().create_timer(rating_timeout.value).timeout
+	
+	match auto_session_extend.get_selected_id():
+		1:
+			_on_neutral_pressed()
+		2:
+			_on_focused_pressed()
+		3:
+			_on_flow_pressed()
+	
 
+func _on_sr_exit_button_pressed() -> void:
+	session_rating.visible = false
+	
 func _on_flow_pressed() -> void:
 	session_resume(flow_session.value)
 
