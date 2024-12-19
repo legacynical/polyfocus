@@ -778,6 +778,7 @@ grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_pueoj")
 
 [node name="RatingTimeoutBar" type="TextureProgressBar" parent="SessionRating"]
+unique_name_in_owner = true
 modulate = Color(1, 1, 1, 0.5)
 layout_mode = 1
 anchors_preset = 8
@@ -785,12 +786,14 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -121.5
-offset_top = -120.5
-offset_right = 121.5
-offset_bottom = 120.5
+offset_left = -128.0
+offset_top = -128.0
+offset_right = 128.0
+offset_bottom = 128.0
 grow_horizontal = 2
 grow_vertical = 2
+step = 0.1
+fill_mode = 5
 nine_patch_stretch = true
 texture_under = ExtResource("10_sb4l6")
 texture_progress = ExtResource("11_cjx1h")

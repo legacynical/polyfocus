@@ -24,6 +24,7 @@ extends Node
 @onready var focused_session: SpinBox = %FocusedSession
 @onready var flow_session: SpinBox = %FlowSession
 
+@onready var rating_timeout_bar: TextureProgressBar = %RatingTimeoutBar
 @onready var distracted_label: Label = %DistractedLabel
 @onready var neutral_label: Label = %NeutralLabel
 @onready var focused_label: Label = %FocusedLabel
@@ -329,19 +330,28 @@ func rate_session() -> void:
 	distracted_label.text = "↺%dm" % primer_session.value
 	session_rating.visible = true
 	
-	await get_tree().create_timer(rating_timeout.value).timeout
+	var rating_timeout_timer = get_tree().create_timer(rating_timeout.value)
+	rating_timeout_bar.max_value = rating_timeout.value
+	while rating_timeout_timer.time_left > 0:
+		rating_timeout_bar.value = rating_timeout_timer.time_left
+		await get_tree().create_timer(0.1).timeout
 	
-	match auto_session_extend.get_selected_id():
-		1:
-			_on_neutral_pressed()
-		2:
-			_on_focused_pressed()
-		3:
-			_on_flow_pressed()
-	
+	sr_exit_button.disabled = true
+	if session_rating.visible: # if SR isn't closed yet, then auto extend
+		match auto_session_extend.get_selected_id():
+			0:
+				_on_distracted_pressed()
+			1:
+				_on_neutral_pressed()
+			2:
+				_on_focused_pressed()
+			3:
+				_on_flow_pressed()
+	sr_exit_button.disabled = false	
 
 func _on_sr_exit_button_pressed() -> void:
 	session_rating.visible = false
+	_on_distracted_pressed()
 	
 func _on_flow_pressed() -> void:
 	session_resume(flow_session.value)
@@ -353,7 +363,6 @@ func _on_neutral_pressed() -> void:
 	session_resume(neutral_session.value)
 
 func _on_distracted_pressed() -> void:
-	AudioManager.click_basic.play()
 	AudioManager.distracted.play()
 	#timer_elements.visible = true
 	session_rating.visible = false
