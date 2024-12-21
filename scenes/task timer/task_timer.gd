@@ -19,10 +19,9 @@ const HOLD_THRESHOLD = 500 # in msec
 var press_time: int = 0
 var is_holding_task_timer_button: bool = false
 
-var is_counting_down: bool = false
 var session_time_in_minutes: int = 15 # used for resetting task_session.value
 var session_time: int = 0
-var time_left: int = 0
+var time_left_rounded: int = 0
 var task_duration: int = 0
 
 #var edit_color: Color = Color(0.067, 1.0, 0.0, 1.0)
@@ -46,8 +45,8 @@ func _process(_delta) -> void:
 			task_timer_quick_menu.visible = true
 			print("[Hold duration: " + str(hold_duration) + "] open task timer settings")
 			is_holding_task_timer_button = false # ensures no double action (1/2)
-	if is_counting_down:
-		time_left = round(timer.time_left)
+	if not timer.paused:
+		time_left_rounded = round(timer.time_left)
 		update_task_label()
 		update_task_progress_bar()
 
@@ -63,7 +62,7 @@ func _on_task_timer_button_up() -> void:
 	is_holding_task_timer_button = false
 
 func update_task_label() -> void:
-	timer_label.text = convert_time(time_left)
+	timer_label.text = convert_time(time_left_rounded)
 
 func convert_time(time: int) -> String:
 	@warning_ignore("integer_division")
@@ -78,32 +77,25 @@ func convert_time(time: int) -> String:
 	
 func update_task_progress_bar() -> void:
 	progress_bar.max_value = session_time
-	progress_bar.value = time_left
+	progress_bar.value = time_left_rounded
 	
 func task_timer_pause_unpause() -> void:
 	task_timer_button.disabled = true
 	AudioManager.click_basic.play()
 	
-	if timer.is_paused(): # if paused, then unpause and count down
+	if timer.paused:
 		timer.paused = false
-		is_counting_down = true
 		print("task timer unpaused")
-		#skip_button.visible = true
 		background_panel.z_index = 0
 		status_label.z_index = 0
 		status_label.text = "PAUSE"
-	elif is_counting_down: # if counting down, then pause
+	elif not timer.paused: # if counting down, then pause
 		timer.paused = true
-		is_counting_down = false
 		print("task timer paused")
-		#skip_button.visible = false
 		status_label.text = "RESUME"
 	#TODO: make consistent size images to use for texture button, resume has 1 more char space
 	else: # if neither paused nor counting down, then start timer and count down
-		timer.start()
-		is_counting_down = true
 		print("task timer started")
-		#skip_button.visible = true
 		status_label.text = "PAUSE"
 	task_timer_button.disabled = false
 
@@ -116,17 +108,14 @@ func _on_task_timer_timeout() -> void:
 
 func reset_task_timer(new_session_time_in_minutes: int) -> void:
 	timer.paused = false
-	is_counting_down = false
-	timer.stop()
 	status_label.text = "START"
-	session_time_in_minutes = new_session_time_in_minutes
 	session_time = new_session_time_in_minutes * 60
-	timer.wait_time = session_time
-	time_left = session_time
-	progress_bar.max_value = session_time # sets circle progress bar
+	timer.start(session_time)
+	
+	time_left_rounded = round(timer.time_left)
 	update_task_label()
 	update_task_progress_bar()
-	print("reset task timer to " + convert_time(time_left))
+	print("reset task timer to " + convert_time(int(timer.time_left)))
 
 ##### Quick Menu
 func _on_qm_exit_pressed(is_muted: bool = false) -> void:
