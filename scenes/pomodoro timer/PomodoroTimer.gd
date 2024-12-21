@@ -203,17 +203,14 @@ func _on_pomo_timer_timeout() -> void:
 	#AudioManager.timer_complete.play()
 	match current_mode:
 		mode.FOCUS:
-			if is_progressive_pomo_enabled and is_progressive_pomo_break_due:
-				switchMode()  # also updates TFT
+			if not is_progressive_pomo_enabled or is_progressive_pomo_break_due:
+				switchMode()
 			else:
 				rate_session()
 		mode.BREAK:
-			if is_switch_mode_on_timeout:
-				switchMode()  # also updates TFT
-			else: # would user even want auto mode switch on timeout off?
-				pass # auto mode switch on timeout for now
-
-# 
+			if is_switch_mode_on_timeout: # user non-changeable true
+				switchMode() # would user even want auto mode switch on timeout off?
+				
 func reset_timer(new_session_time_in_minutes: int) -> void:
 	print("resetting timer to: ", new_session_time_in_minutes, " min")
 	# timer.paused = false # redundant
