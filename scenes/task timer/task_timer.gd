@@ -81,13 +81,18 @@ func update_task_progress_bar() -> void:
 	
 func task_timer_pause_unpause() -> void:
 	task_timer_button.disabled = true
+	if background_panel.z_index == 1:
+		AudioManager.alert_2_mb.play()
+		background_panel.z_index = 0
+		status_label.z_index = 0
+		status_label.text = "START"
+		task_timer_button.disabled = false
+		return
+		
 	AudioManager.click_basic.play()
-	
 	if timer.paused:
 		timer.paused = false
 		print("task timer unpaused")
-		background_panel.z_index = 0
-		status_label.z_index = 0
 		status_label.text = "PAUSE"
 	elif not timer.paused: # if counting down, then pause
 		timer.paused = true
