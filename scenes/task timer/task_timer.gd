@@ -107,7 +107,7 @@ func _on_task_timer_timeout() -> void:
 	status_label.text = "COMPLETED"
 
 func reset_task_timer(new_session_time_in_minutes: int) -> void:
-	timer.paused = false
+	timer.paused = true
 	status_label.text = "START"
 	session_time = new_session_time_in_minutes * 60
 	timer.start(session_time)
