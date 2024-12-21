@@ -183,10 +183,10 @@ func _on_timer_button_pressed() -> void:
 
 func _on_skip_button_pressed() -> void:
 	AudioManager.click_basic.play()
-	switchMode()
+	switch_mode()
 	skip_button.visible = false
 
-func updatePanelColor() -> void:
+func update_panel_color() -> void:
 	var new_stylebox: StyleBox = background.get_theme_stylebox("panel").duplicate()
 	match current_mode:
 		mode.FOCUS:
@@ -204,12 +204,12 @@ func _on_pomo_timer_timeout() -> void:
 	match current_mode:
 		mode.FOCUS:
 			if not is_progressive_pomo_enabled or is_progressive_pomo_break_due:
-				switchMode()
+				switch_mode()
 			else:
 				rate_session()
 		mode.BREAK:
 			if is_switch_mode_on_timeout: # user non-changeable true
-				switchMode() # would user even want auto mode switch on timeout off?
+				switch_mode() # would user even want auto mode switch on timeout off?
 				
 func reset_timer(new_session_time_in_minutes: int) -> void:
 	print("resetting timer to: ", new_session_time_in_minutes, " min")
@@ -407,9 +407,9 @@ func _on_progressive_pomo_toggle_toggled(toggled_on: bool) -> void:
 ##### Focus/Break Toggle
 func _on_mode_toggle_toggled(_toggled_on: bool) -> void:
 	AudioManager.click_basic.play()
-	switchMode()
+	switch_mode()
 
-func switchMode() -> void:
+func switch_mode() -> void:
 	is_progressive_pomo_break_due = false # prevents unintended breaks
 	match current_mode:
 		mode.FOCUS: # switches to break
@@ -436,7 +436,7 @@ func switchMode() -> void:
 			current_mode = mode.FOCUS
 			mode_toggle.modulate = break_color_picker.color
 			print("focus mode")
-	updatePanelColor()
+	update_panel_color()
 ##### END Focus/Break Toggle
 
 
