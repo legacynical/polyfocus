@@ -42,7 +42,7 @@ extends Node
 
 @onready var saved_game: SavedGame = SavedGame.new()
 #@onready var save_file: String = "user://savegame.tres"
-@onready var save_file: String = "user://[v0.4.2-beta]savegame.tres"
+@onready var save_file: String = "user://[v0.4.3-beta]savegame.tres"
 
 
 var default_window_size: Vector2 = Vector2(480, 270)

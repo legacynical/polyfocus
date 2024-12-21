@@ -89,6 +89,8 @@ func task_timer_pause_unpause() -> void:
 		is_counting_down = true
 		print("task timer unpaused")
 		#skip_button.visible = true
+		background_panel.z_index = 0
+		status_label.z_index = 0
 		status_label.text = "PAUSE"
 	elif is_counting_down: # if counting down, then pause
 		timer.paused = true
@@ -108,6 +110,8 @@ func task_timer_pause_unpause() -> void:
 func _on_task_timer_timeout() -> void:
 	AudioManager.alert_1_mb.play()
 	reset_task_timer(task_session.value)
+	background_panel.z_index = 1
+	status_label.z_index = 1
 	status_label.text = "COMPLETED"
 
 func reset_task_timer(new_session_time_in_minutes: int) -> void:
