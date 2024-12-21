@@ -84,9 +84,11 @@ func task_timer_pause_unpause() -> void:
 	if background_panel.z_index == 1:
 		AudioManager.alert_2_mb.play()
 		background_panel.z_index = 0
+		timer_label.visible = true
 		task_label.z_index = 0
 		status_label.z_index = 0
 		status_label.text = "START"
+		
 		task_timer_button.disabled = false
 		return
 		
@@ -109,6 +111,7 @@ func _on_task_timer_timeout() -> void:
 	AudioManager.alert_1_mb.play()
 	reset_task_timer(task_session.value)
 	background_panel.z_index = 1
+	timer_label.visible = false
 	task_label.z_index = 1
 	status_label.z_index = 1
 	status_label.text = "COMPLETED"
