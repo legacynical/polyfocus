@@ -219,6 +219,7 @@ func reset_timer(new_session_time_in_minutes: int) -> void:
 		# WARNING: this also sets timer.paused = false
 	timer.paused = true
 	timer_button.text = "START"
+	skip_button.visible = false
 	session_time = new_session_time_in_minutes * 60 # conversion to seconds
 	print("resetting timer to: ", session_time, " sec")
 	timer.start(session_time)
