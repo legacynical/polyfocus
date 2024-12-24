@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://cyssynqbw33oq"]
+[gd_scene load_steps=28 format=3 uid="uid://cyssynqbw33oq"]
 
 [ext_resource type="Script" path="res://scenes/pomodoro timer/PomodoroTimer.gd" id="1_dpc6i"]
 [ext_resource type="FontFile" uid="uid://cogm35cdl37e6" path="res://fonts/ComicMono/ComicMono.ttf" id="2_j8k3t"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://dckhpntr1d5jp" path="res://globals/date time/date_time.tscn" id="4_rjnu3"]
 [ext_resource type="Texture2D" uid="uid://3qjpc7elm4io" path="res://graphics/32x32-skip-icon.svg" id="5_3yb1t"]
 [ext_resource type="Texture2D" uid="uid://dp6ordq4ukkpq" path="res://graphics/256x128-toggled-off-icon.svg" id="5_b358n"]
+[ext_resource type="StyleBox" uid="uid://dsouh0cjwvy2f" path="res://themes/TimerButton.tres" id="5_mrf4l"]
 [ext_resource type="Texture2D" uid="uid://peqio3wcu2w6" path="res://graphics/256x128-toggled-on-icon.svg" id="6_ppuow"]
 [ext_resource type="Theme" uid="uid://bo63cmd85t6l4" path="res://themes/TooltipPanelDarker.tres" id="6_pybon"]
 [ext_resource type="PackedScene" uid="uid://inb5foqb6gjj" path="res://scenes/task timer/task_timer.tscn" id="10_l7cyc"]
@@ -45,16 +46,13 @@ outline_color = Color(0, 0, 0, 1)
 shadow_size = 11
 shadow_color = Color(0, 0, 0, 0.239216)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d5qed"]
-bg_color = Color(0.489617, 0.617269, 0.727234, 1)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
-shadow_size = 3
+[sub_resource type="FontVariation" id="FontVariation_aqgwq"]
+spacing_top = -4
+spacing_bottom = -4
 
-[sub_resource type="Theme" id="Theme_1f8c0"]
-Button/styles/normal = SubResource("StyleBoxFlat_d5qed")
+[sub_resource type="Theme" id="Theme_360er"]
+default_font = SubResource("FontVariation_aqgwq")
+default_font_size = 40
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pueoj"]
 bg_color = Color(0.118581, 0.118581, 0.118581, 0.752941)
@@ -132,6 +130,11 @@ layout_mode = 2
 size_flags_horizontal = 6
 text = "Total Focus Time [00:00]"
 
+[node name="debug" type="Button" parent="BackgroundPanel/TimerElements/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "debug"
+
 [node name="TaskTimerMenuButton" type="TextureButton" parent="BackgroundPanel/TimerElements/HBoxContainer"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
@@ -160,21 +163,43 @@ vertical_alignment = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundPanel/TimerElements"]
 layout_mode = 2
+size_flags_vertical = 4
 mouse_filter = 0
+alignment = 1
 
 [node name="SpacerLeft" type="Control" parent="BackgroundPanel/TimerElements/HBoxContainer2"]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 
+[node name="QuickTimerButton" type="Button" parent="BackgroundPanel/TimerElements/HBoxContainer2/SpacerLeft"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -51.0
+offset_top = -27.0
+offset_bottom = 27.0
+grow_horizontal = 0
+grow_vertical = 2
+text = "quick
+timer"
+
 [node name="TimerButton" type="Button" parent="BackgroundPanel/TimerElements/HBoxContainer2"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 0)
+custom_minimum_size = Vector2(200, 55)
 layout_mode = 2
-size_flags_horizontal = 6
-theme = SubResource("Theme_1f8c0")
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = SubResource("Theme_360er")
 theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = ExtResource("5_mrf4l")
 text = "START"
+clip_text = true
 
 [node name="SpacerRight" type="Control" parent="BackgroundPanel/TimerElements/HBoxContainer2"]
 custom_minimum_size = Vector2(40, 0)
@@ -183,7 +208,6 @@ size_flags_horizontal = 3
 
 [node name="SkipButton" type="Button" parent="BackgroundPanel/TimerElements/HBoxContainer2/SpacerRight"]
 unique_name_in_owner = true
-visible = false
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 1
 anchors_preset = 4
@@ -198,6 +222,22 @@ size_flags_horizontal = 2
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 15
 icon = ExtResource("5_3yb1t")
+
+[node name="QuickTimerMenu" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -85.0
+offset_right = 160.0
+offset_bottom = 85.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="SettingMenu" type="PanelContainer" parent="."]
 unique_name_in_owner = true
@@ -928,8 +968,10 @@ scale = Vector2(0.545, 0.545)
 
 [connection signal="gui_input" from="BackgroundPanel" to="." method="_on_background_panel_gui_input"]
 [connection signal="toggled" from="BackgroundPanel/TimerElements/HBoxContainer/ModeToggle" to="." method="_on_mode_toggle_toggled"]
+[connection signal="pressed" from="BackgroundPanel/TimerElements/HBoxContainer/debug" to="." method="_on_debug_pressed"]
 [connection signal="pressed" from="BackgroundPanel/TimerElements/HBoxContainer/TaskTimerMenuButton" to="." method="_on_task_timer_menu_button_pressed"]
 [connection signal="pressed" from="BackgroundPanel/TimerElements/HBoxContainer/SettingMenuButton" to="." method="_on_setting_menu_button_pressed"]
+[connection signal="pressed" from="BackgroundPanel/TimerElements/HBoxContainer2/SpacerLeft/QuickTimerButton" to="." method="_on_quick_timer_button_pressed"]
 [connection signal="pressed" from="BackgroundPanel/TimerElements/HBoxContainer2/TimerButton" to="." method="_on_timer_button_pressed"]
 [connection signal="pressed" from="BackgroundPanel/TimerElements/HBoxContainer2/SpacerRight/SkipButton" to="." method="_on_skip_button_pressed"]
 [connection signal="value_changed" from="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer/PomoSession" to="." method="_on_pomo_session_value_changed"]

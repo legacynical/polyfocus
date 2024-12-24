@@ -7,28 +7,32 @@ extends Node
 @onready var timer_button: Button = %TimerButton
 @onready var skip_button: Button = %SkipButton
 
+@onready var quick_timer_menu = %QuickTimerMenu
+@onready var quick_timer_button = %QuickTimerButton
+
+
 @onready var setting_menu: PanelContainer = %SettingMenu
 @onready var setting_menu_scroll: ScrollContainer = %SettingMenuScroll
-@onready var task_timer_menu: PanelContainer = %TaskTimerMenu
-@onready var task_timer_grid_container: GridContainer = %TTGridContainer
-@onready var session_rating: Panel = %SessionRating
-@onready var sr_exit_button: Button = %SRExitButton
-
 @onready var pomo_session: SpinBox = %PomoSession
 @onready var break_session: SpinBox = %BreakSession
 @onready var long_break_session: SpinBox = %LongBreakSession
 @onready var break_session_interval: SpinBox = %BreakSessionInterval
-
 @onready var primer_session: SpinBox = %ProgressivePrimerSession
 @onready var neutral_session: SpinBox = %NeutralSession
 @onready var focused_session: SpinBox = %FocusedSession
 @onready var flow_session: SpinBox = %FlowSession
 
+@onready var task_timer_menu: PanelContainer = %TaskTimerMenu
+@onready var task_timer_grid_container: GridContainer = %TTGridContainer
+
+@onready var session_rating: Panel = %SessionRating
+@onready var sr_exit_button: Button = %SRExitButton
 @onready var rating_timeout_bar: TextureProgressBar = %RatingTimeoutBar
 @onready var distracted_label: Label = %DistractedLabel
 @onready var neutral_label: Label = %NeutralLabel
 @onready var focused_label: Label = %FocusedLabel
 @onready var flow_label: Label = %FlowLabel
+
 
 @onready var timer: Timer = %PomoTimer
 @onready var background: Panel = %BackgroundPanel
@@ -174,7 +178,6 @@ func _on_timer_button_pressed() -> void:
 		# timer.start() # does not unpause, but will start countdown if .paused = false
 			# sets .is_stopped() = false
 			# resets running timers time_left with new duration or default wait time
-		
 		#is_counting_down = true
 		skip_button.visible = true
 		timer_button.text = "PAUSE"
@@ -243,24 +246,16 @@ func close_pomodoro_menus() -> void:
 	setting_menu.visible = false
 	setting_menu_scroll.scroll_vertical = 0
 	task_timer_menu.visible = false
-
-# closes task timer menus when clicking on empty grid container space
-func _on_tt_grid_container_gui_input(event) -> void:
-	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			print("tt grid container pressed")
-			close_task_timer_quick_menus()
-			
-func close_task_timer_quick_menus() -> void:
-	for task_timer_control in task_timer_grid_container.get_children():
-		print(task_timer_control)
-		task_timer_control.get_node("TaskTimer")._on_sm_exit_pressed(is_muted)
-		task_timer_control.get_node("TaskTimer")._on_qm_exit_pressed(is_muted)
+	quick_timer_menu.visible = false
 
 func is_long_break_due() -> bool:
 	return break_session_counter % int(break_session_interval.value) == 0
 ##### END Timer
 
+##### QuickTimer
+func _on_quick_timer_button_pressed():
+	quick_timer_menu.visible = true
+##### END QuickTimer
 
 ##### SettingMenu
 func _on_setting_menu_button_pressed() -> void:
@@ -313,6 +308,19 @@ func _on_task_timer_menu_button_pressed() -> void:
 		task_timer_menu.visible = true
 		setting_menu.visible = false
 		setting_menu_scroll.scroll_vertical = 0
+
+# closes task timer menus when clicking on empty grid container space
+func _on_tt_grid_container_gui_input(event) -> void:
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			print("tt grid container pressed")
+			close_task_timer_quick_menus()
+			
+func close_task_timer_quick_menus() -> void:
+	for task_timer_control in task_timer_grid_container.get_children():
+		print(task_timer_control)
+		task_timer_control.get_node("TaskTimer")._on_sm_exit_pressed(is_muted)
+		task_timer_control.get_node("TaskTimer")._on_qm_exit_pressed(is_muted)
 ##### END TaskTimerMenu
 
 ##### SessionRating
@@ -378,7 +386,7 @@ func session_resume(extend_time: int) -> void:
 	timer_button.text = "PAUSE"
 ##### END SessionRating
 
-##### Progressive Pomo
+##### ProgressivePomo
 func _on_progressive_pomo_toggle_toggled(toggled_on: bool) -> void:
 	AudioManager.click_basic.play()
 	if toggled_on:
@@ -403,7 +411,7 @@ func _on_progressive_pomo_toggle_toggled(toggled_on: bool) -> void:
 			mode.BREAK:
 				pass
 		print("progressive pomo: false")
-##### END Progressive Pomo
+##### END ProgressivePomo
 
 ##### Focus/Break Toggle
 func _on_mode_toggle_toggled(_toggled_on: bool) -> void:
@@ -600,4 +608,7 @@ func get_caller_function_name():
 		# stack[0] is the current function, stack[1] is the caller
 		return stack[1]["function"]
 	return "Unknown"
+
+func _on_debug_pressed():
+	timer_button.text = "RESUME"
 ### END DEBUG
