@@ -176,13 +176,13 @@ vertical_alignment = 2
 [node name="HBoxContainer2" type="HBoxContainer" parent="BackgroundPanel/TimerElements"]
 layout_mode = 2
 size_flags_vertical = 4
-mouse_filter = 0
 alignment = 1
 
 [node name="SpacerLeft" type="Control" parent="BackgroundPanel/TimerElements/HBoxContainer2"]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 
 [node name="QuickTimerButton" type="Button" parent="BackgroundPanel/TimerElements/HBoxContainer2/SpacerLeft"]
 unique_name_in_owner = true
@@ -217,6 +217,7 @@ clip_text = true
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 
 [node name="SkipButton" type="Button" parent="BackgroundPanel/TimerElements/HBoxContainer2/SpacerRight"]
 unique_name_in_owner = true
@@ -237,6 +238,7 @@ icon = ExtResource("5_3yb1t")
 
 [node name="QuickTimerMenu" type="PanelContainer" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
