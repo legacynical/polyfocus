@@ -56,6 +56,10 @@ default_font_size = 40
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n2pc7"]
 bg_color = Color(0.457527, 0.457527, 0.457527, 0.8)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p656t"]
 content_margin_top = 2.0
@@ -237,10 +241,10 @@ layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 56.0
-offset_top = 48.0
-offset_right = -56.0
-offset_bottom = -42.0
+offset_left = 66.0
+offset_top = 45.0
+offset_right = -72.0
+offset_bottom = -14.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_n2pc7")
@@ -250,81 +254,80 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="QuickTimerMenu/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
-text = "reset timer"
-horizontal_alignment = 1
+theme_override_font_sizes/font_size = 10
+text = " preset quick timer"
 
 [node name="GridContainer" type="GridContainer" parent="QuickTimerMenu/VBoxContainer"]
 layout_mode = 2
 columns = 4
 
-[node name="Button" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+[node name="5MinButton" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
 text = "5 min"
 
-[node name="Button4" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+[node name="20MinButton" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
 text = "20 min"
 
-[node name="Button7" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+[node name="35MinButton" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
 text = "35 min"
 
-[node name="Button10" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+[node name="50MinButton" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
 text = "50 min"
 
-[node name="Button2" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+[node name="10MinButton" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
 text = "10 min"
 
-[node name="Button5" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+[node name="25MinButton" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
 text = "25 min"
 
-[node name="Button8" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+[node name="40MinButton" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
 text = "40 min"
 
-[node name="Button11" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+[node name="55MinButton" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
 text = "55 min"
 
-[node name="Button3" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+[node name="15MinButton" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
 text = "15 min"
 
-[node name="Button6" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+[node name="30MinButton" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
 text = "30 min"
 
-[node name="Button9" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+[node name="45MinButton" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
 text = "45 min"
 
-[node name="Button12" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+[node name="1HrButton" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
@@ -332,9 +335,11 @@ text = "1 hr"
 
 [node name="Label2" type="Label" parent="QuickTimerMenu/VBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
-text = "add to timer"
-horizontal_alignment = 1
+theme_override_font_sizes/font_size = 10
+text = " custom quick timer"
+
+[node name="HSlider" type="HSlider" parent="QuickTimerMenu/VBoxContainer"]
+layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="QuickTimerMenu/VBoxContainer"]
 layout_mode = 2
@@ -343,44 +348,69 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
-text = "-10"
+text = "-30"
 
 [node name="Button14" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
-text = "-5"
+text = "-10"
 
 [node name="Button17" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
-text = "-1"
+text = "-5"
 
-[node name="Button18" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer"]
+[node name="Button18" type="SpinBox" parent="QuickTimerMenu/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_stretch_ratio = 5.0
-theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
-text = "time"
+size_flags_stretch_ratio = 3.0
+min_value = 1.0
+max_value = 999.0
+value = 1.0
+alignment = 1
+update_on_text_changed = true
+suffix = "min"
 
 [node name="Button19" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
-text = "+1"
+text = "+5"
 
 [node name="Button15" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
-text = "+5"
+text = "+10"
 
 [node name="Button16" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
-text = "+10"
+text = "+30"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="QuickTimerMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Control" type="Control" parent="QuickTimerMenu/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+
+[node name="Button18" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
+text = "Start"
+
+[node name="Control2" type="Control" parent="QuickTimerMenu/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.0
 
 [node name="SettingMenu" type="PanelContainer" parent="."]
 unique_name_in_owner = true
