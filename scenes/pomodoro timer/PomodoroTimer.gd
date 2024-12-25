@@ -270,6 +270,10 @@ func _on_quick_timer_button_pressed():
 
 func _on_qt_one_click_start_toggle_toggled(toggled_on):
 	AudioManager.click_basic.play()
+	if toggled_on:
+		custom_qt_session_start.text = "START"
+	else:
+		custom_qt_session_start.text = "SET"
 
 func _on_custom_qt_session_slider_value_changed(value):
 	custom_qt_session_spin_box.value = value
@@ -311,22 +315,16 @@ func _on_custom_qt_session_start_pressed():
 	AudioManager.click_basic.play()
 	quick_timer_menu.visible = false
 	
-	
 func _on_subtract_30_min_pressed():
 	edit_quick_timer(-30)
-
 func _on_subtract_10_min_pressed():
 	edit_quick_timer(-10)
-
 func _on_subtract_5_min_pressed():
 	edit_quick_timer(-5)
-
 func _on_add_5_min_pressed():
 	edit_quick_timer(5)
-
 func _on_add_10_min_pressed():
 	edit_quick_timer(10)
-
 func _on_add_30_min_pressed():
 	edit_quick_timer(30)
 
