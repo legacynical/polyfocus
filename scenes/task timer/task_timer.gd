@@ -38,6 +38,7 @@ func _ready() -> void:
 	#reset_task_timer(task_session.value)
 
 func _process(_delta) -> void:
+	##TODO: pretty sure I can just move this to _on_task_timer_button_up()
 	if is_holding_task_timer_button:
 		var hold_duration: int = Time.get_ticks_msec() - press_time
 		if hold_duration >= HOLD_THRESHOLD:
