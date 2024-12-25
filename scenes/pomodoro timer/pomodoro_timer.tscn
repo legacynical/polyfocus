@@ -252,89 +252,255 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_n2pc7")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="QuickTimerMenu"]
 layout_mode = 2
+theme_override_constants/separation = 0
 
-[node name="Label" type="Label" parent="QuickTimerMenu/VBoxContainer"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="QuickTimerMenu/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="QuickTimerMenu/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 10
 text = " preset quick timer"
 
+[node name="Label2" type="Label" parent="QuickTimerMenu/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 10
+theme_override_font_sizes/font_size = 10
+text = "one-click start"
+
+[node name="Control" type="Control" parent="QuickTimerMenu/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(28, 14)
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="QTOneClickStartToggle" type="TextureButton" parent="QuickTimerMenu/VBoxContainer/HBoxContainer3/Control"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+toggle_mode = true
+texture_normal = ExtResource("5_b358n")
+texture_pressed = ExtResource("6_ppuow")
+ignore_texture_size = true
+stretch_mode = 5
+
 [node name="GridContainer" type="GridContainer" parent="QuickTimerMenu/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 5.0
 columns = 4
 
-[node name="Min5Button" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+[node name="Control" type="Control" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 27)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Min5Button" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
 text = "5 min"
 
-[node name="Min20Button" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+[node name="Control2" type="Control" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 27)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Min20Button" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer/Control2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
 text = "20 min"
 
-[node name="Min35Button" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+[node name="Control3" type="Control" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 27)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Min35Button" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer/Control3"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
 text = "35 min"
 
-[node name="Min50Button" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+[node name="Control4" type="Control" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 27)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Min50Button" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer/Control4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
 text = "50 min"
 
-[node name="Min10Button" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+[node name="Control5" type="Control" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 27)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Min10Button" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer/Control5"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
 text = "10 min"
 
-[node name="Min25Button" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+[node name="Control6" type="Control" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 27)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Min25Button" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer/Control6"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
 text = "25 min"
 
-[node name="Min40Button" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+[node name="Control7" type="Control" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 27)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Min40Button" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer/Control7"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
 text = "40 min"
 
-[node name="Min55Button" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+[node name="Control8" type="Control" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 27)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Min55Button" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer/Control8"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
 text = "55 min"
 
-[node name="Min15Button" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+[node name="Control9" type="Control" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 27)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Min15Button" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer/Control9"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
 text = "15 min"
 
-[node name="Min30Button" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+[node name="Control10" type="Control" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 27)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Min30Button" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer/Control10"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
 text = "30 min"
 
-[node name="Min45Button" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+[node name="Control11" type="Control" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 27)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Min45Button" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer/Control11"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
 text = "45 min"
 
-[node name="Hr1Button" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+[node name="Control12" type="Control" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(0, 27)
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Hr1Button" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer/Control12"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
 text = "1 hr"
 
-[node name="Label2" type="Label" parent="QuickTimerMenu/VBoxContainer"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="QuickTimerMenu/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="QuickTimerMenu/VBoxContainer/HBoxContainer4"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 10
 text = " custom quick timer"
@@ -344,6 +510,7 @@ layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="QuickTimerMenu/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 
 [node name="Button13" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -394,6 +561,7 @@ text = "+30"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="QuickTimerMenu/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 theme_override_constants/separation = 12
 
 [node name="Control" type="Control" parent="QuickTimerMenu/VBoxContainer/HBoxContainer2"]
@@ -1148,18 +1316,18 @@ scale = Vector2(0.545, 0.545)
 [connection signal="pressed" from="BackgroundPanel/TimerElements/HBoxContainer2/SpacerLeft/QuickTimerButton" to="." method="_on_quick_timer_button_pressed"]
 [connection signal="pressed" from="BackgroundPanel/TimerElements/HBoxContainer2/TimerButton" to="." method="_on_timer_button_pressed"]
 [connection signal="pressed" from="BackgroundPanel/TimerElements/HBoxContainer2/SpacerRight/SkipButton" to="." method="_on_skip_button_pressed"]
-[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/GridContainer/Min5Button" to="." method="_on_min_5_button_pressed"]
-[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/GridContainer/Min20Button" to="." method="_on_min_20_button_pressed"]
-[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/GridContainer/Min35Button" to="." method="_on_min_35_button_pressed"]
-[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/GridContainer/Min50Button" to="." method="_on_min_50_button_pressed"]
-[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/GridContainer/Min10Button" to="." method="_on_min_10_button_pressed"]
-[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/GridContainer/Min25Button" to="." method="_on_min_25_button_pressed"]
-[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/GridContainer/Min40Button" to="." method="_on_min_40_button_pressed"]
-[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/GridContainer/Min55Button" to="." method="_on_min_55_button_pressed"]
-[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/GridContainer/Min15Button" to="." method="_on_min_15_button_pressed"]
-[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/GridContainer/Min30Button" to="." method="_on_min_30_button_pressed"]
-[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/GridContainer/Min45Button" to="." method="_on_min_45_button_pressed"]
-[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/GridContainer/Hr1Button" to="." method="_on_hr_1_button_pressed"]
+[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/GridContainer/Control/Min5Button" to="." method="_on_min_5_button_pressed"]
+[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/GridContainer/Control2/Min20Button" to="." method="_on_min_20_button_pressed"]
+[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/GridContainer/Control3/Min35Button" to="." method="_on_min_35_button_pressed"]
+[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/GridContainer/Control4/Min50Button" to="." method="_on_min_50_button_pressed"]
+[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/GridContainer/Control5/Min10Button" to="." method="_on_min_10_button_pressed"]
+[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/GridContainer/Control6/Min25Button" to="." method="_on_min_25_button_pressed"]
+[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/GridContainer/Control7/Min40Button" to="." method="_on_min_40_button_pressed"]
+[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/GridContainer/Control8/Min55Button" to="." method="_on_min_55_button_pressed"]
+[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/GridContainer/Control9/Min15Button" to="." method="_on_min_15_button_pressed"]
+[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/GridContainer/Control10/Min30Button" to="." method="_on_min_30_button_pressed"]
+[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/GridContainer/Control11/Min45Button" to="." method="_on_min_45_button_pressed"]
+[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/GridContainer/Control12/Hr1Button" to="." method="_on_hr_1_button_pressed"]
 [connection signal="value_changed" from="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer/PomoSession" to="." method="_on_pomo_session_value_changed"]
 [connection signal="value_changed" from="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer2/BreakSession" to="." method="_on_break_session_value_changed"]
 [connection signal="value_changed" from="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer3/LongBreakSession" to="." method="_on_long_break_session_value_changed"]

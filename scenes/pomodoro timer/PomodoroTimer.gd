@@ -7,8 +7,10 @@ extends Node
 @onready var timer_button: Button = %TimerButton
 @onready var skip_button: Button = %SkipButton
 
-@onready var quick_timer_menu = %QuickTimerMenu
-@onready var quick_timer_button = %QuickTimerButton
+@onready var quick_timer_menu: PanelContainer = %QuickTimerMenu
+@onready var quick_timer_button: Button = %QuickTimerButton
+@onready var qt_one_click_start_toggle: TextureButton = %QTOneClickStartToggle 
+#TODO add to save ^^^
 
 
 @onready var setting_menu: PanelContainer = %SettingMenu
