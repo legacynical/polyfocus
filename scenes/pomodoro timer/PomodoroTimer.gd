@@ -179,11 +179,13 @@ func _on_timer_button_pressed() -> void:
 		timer.paused = false #...then unpause
 		#is_counting_down = true # we can instead check the .paused value
 		skip_button.visible = true
+		quick_timer_button.visible = false
 		timer_button.text = "PAUSE"
 	elif not timer.paused: # if not paused...
 		timer.paused = true #...then pause
 		#is_counting_down = false
 		skip_button.visible = false
+		quick_timer_button.visible = true
 		timer_button.text = "RESUME"
 		#if current_mode == mode.FOCUS:
 			#update_total_focus_time()
@@ -201,7 +203,7 @@ func _on_timer_button_pressed() -> void:
 func _on_skip_button_pressed() -> void:
 	AudioManager.click_basic.play()
 	switch_mode()
-	skip_button.visible = false
+
 
 func update_panel_color() -> void:
 	var new_stylebox: StyleBox = background.get_theme_stylebox("panel").duplicate()
@@ -471,6 +473,8 @@ func session_resume(extend_time: int) -> void:
 	timer.paused = false # auto starts timer after session_resume reset
 	#is_counting_down = true
 	timer_button.text = "PAUSE"
+	skip_button.visible = true
+	quick_timer_button.visible = false
 ##### END SessionRating
 
 ##### ProgressivePomo
@@ -507,6 +511,8 @@ func _on_mode_toggle_toggled(_toggled_on: bool) -> void:
 
 func switch_mode() -> void:
 	is_progressive_pomo_break_due = false # prevents unintended breaks
+	skip_button.visible = false
+	quick_timer_button.visible = true
 	match current_mode:
 		mode.FOCUS: # switches to break
 			AudioManager.time_to_break_mb.play()
