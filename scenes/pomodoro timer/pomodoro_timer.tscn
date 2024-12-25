@@ -252,6 +252,7 @@ icon = ExtResource("5_3yb1t")
 
 [node name="QuickTimerMenu" type="PanelContainer" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
