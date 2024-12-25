@@ -9,9 +9,14 @@ extends Node
 
 @onready var quick_timer_menu: PanelContainer = %QuickTimerMenu
 @onready var quick_timer_button: Button = %QuickTimerButton
-@onready var qt_one_click_start_toggle: TextureButton = %QTOneClickStartToggle 
-#TODO add to save ^^^
 
+######TODO add to save
+@onready var qt_one_click_start_toggle: TextureButton = %QTOneClickStartToggle
+
+# these two should be the same value
+@onready var custom_qt_session_slider = %CustomQTSessionSlider
+@onready var custom_qt_session_spin_box = %CustomQTSessionSpinBox
+#####TODO END
 
 @onready var setting_menu: PanelContainer = %SettingMenu
 @onready var setting_menu_scroll: ScrollContainer = %SettingMenuScroll
