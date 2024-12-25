@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://cyssynqbw33oq"]
+[gd_scene load_steps=33 format=3 uid="uid://cyssynqbw33oq"]
 
 [ext_resource type="Script" path="res://scenes/pomodoro timer/PomodoroTimer.gd" id="1_dpc6i"]
 [ext_resource type="FontFile" uid="uid://cogm35cdl37e6" path="res://fonts/ComicMono/ComicMono.ttf" id="2_j8k3t"]
@@ -55,7 +55,6 @@ default_font = SubResource("FontVariation_aqgwq")
 default_font_size = 40
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n2pc7"]
-bg_color = Color(0.457527, 0.457527, 0.457527, 0.8)
 border_width_left = 2
 border_width_top = 2
 border_width_right = 2
@@ -65,6 +64,20 @@ border_width_bottom = 2
 content_margin_top = 2.0
 content_margin_bottom = 2.0
 bg_color = Color(0, 0, 0, 0.7)
+
+[sub_resource type="FontVariation" id="FontVariation_npiim"]
+spacing_top = -2
+spacing_bottom = -2
+
+[sub_resource type="Theme" id="Theme_cxhhq"]
+default_font = SubResource("FontVariation_npiim")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fdfke"]
+bg_color = Color(0.180392, 0.180392, 0.180392, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pueoj"]
 bg_color = Color(0.118581, 0.118581, 0.118581, 0.752941)
@@ -515,19 +528,19 @@ value = 25.0
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Button13" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer"]
+[node name="Subtract30Min" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
 text = "-30"
 
-[node name="Button14" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer"]
+[node name="Subtract10Min" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
 text = "-10"
 
-[node name="Button17" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer"]
+[node name="Subtract5Min" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
@@ -541,32 +554,52 @@ size_flags_stretch_ratio = 3.0
 [node name="CustomQTSessionSpinBox" type="SpinBox" parent="QuickTimerMenu/VBoxContainer/HBoxContainer/Control"]
 unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = -1
+anchor_top = -0.074
 anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_bottom = 1.074
+offset_top = -0.00199997
+offset_bottom = 0.00200081
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
-min_value = 1.0
 max_value = 999.0
 value = 25.0
 alignment = 1
 update_on_text_changed = true
 
-[node name="Button19" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer"]
+[node name="CustomQTSessionLabel" type="Label" parent="QuickTimerMenu/VBoxContainer/HBoxContainer/Control"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.111
+anchor_right = 1.0
+anchor_bottom = 1.074
+offset_top = 0.997
+offset_right = -16.0
+offset_bottom = 0.00200081
+grow_vertical = 2
+theme = SubResource("Theme_cxhhq")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_fdfke")
+text = "25:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Add5Min" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
 text = "+5"
 
-[node name="Button15" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer"]
+[node name="Add10Min" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
 text = "+10"
 
-[node name="Button16" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer"]
+[node name="Add30Min" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
@@ -583,7 +616,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
 
-[node name="Button18" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer2"]
+[node name="CustomQTSessionStart" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
@@ -1331,6 +1365,7 @@ scale = Vector2(0.545, 0.545)
 [connection signal="pressed" from="BackgroundPanel/TimerElements/HBoxContainer2/SpacerLeft/QuickTimerButton" to="." method="_on_quick_timer_button_pressed"]
 [connection signal="pressed" from="BackgroundPanel/TimerElements/HBoxContainer2/TimerButton" to="." method="_on_timer_button_pressed"]
 [connection signal="pressed" from="BackgroundPanel/TimerElements/HBoxContainer2/SpacerRight/SkipButton" to="." method="_on_skip_button_pressed"]
+[connection signal="toggled" from="QuickTimerMenu/VBoxContainer/HBoxContainer3/Control/QTOneClickStartToggle" to="." method="_on_qt_one_click_start_toggle_toggled"]
 [connection signal="pressed" from="QuickTimerMenu/VBoxContainer/GridContainer/Control/Min5Button" to="." method="_on_min_5_button_pressed"]
 [connection signal="pressed" from="QuickTimerMenu/VBoxContainer/GridContainer/Control2/Min20Button" to="." method="_on_min_20_button_pressed"]
 [connection signal="pressed" from="QuickTimerMenu/VBoxContainer/GridContainer/Control3/Min35Button" to="." method="_on_min_35_button_pressed"]
@@ -1343,6 +1378,15 @@ scale = Vector2(0.545, 0.545)
 [connection signal="pressed" from="QuickTimerMenu/VBoxContainer/GridContainer/Control10/Min30Button" to="." method="_on_min_30_button_pressed"]
 [connection signal="pressed" from="QuickTimerMenu/VBoxContainer/GridContainer/Control11/Min45Button" to="." method="_on_min_45_button_pressed"]
 [connection signal="pressed" from="QuickTimerMenu/VBoxContainer/GridContainer/Control12/Hr1Button" to="." method="_on_hr_1_button_pressed"]
+[connection signal="value_changed" from="QuickTimerMenu/VBoxContainer/CustomQTSessionSlider" to="." method="_on_custom_qt_session_slider_value_changed"]
+[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/HBoxContainer/Subtract30Min" to="." method="_on_subtract_30_min_pressed"]
+[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/HBoxContainer/Subtract10Min" to="." method="_on_subtract_10_min_pressed"]
+[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/HBoxContainer/Subtract5Min" to="." method="_on_subtract_5_min_pressed"]
+[connection signal="value_changed" from="QuickTimerMenu/VBoxContainer/HBoxContainer/Control/CustomQTSessionSpinBox" to="." method="_on_custom_qt_session_spin_box_value_changed"]
+[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/HBoxContainer/Add5Min" to="." method="_on_add_5_min_pressed"]
+[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/HBoxContainer/Add10Min" to="." method="_on_add_10_min_pressed"]
+[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/HBoxContainer/Add30Min" to="." method="_on_add_30_min_pressed"]
+[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/HBoxContainer2/CustomQTSessionStart" to="." method="_on_custom_qt_session_start_pressed"]
 [connection signal="value_changed" from="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer/PomoSession" to="." method="_on_pomo_session_value_changed"]
 [connection signal="value_changed" from="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer2/BreakSession" to="." method="_on_break_session_value_changed"]
 [connection signal="value_changed" from="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer3/LongBreakSession" to="." method="_on_long_break_session_value_changed"]

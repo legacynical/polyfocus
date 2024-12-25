@@ -17,6 +17,10 @@ extends Node
 @onready var custom_qt_session_slider = %CustomQTSessionSlider
 @onready var custom_qt_session_spin_box = %CustomQTSessionSpinBox
 #####TODO END
+@onready var custom_qt_session_label = %CustomQTSessionLabel
+@onready var custom_qt_session_start = %CustomQTSessionStart
+
+#TODO ADD VOLUME ADJUSTING
 
 @onready var setting_menu: PanelContainer = %SettingMenu
 @onready var setting_menu_scroll: ScrollContainer = %SettingMenuScroll
@@ -264,6 +268,16 @@ func _on_quick_timer_button_pressed():
 	AudioManager.alert_1_mb.play()
 	quick_timer_menu.visible = true
 
+func _on_qt_one_click_start_toggle_toggled(toggled_on):
+	AudioManager.click_basic.play()
+
+func _on_custom_qt_session_slider_value_changed(value):
+	custom_qt_session_spin_box.value = value
+	
+func _on_custom_qt_session_spin_box_value_changed(value):
+	custom_qt_session_slider.value = value
+	custom_qt_session_label.text = convert_time(value * 60)
+	
 ##TODO I can probably make this code more concise like with task timers and also add customizeable
 ## preset quick timers but also probably not worth the effort
 func _on_min_5_button_pressed():
@@ -290,16 +304,43 @@ func _on_min_55_button_pressed():
 	start_quick_timer(55)
 func _on_hr_1_button_pressed():
 	start_quick_timer(60)
+
+func _on_custom_qt_session_start_pressed():
+	if custom_qt_session_spin_box.value > 0:
+		start_quick_timer(custom_qt_session_spin_box.value)
+	AudioManager.click_basic.play()
+	quick_timer_menu.visible = false
 	
+	
+func _on_subtract_30_min_pressed():
+	edit_quick_timer(-30)
+
+func _on_subtract_10_min_pressed():
+	edit_quick_timer(-10)
+
+func _on_subtract_5_min_pressed():
+	edit_quick_timer(-5)
+
+func _on_add_5_min_pressed():
+	edit_quick_timer(5)
+
+func _on_add_10_min_pressed():
+	edit_quick_timer(10)
+
+func _on_add_30_min_pressed():
+	edit_quick_timer(30)
+
+func edit_quick_timer(edit_value: int):
+	AudioManager.click_basic.play()
+	custom_qt_session_spin_box.value += edit_value
+
 func start_quick_timer(reset_time_in_minutes: int):	
 	AudioManager.alert_2_mb.play()
-	reset_timer(reset_time_in_minutes)
+	if qt_one_click_start_toggle.button_pressed:
+		session_resume(reset_time_in_minutes)
+	else:	
+		reset_timer(reset_time_in_minutes)
 	quick_timer_menu.visible = false
-
-	
-##TODO implement custom quick timer	
-
-	
 ##### END QuickTimer
 
 ##### SettingMenu
