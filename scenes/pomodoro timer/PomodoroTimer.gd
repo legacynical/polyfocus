@@ -14,8 +14,9 @@ extends Node
 @onready var qt_one_click_start_toggle: TextureButton = %QTOneClickStartToggle
 
 # these two should be the same value
-@onready var custom_qt_session_slider = %CustomQTSessionSlider
-@onready var custom_qt_session_spin_box = %CustomQTSessionSpinBox
+@onready var custom_qt_session_slider: HSlider = %CustomQTSessionSlider
+@onready var custom_qt_session_spin_box: SpinBox = %CustomQTSessionSpinBox
+#save_game.custom_qt_session
 #####TODO END
 @onready var custom_qt_session_label = %CustomQTSessionLabel
 @onready var custom_qt_session_start = %CustomQTSessionStart
@@ -57,7 +58,7 @@ extends Node
 
 @onready var saved_game: SavedGame = SavedGame.new()
 #@onready var save_file: String = "user://savegame.tres"
-@onready var save_file: String = "user://[v0.4.3-beta]savegame.tres"
+@onready var save_file: String = "user://[v0.5.0-beta]savegame.tres"
 
 
 var default_window_size: Vector2 = Vector2(480, 270)
@@ -103,10 +104,12 @@ func _ready() -> void:
 	if not FileAccess.file_exists(save_file):
 		save_window()
 		save_pomodoro_timer()
+		save_quick_timers()
 		set_default_task_timers()
 		save_task_timers()
 	load_window()
 	load_pomodoro_timer()
+	load_quick_timers()
 	load_task_timers()
 	
 func _process(_delta: float) -> void:
@@ -602,6 +605,21 @@ func load_pomodoro_timer() -> void:
 	auto_session_extend.selected = saved_game.auto_extend_id
 	rating_timeout.value = saved_game.rating_timeout
 
+func save_quick_timers() -> void:
+	print("\nsaving quick timers:")
+	saved_game.is_qt_one_click_start = qt_one_click_start_toggle.button_pressed
+	saved_game.custom_qt_session = custom_qt_session_spin_box.value
+	ResourceSaver.save(saved_game, save_file)
+	
+func load_quick_timers() -> void:
+	print("\nloading quick timers:")
+	var saved_game: SavedGame = load(save_file) as SavedGame
+	qt_one_click_start_toggle.button_pressed = saved_game.is_qt_one_click_start
+	custom_qt_session_spin_box.value = saved_game.custom_qt_session
+	custom_qt_session_slider.value = saved_game.custom_qt_session
+
+
+
 func save_task_timers() -> void:
 	print("\nsaving task timers:")
 	var new_task_timers: Array = []
@@ -670,6 +688,7 @@ func _notification(what) -> void:
 		NOTIFICATION_WM_CLOSE_REQUEST:
 			save_window() # saves window position & size
 			save_pomodoro_timer() # saves pomodoro timer settings
+			save_quick_timers() # saves quick timer settings
 			save_task_timers() # saves task timers
 			get_tree().quit() # default behavior
 		NOTIFICATION_WM_WINDOW_FOCUS_IN:
@@ -694,5 +713,5 @@ func get_caller_function_name():
 	return "Unknown"
 
 func _on_debug_pressed():
-	timer_button.text = "RESUME"
+	print("what's up")
 ### END DEBUG

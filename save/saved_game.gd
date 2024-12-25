@@ -40,6 +40,11 @@ extends Resource
 @export var total_focus_time_year: int
 #####
 
+##### save_quick_timers() & load_quick_timers()
+@export var custom_qt_session: int
+@export var is_qt_one_click_start: bool
+#####
+
 ##### save_task_timers() & load_task_timers
 #TODO
 @export var task_timers: Array

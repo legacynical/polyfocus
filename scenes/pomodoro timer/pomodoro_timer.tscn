@@ -157,6 +157,7 @@ text = "Total Focus Time [00:00]"
 
 [node name="debug" type="Button" parent="BackgroundPanel/TimerElements/HBoxContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 text = "debug"
 
@@ -564,7 +565,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.0
-max_value = 999.0
+max_value = 240.0
 value = 25.0
 alignment = 1
 update_on_text_changed = true
