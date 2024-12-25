@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://cyssynqbw33oq"]
+[gd_scene load_steps=30 format=3 uid="uid://cyssynqbw33oq"]
 
 [ext_resource type="Script" path="res://scenes/pomodoro timer/PomodoroTimer.gd" id="1_dpc6i"]
 [ext_resource type="FontFile" uid="uid://cogm35cdl37e6" path="res://fonts/ComicMono/ComicMono.ttf" id="2_j8k3t"]
@@ -53,6 +53,14 @@ spacing_bottom = -4
 [sub_resource type="Theme" id="Theme_360er"]
 default_font = SubResource("FontVariation_aqgwq")
 default_font_size = 40
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_n2pc7"]
+bg_color = Color(0.457527, 0.457527, 0.457527, 0.8)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p656t"]
+content_margin_top = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0, 0, 0, 0.7)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pueoj"]
 bg_color = Color(0.118581, 0.118581, 0.118581, 0.752941)
@@ -225,19 +233,148 @@ icon = ExtResource("5_3yb1t")
 
 [node name="QuickTimerMenu" type="PanelContainer" parent="."]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -160.0
-offset_top = -85.0
-offset_right = 160.0
-offset_bottom = 85.0
+anchors_preset = -1
+anchor_left = 0.006
+anchor_top = 0.004
+anchor_right = 1.0
+anchor_bottom = 1.007
+offset_left = 77.12
+offset_top = 48.92
+offset_right = -80.0
+offset_bottom = -47.89
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_n2pc7")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="QuickTimerMenu"]
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="QuickTimerMenu/VBoxContainer"]
+layout_mode = 2
+columns = 4
+
+[node name="Button" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
+text = "5 min"
+
+[node name="Button4" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
+text = "20 min"
+
+[node name="Button7" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
+text = "35 min"
+
+[node name="Button10" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
+text = "50 min"
+
+[node name="Button2" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
+text = "10 min"
+
+[node name="Button5" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
+text = "25 min"
+
+[node name="Button8" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
+text = "40 min"
+
+[node name="Button11" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
+text = "55 min"
+
+[node name="Button3" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
+text = "15 min"
+
+[node name="Button6" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
+text = "30 min"
+
+[node name="Button9" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
+text = "45 min"
+
+[node name="Button12" type="Button" parent="QuickTimerMenu/VBoxContainer/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
+text = "1 hr"
+
+[node name="Control" type="Control" parent="QuickTimerMenu/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="QuickTimerMenu/VBoxContainer"]
+layout_mode = 2
+
+[node name="Button13" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
+text = "-10"
+
+[node name="Button14" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
+text = "-5"
+
+[node name="Button17" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
+text = "-1"
+
+[node name="Button18" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 5.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
+text = "time"
+
+[node name="Button19" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
+text = "+1"
+
+[node name="Button15" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
+text = "+5"
+
+[node name="Button16" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
+text = "+10"
 
 [node name="SettingMenu" type="PanelContainer" parent="."]
 unique_name_in_owner = true
