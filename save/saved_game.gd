@@ -1,14 +1,14 @@
 class_name SavedGame
 extends Resource
 
-##### save_window() & load_window()
+#region save_window() & load_window()
 @export var default_window_size: Vector2 = Vector2(480, 270)
 @export var default_window_position: Vector2
 @export var window_position: Vector2
 @export var window_size: Vector2
-#####
+#endregion
 
-##### save_pomodoro_timer() & load_pomodoro_timer()
+#region save_pomodoro_timer() & load_pomodoro_timer()
 @export var default_focus_color: Color = Color.html("6fbd90")
 @export var default_break_color: Color = Color.html("5370a6")
 
@@ -30,27 +30,27 @@ extends Resource
 
 @export var auto_extend_id: int
 @export var rating_timeout: int
-#####
+#endregion
 
-##### save_stats() & load_stats()
+#region save_stats() & load_stats()
 #TODO
 @export var total_focus_time_day: int
 @export var total_focus_time_week: int
 @export var total_focus_time_month: int
 @export var total_focus_time_year: int
-#####
+#endregion
 
-##### save_quick_timers() & load_quick_timers()
+#region save_quick_timers() & load_quick_timers()
 @export var custom_qt_session: int
 @export var is_qt_one_click_start: bool
-#####
+#endregion
 
-##### save_task_timers() & load_task_timers
+#region save_task_timers() & load_task_timers
 #TODO
 @export var task_timers: Array
-#####
+#endregion
 
-##### save_journals() & load_journals
+#region save_journals() & load_journals
 #TODO
 @export var journals: Array
-#####
+#endregion

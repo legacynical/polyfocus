@@ -129,7 +129,7 @@ func set_semi_transparent(node: Node) -> void:
 	for child in node.get_children():
 		set_semi_transparent(child)
 	
-##### Timer
+#region Timer
 func update_label() -> void:
 	timer_label.text = convert_time(time_left_rounded)
 
@@ -266,9 +266,10 @@ func close_pomodoro_menus() -> void:
 
 func is_long_break_due() -> bool:
 	return break_session_counter % int(break_session_interval.value) == 0
-##### END Timer
+#endregion
+##END Timer
 
-##### QuickTimer
+#region QuickTimer
 func _on_quick_timer_button_pressed():
 	AudioManager.alert_1_mb.play()
 	quick_timer_menu.visible = true
@@ -344,9 +345,10 @@ func start_quick_timer(reset_time_in_minutes: int):
 	else:	
 		reset_timer(reset_time_in_minutes)
 	quick_timer_menu.visible = false
-##### END QuickTimer
+#endregion
+##END QuickTimer
 
-##### SettingMenu
+#region SettingMenu
 func _on_setting_menu_button_pressed() -> void:
 	AudioManager.click_basic.play()
 	print("setting menu button pressed")
@@ -384,10 +386,10 @@ func _on_window_default_button_pressed() -> void:
 	print("resetting window")
 	DisplayServer.window_set_size(default_window_size)
 	DisplayServer.window_set_position(default_window_position)
-##### END SettingMenu
+#endregion
+##END SettingMenu
 
-
-##### TaskTimerMenu
+#region TaskTimerMenu
 func _on_task_timer_menu_button_pressed() -> void:
 	AudioManager.click_basic.play()
 	print("task timer menu button pressed")
@@ -410,9 +412,10 @@ func close_task_timer_quick_menus() -> void:
 		print(task_timer_control)
 		task_timer_control.get_node("TaskTimer")._on_sm_exit_pressed(is_muted)
 		task_timer_control.get_node("TaskTimer")._on_qm_exit_pressed(is_muted)
-##### END TaskTimerMenu
+#endregion
+##END TaskTimerMenu
 
-##### SessionRating
+#region SessionRating
 func rate_session() -> void:
 	AudioManager.alert_1_mb.play()
 	#update_total_focus_time()
@@ -475,9 +478,10 @@ func session_resume(extend_time: int) -> void:
 	timer_button.text = "PAUSE"
 	skip_button.visible = true
 	quick_timer_button.visible = false
-##### END SessionRating
+#endregion
+##END SessionRating
 
-##### ProgressivePomo
+#region ProgressivePomo
 func _on_progressive_pomo_toggle_toggled(toggled_on: bool) -> void:
 	AudioManager.click_basic.play()
 	if toggled_on:
@@ -502,9 +506,10 @@ func _on_progressive_pomo_toggle_toggled(toggled_on: bool) -> void:
 			mode.BREAK:
 				pass
 		print("progressive pomo: false")
-##### END ProgressivePomo
+#endregion
+##END ProgressivePomo
 
-##### Focus/Break Toggle
+#region Focus/Break Toggle
 func _on_mode_toggle_toggled(_toggled_on: bool) -> void:
 	AudioManager.click_basic.play()
 	switch_mode()
@@ -539,10 +544,10 @@ func switch_mode() -> void:
 			mode_toggle.modulate = break_color_picker.color
 			print("focus mode")
 	update_panel_color()
-##### END Focus/Break Toggle
+#endregion
+##END Focus/Break Toggle
 
-
-##### Save/Load 
+#region Save/Load 
 func save_window() -> void:
 	print("\nsaving window:")
 	print_window_stats()
@@ -703,14 +708,15 @@ func _notification(what) -> void:
 			pass
 		NOTIFICATION_WM_SIZE_CHANGED:
 			pass
-##### END Save/Load 
+#endregion
+##END Save/Load
 
 # unfocused window not dragging is a known issue that I didn't have to spend a few hours
 # troubleshooting what I did wrong...
 # issue: https://github.com/godotengine/godot/issues/95577
 # pull: https://github.com/godotengine/godot/pull/95606
 
-### DEBUG
+#region DEBUG
 func get_caller_function_name():
 	var stack = get_stack()
 	if stack.size() > 1:
@@ -720,4 +726,5 @@ func get_caller_function_name():
 
 func _on_debug_pressed():
 	print("what's up")
-### END DEBUG
+#endregion
+##END DEBUG

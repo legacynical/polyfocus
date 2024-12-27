@@ -128,7 +128,7 @@ func reset_task_timer(new_session_time_in_minutes: int) -> void:
 	update_task_progress_bar()
 	print("reset task timer to " + convert_time(int(timer.time_left)))
 
-##### Quick Menu
+#region Quick Menu
 func _on_qm_exit_pressed(is_muted: bool = false) -> void:
 	if not is_muted:
 		AudioManager.click_basic.play()
@@ -142,9 +142,10 @@ func _on_qm_reset_pressed() -> void:
 	AudioManager.click_basic.play()
 	reset_task_timer(task_session.value)
 	task_timer_quick_menu.visible = false
-#####
+#endregion
+##END Quick Menu
 
-##### Setting Menu
+#region Setting Menu
 func _on_sm_exit_pressed(is_muted: bool = false) -> void:
 	if not is_muted:
 		AudioManager.click_basic.play()
@@ -158,7 +159,8 @@ func _on_sm_confirm_pressed(is_muted: bool = false) -> void:
 	task_timer_setting_menu.visible = false
 	set_setting_values(color_picker_button.color, task_label_edit.text, task_session.value)
 	#TODO apply and save settings
-#####
+#endregion
+##END Setting Menu
 
 func set_setting_values(color: Color, text: String, session: int) -> void:
 	color_picker_button.color = color
