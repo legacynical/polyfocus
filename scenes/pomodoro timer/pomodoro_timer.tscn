@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://cyssynqbw33oq"]
+[gd_scene load_steps=34 format=3 uid="uid://cyssynqbw33oq"]
 
 [ext_resource type="Script" path="res://scenes/pomodoro timer/PomodoroTimer.gd" id="1_dpc6i"]
 [ext_resource type="FontFile" uid="uid://cogm35cdl37e6" path="res://fonts/ComicMono/ComicMono.ttf" id="2_j8k3t"]
@@ -78,6 +78,9 @@ corner_radius_top_left = 3
 corner_radius_top_right = 3
 corner_radius_bottom_right = 3
 corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6ew1w"]
+bg_color = Color(0.566153, 0.570874, 0.827513, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pueoj"]
 bg_color = Color(0.118581, 0.118581, 0.118581, 0.752941)
@@ -530,23 +533,24 @@ value = 25.0
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Subtract30Min" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer"]
+[node name="SubtractL" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
-text = "-30"
+text = "-10
+"
 
-[node name="Subtract10Min" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
-text = "-10"
-
-[node name="Subtract5Min" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer"]
+[node name="SubtractM" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
 text = "-5"
+
+[node name="SubtractS" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
+text = "-1"
 
 [node name="Control" type="Control" parent="QuickTimerMenu/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -589,23 +593,23 @@ text = "25:00"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Add5Min" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer"]
+[node name="AddS" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
+text = "+1"
+
+[node name="AddM" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
 text = "+5"
 
-[node name="Add10Min" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer"]
+[node name="AddL" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
 text = "+10"
-
-[node name="Add30Min" type="Button" parent="QuickTimerMenu/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
-text = "+30"
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="QuickTimerMenu/VBoxContainer"]
 custom_minimum_size = Vector2(0, 30)
@@ -625,7 +629,8 @@ size_flags_horizontal = 3
 size_flags_vertical = 4
 size_flags_stretch_ratio = 3.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_p656t")
-text = "SET"
+text = "START
+"
 
 [node name="Control2" type="Control" parent="QuickTimerMenu/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
@@ -634,7 +639,6 @@ size_flags_stretch_ratio = 3.0
 
 [node name="SettingMenu" type="PanelContainer" parent="."]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -643,31 +647,36 @@ offset_left = 16.0
 offset_top = 44.0
 offset_right = -16.0
 offset_bottom = -13.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_6ew1w")
 metadata/_edit_use_anchors_ = true
 
-[node name="SettingMenuScroll" type="ScrollContainer" parent="SettingMenu"]
+[node name="TabContainer" type="TabContainer" parent="SettingMenu"]
+layout_mode = 2
+current_tab = 0
+
+[node name="Timer Settings" type="ScrollContainer" parent="SettingMenu/TabContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-scroll_vertical = 79
+metadata/_tab_index = 0
 
-[node name="Timer Setting" type="VBoxContainer" parent="SettingMenu/SettingMenuScroll"]
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingMenu/TabContainer/Timer Settings"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = -8
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SettingMenu/SettingMenuScroll/Timer Setting"]
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer"]
+[node name="Label" type="Label" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(199, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 5.0
 text = " Pomodoro Session"
 
-[node name="FocusColorPicker" type="ColorPickerButton" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer"]
+[node name="FocusColorPicker" type="ColorPickerButton" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
@@ -676,7 +685,7 @@ text = "color"
 color = Color(0.435294, 0.741176, 0.564706, 1)
 edit_alpha = false
 
-[node name="PomoSession" type="SpinBox" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer"]
+[node name="PomoSession" type="SpinBox" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
@@ -687,22 +696,22 @@ value = 25.0
 alignment = 2
 suffix = "min"
 
-[node name="Spacer" type="Control" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer"]
+[node name="Spacer" type="Control" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="SettingMenu/SettingMenuScroll/Timer Setting"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer2"]
+[node name="Label" type="Label" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(199, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 5.0
 text = " Break Session"
 
-[node name="BreakColorPicker" type="ColorPickerButton" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer2"]
+[node name="BreakColorPicker" type="ColorPickerButton" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
@@ -711,7 +720,7 @@ text = "color"
 color = Color(0.32549, 0.439216, 0.65098, 1)
 edit_alpha = false
 
-[node name="BreakSession" type="SpinBox" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer2"]
+[node name="BreakSession" type="SpinBox" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
@@ -722,26 +731,26 @@ value = 5.0
 alignment = 2
 suffix = "min"
 
-[node name="Spacer" type="Control" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer2"]
+[node name="Spacer" type="Control" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="SettingMenu/SettingMenuScroll/Timer Setting"]
+[node name="HBoxContainer3" type="HBoxContainer" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer3"]
+[node name="Label" type="Label" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer3"]
 custom_minimum_size = Vector2(199, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 5.0
 text = " Long Break Session"
 
-[node name="Control" type="Control" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer3"]
+[node name="Control" type="Control" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer3"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="LongBreakSession" type="SpinBox" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer3"]
+[node name="LongBreakSession" type="SpinBox" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer3"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
@@ -752,26 +761,26 @@ value = 15.0
 alignment = 2
 suffix = "min"
 
-[node name="Spacer" type="Control" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer3"]
+[node name="Spacer" type="Control" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer3"]
 custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="SettingMenu/SettingMenuScroll/Timer Setting"]
+[node name="HBoxContainer4" type="HBoxContainer" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer4"]
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer4"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 size_flags_stretch_ratio = 5.0
 
-[node name="Label" type="Label" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer4/HBoxContainer"]
+[node name="Label" type="Label" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer4/HBoxContainer"]
 layout_mode = 2
 size_flags_stretch_ratio = 5.0
 text = " Long Breaks"
 
-[node name="LongBreakToggle" type="TextureButton" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer4/HBoxContainer"]
+[node name="LongBreakToggle" type="TextureButton" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer4/HBoxContainer"]
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
 toggle_mode = true
@@ -781,14 +790,14 @@ texture_pressed = ExtResource("6_ppuow")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="Label2" type="Label" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer4"]
+[node name="Label2" type="Label" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer4"]
 custom_minimum_size = Vector2(54, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 text = "interval"
 horizontal_alignment = 2
 
-[node name="BreakSessionInterval" type="SpinBox" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer4"]
+[node name="BreakSessionInterval" type="SpinBox" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer4"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
@@ -797,22 +806,22 @@ min_value = 2.0
 value = 4.0
 alignment = 1
 
-[node name="Spacer" type="Control" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer4"]
+[node name="Spacer" type="Control" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer4"]
 custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
 
-[node name="HBoxContainer5" type="HBoxContainer" parent="SettingMenu/SettingMenuScroll/Timer Setting"]
+[node name="HBoxContainer5" type="HBoxContainer" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme = ExtResource("6_pybon")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer5"]
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer5"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 size_flags_stretch_ratio = 5.0
 
-[node name="Label" type="Label" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer5/HBoxContainer"]
+[node name="Label" type="Label" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer5/HBoxContainer"]
 layout_mode = 2
 size_flags_stretch_ratio = 5.0
 tooltip_text = "Starts focus sessions with a short \"primer\" period 
@@ -820,7 +829,7 @@ followed by a rating system for varying extentions."
 mouse_filter = 1
 text = " Progressive Pomodoro"
 
-[node name="ProgressivePomoToggle" type="TextureButton" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer5/HBoxContainer"]
+[node name="ProgressivePomoToggle" type="TextureButton" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer5/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 2
@@ -830,14 +839,14 @@ texture_pressed = ExtResource("6_ppuow")
 ignore_texture_size = true
 stretch_mode = 5
 
-[node name="Label2" type="Label" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer5"]
+[node name="Label2" type="Label" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer5"]
 custom_minimum_size = Vector2(54, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 text = "primer"
 horizontal_alignment = 2
 
-[node name="ProgressivePrimerSession" type="SpinBox" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer5"]
+[node name="ProgressivePrimerSession" type="SpinBox" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer5"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
@@ -848,23 +857,23 @@ value = 5.0
 alignment = 2
 suffix = "min"
 
-[node name="Spacer" type="Control" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer5"]
+[node name="Spacer" type="Control" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer5"]
 custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
 
-[node name="HBoxContainer6" type="HBoxContainer" parent="SettingMenu/SettingMenuScroll/Timer Setting"]
+[node name="HBoxContainer6" type="HBoxContainer" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme = ExtResource("6_pybon")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer6"]
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer6"]
 custom_minimum_size = Vector2(225, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 size_flags_stretch_ratio = 5.0
 
-[node name="Label" type="Label" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer6/HBoxContainer"]
+[node name="Label" type="Label" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer6/HBoxContainer"]
 custom_minimum_size = Vector2(125, 0)
 layout_mode = 2
 size_flags_stretch_ratio = 5.0
@@ -875,7 +884,7 @@ theme_override_font_sizes/font_size = 14
 text = "Auto Extend To"
 horizontal_alignment = 2
 
-[node name="AutoSessionExtend" type="OptionButton" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer6/HBoxContainer"]
+[node name="AutoSessionExtend" type="OptionButton" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer6/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(90, 0)
 layout_mode = 2
@@ -890,14 +899,14 @@ popup/item_2/id = 2
 popup/item_3/text = "flow"
 popup/item_3/id = 3
 
-[node name="Label2" type="Label" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer6"]
+[node name="Label2" type="Label" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer6"]
 custom_minimum_size = Vector2(54, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 text = "neutral"
 horizontal_alignment = 2
 
-[node name="NeutralSession" type="SpinBox" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer6"]
+[node name="NeutralSession" type="SpinBox" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer6"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
@@ -908,22 +917,22 @@ value = 10.0
 alignment = 2
 suffix = "min"
 
-[node name="Spacer" type="Control" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer6"]
+[node name="Spacer" type="Control" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer6"]
 custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
 
-[node name="HBoxContainer7" type="HBoxContainer" parent="SettingMenu/SettingMenuScroll/Timer Setting"]
+[node name="HBoxContainer7" type="HBoxContainer" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme = ExtResource("6_pybon")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer7"]
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer7"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 size_flags_stretch_ratio = 5.0
 
-[node name="Label" type="Label" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer7/HBoxContainer"]
+[node name="Label" type="Label" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer7/HBoxContainer"]
 custom_minimum_size = Vector2(125, 0)
 layout_mode = 2
 size_flags_stretch_ratio = 5.0
@@ -934,7 +943,7 @@ theme_override_font_sizes/font_size = 14
 text = "Rating Timeout"
 horizontal_alignment = 2
 
-[node name="RatingTimeout" type="SpinBox" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer7/HBoxContainer"]
+[node name="RatingTimeout" type="SpinBox" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer7/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(90, 0)
 layout_mode = 2
@@ -946,14 +955,14 @@ value = 5.0
 alignment = 1
 suffix = "sec"
 
-[node name="Label2" type="Label" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer7"]
+[node name="Label2" type="Label" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer7"]
 custom_minimum_size = Vector2(54, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 text = "focused"
 horizontal_alignment = 2
 
-[node name="FocusedSession" type="SpinBox" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer7"]
+[node name="FocusedSession" type="SpinBox" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer7"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
@@ -964,22 +973,22 @@ value = 20.0
 alignment = 2
 suffix = "min"
 
-[node name="Spacer" type="Control" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer7"]
+[node name="Spacer" type="Control" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer7"]
 custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
 
-[node name="HBoxContainer8" type="HBoxContainer" parent="SettingMenu/SettingMenuScroll/Timer Setting"]
+[node name="HBoxContainer8" type="HBoxContainer" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 theme = ExtResource("6_pybon")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer8"]
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer8"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 size_flags_stretch_ratio = 5.0
 
-[node name="Label" type="Label" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer8/HBoxContainer"]
+[node name="Label" type="Label" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer8/HBoxContainer"]
 layout_mode = 2
 size_flags_stretch_ratio = 5.0
 tooltip_text = "Starts focus sessions with a short \"primer\" period 
@@ -987,14 +996,14 @@ followed by a rating system for varying extentions."
 mouse_filter = 1
 text = " "
 
-[node name="Label2" type="Label" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer8"]
+[node name="Label2" type="Label" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer8"]
 custom_minimum_size = Vector2(54, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 text = "FLOW"
 horizontal_alignment = 2
 
-[node name="FlowSession" type="SpinBox" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer8"]
+[node name="FlowSession" type="SpinBox" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer8"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
@@ -1005,15 +1014,15 @@ value = 30.0
 alignment = 2
 suffix = "min"
 
-[node name="Spacer" type="Control" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer8"]
+[node name="Spacer" type="Control" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer8"]
 custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
 
-[node name="HBoxContainerA" type="HBoxContainer" parent="SettingMenu/SettingMenuScroll/Timer Setting"]
+[node name="HBoxContainerA" type="HBoxContainer" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainerA"]
+[node name="Label" type="Label" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainerA"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_stretch_ratio = 5.0
@@ -1022,7 +1031,7 @@ mouse_filter = 1
 theme = ExtResource("6_pybon")
 text = " Window"
 
-[node name="WindowReset" type="Button" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainerA"]
+[node name="WindowReset" type="Button" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainerA"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -1032,7 +1041,7 @@ theme = ExtResource("6_pybon")
 theme_override_font_sizes/font_size = 15
 text = "reset"
 
-[node name="WindowSave" type="Button" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainerA"]
+[node name="WindowSave" type="Button" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainerA"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -1043,7 +1052,7 @@ theme = ExtResource("6_pybon")
 theme_override_font_sizes/font_size = 15
 text = "save"
 
-[node name="WindowDefault" type="Button" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainerA"]
+[node name="WindowDefault" type="Button" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainerA"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -1055,7 +1064,20 @@ theme = ExtResource("6_pybon")
 theme_override_font_sizes/font_size = 15
 text = "default"
 
-[node name="Control" type="Control" parent="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainerA"]
+[node name="Control" type="Control" parent="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainerA"]
+layout_mode = 2
+
+[node name="Audio" type="ScrollContainer" parent="SettingMenu/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingMenu/TabContainer/Audio"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="SettingMenu/TabContainer/Audio/VBoxContainer"]
 layout_mode = 2
 
 [node name="TaskTimerMenu" type="PanelContainer" parent="."]
@@ -1381,21 +1403,21 @@ scale = Vector2(0.545, 0.545)
 [connection signal="pressed" from="QuickTimerMenu/VBoxContainer/GridContainer/Control11/Min45Button" to="." method="_on_min_45_button_pressed"]
 [connection signal="pressed" from="QuickTimerMenu/VBoxContainer/GridContainer/Control12/Hr1Button" to="." method="_on_hr_1_button_pressed"]
 [connection signal="value_changed" from="QuickTimerMenu/VBoxContainer/CustomQTSessionSlider" to="." method="_on_custom_qt_session_slider_value_changed"]
-[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/HBoxContainer/Subtract30Min" to="." method="_on_subtract_30_min_pressed"]
-[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/HBoxContainer/Subtract10Min" to="." method="_on_subtract_10_min_pressed"]
-[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/HBoxContainer/Subtract5Min" to="." method="_on_subtract_5_min_pressed"]
+[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/HBoxContainer/SubtractL" to="." method="_on_subtract_l_pressed"]
+[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/HBoxContainer/SubtractM" to="." method="_on_subtract_m_pressed"]
+[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/HBoxContainer/SubtractS" to="." method="_on_subtract_s_pressed"]
 [connection signal="value_changed" from="QuickTimerMenu/VBoxContainer/HBoxContainer/Control/CustomQTSessionSpinBox" to="." method="_on_custom_qt_session_spin_box_value_changed"]
-[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/HBoxContainer/Add5Min" to="." method="_on_add_5_min_pressed"]
-[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/HBoxContainer/Add10Min" to="." method="_on_add_10_min_pressed"]
-[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/HBoxContainer/Add30Min" to="." method="_on_add_30_min_pressed"]
+[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/HBoxContainer/AddS" to="." method="_on_add_s_pressed"]
+[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/HBoxContainer/AddM" to="." method="_on_add_m_pressed"]
+[connection signal="pressed" from="QuickTimerMenu/VBoxContainer/HBoxContainer/AddL" to="." method="_on_add_l_pressed"]
 [connection signal="pressed" from="QuickTimerMenu/VBoxContainer/HBoxContainer2/CustomQTSessionStart" to="." method="_on_custom_qt_session_start_pressed"]
-[connection signal="value_changed" from="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer/PomoSession" to="." method="_on_pomo_session_value_changed"]
-[connection signal="value_changed" from="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer2/BreakSession" to="." method="_on_break_session_value_changed"]
-[connection signal="value_changed" from="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer3/LongBreakSession" to="." method="_on_long_break_session_value_changed"]
-[connection signal="toggled" from="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainer5/HBoxContainer/ProgressivePomoToggle" to="." method="_on_progressive_pomo_toggle_toggled"]
-[connection signal="pressed" from="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainerA/WindowReset" to="." method="_on_window_reset_button_pressed"]
-[connection signal="pressed" from="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainerA/WindowSave" to="." method="_on_window_save_button_pressed"]
-[connection signal="pressed" from="SettingMenu/SettingMenuScroll/Timer Setting/HBoxContainerA/WindowDefault" to="." method="_on_window_default_button_pressed"]
+[connection signal="value_changed" from="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer/PomoSession" to="." method="_on_pomo_session_value_changed"]
+[connection signal="value_changed" from="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer2/BreakSession" to="." method="_on_break_session_value_changed"]
+[connection signal="value_changed" from="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer3/LongBreakSession" to="." method="_on_long_break_session_value_changed"]
+[connection signal="toggled" from="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainer5/HBoxContainer/ProgressivePomoToggle" to="." method="_on_progressive_pomo_toggle_toggled"]
+[connection signal="pressed" from="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainerA/WindowReset" to="." method="_on_window_reset_button_pressed"]
+[connection signal="pressed" from="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainerA/WindowSave" to="." method="_on_window_save_button_pressed"]
+[connection signal="pressed" from="SettingMenu/TabContainer/Timer Settings/VBoxContainer/HBoxContainerA/WindowDefault" to="." method="_on_window_default_button_pressed"]
 [connection signal="gui_input" from="TaskTimerMenu" to="." method="_on_tt_grid_container_gui_input"]
 [connection signal="pressed" from="SessionRating/VBoxContainer/HBoxContainer/Flow" to="." method="_on_flow_pressed"]
 [connection signal="pressed" from="SessionRating/VBoxContainer/HBoxContainer2/Focused" to="." method="_on_focused_pressed"]
