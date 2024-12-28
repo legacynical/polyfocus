@@ -1,24 +1,24 @@
 [gd_scene load_steps=13 format=3 uid="uid://bnwtwnoemkhkn"]
 
 [ext_resource type="Script" path="res://globals/audio manager/audio_manager.gd" id="1_tn5l8"]
-[ext_resource type="AudioStream" uid="uid://dct1i6815irge" path="res://audio/click-mouse.wav" id="2_6hej0"]
-[ext_resource type="AudioStream" uid="uid://c6ukdiik10cia" path="res://audio/Metal Pipe Falling.wav" id="3_dgbms"]
-[ext_resource type="AudioStream" uid="uid://dasacyognoegx" path="res://audio/100-140.mp3" id="4_hhq70"]
-[ext_resource type="AudioStream" uid="uid://8xeyl6jqvlt6" path="res://audio/250-290.mp3" id="5_33fco"]
-[ext_resource type="AudioStream" uid="uid://csffxfvnq3rt8" path="res://audio/400-440.mp3" id="6_63adi"]
-[ext_resource type="AudioStream" uid="uid://d2di4tkbdphnl" path="res://audio/musicbox-time-to-focus.mp3" id="7_jp2dx"]
-[ext_resource type="AudioStream" uid="uid://cq354djxi4b5p" path="res://audio/musicbox-time-to-break.mp3" id="8_k011g"]
-[ext_resource type="AudioStream" uid="uid://b14berqpeqeyo" path="res://audio/musicbox-notification.mp3" id="9_d8wry"]
-[ext_resource type="AudioStream" uid="uid://d4apor5gu6lct" path="res://audio/upbeat-alert-musicbox.mp3" id="10_slpp0"]
-[ext_resource type="AudioStream" uid="uid://ddtod11frtxrr" path="res://audio/upbeat-alert-high-musicbox.mp3" id="11_fego0"]
-[ext_resource type="AudioStream" uid="uid://c25rrimfgaiyn" path="res://audio/power-down.mp3" id="12_53nsc"]
+[ext_resource type="AudioStream" uid="uid://ckxv3lkf5x0bq" path="res://audio/click-mouse.ogg" id="2_46o0g"]
+[ext_resource type="AudioStream" uid="uid://dhtdcx4n80y6c" path="res://audio/Metal Pipe Falling.ogg" id="3_4urii"]
+[ext_resource type="AudioStream" uid="uid://nfl3qkjjl3nn" path="res://audio/100-140.ogg" id="4_vroal"]
+[ext_resource type="AudioStream" uid="uid://cmoxo3cchtiwh" path="res://audio/250-290.ogg" id="5_fc0sq"]
+[ext_resource type="AudioStream" uid="uid://caqanuodekcub" path="res://audio/400-440.ogg" id="6_6fmgr"]
+[ext_resource type="AudioStream" uid="uid://be6ip4c5s225r" path="res://audio/musicbox-time-to-focus.ogg" id="7_tggj3"]
+[ext_resource type="AudioStream" uid="uid://b4nn3s1f0sbob" path="res://audio/musicbox-time-to-break.ogg" id="8_up0mk"]
+[ext_resource type="AudioStream" uid="uid://fiu3mblxy8lm" path="res://audio/musicbox-notification.ogg" id="9_u5ggf"]
+[ext_resource type="AudioStream" uid="uid://c4g0lfjx1yl8d" path="res://audio/upbeat-alert-musicbox.ogg" id="10_go321"]
+[ext_resource type="AudioStream" uid="uid://b275ov0art43r" path="res://audio/upbeat-alert-high-musicbox.ogg" id="11_whc0q"]
+[ext_resource type="AudioStream" uid="uid://b2w8nct7wfy0a" path="res://audio/power-down.ogg" id="12_rrwxg"]
 
 [node name="AudioManager" type="Node"]
 script = ExtResource("1_tn5l8")
 
 [node name="ClickBasic" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
-stream = ExtResource("2_6hej0")
+stream = ExtResource("2_46o0g")
 pitch_scale = 11.0
 
 [node name="TimerComplete" type="AudioStreamPlayer" parent="."]
@@ -26,51 +26,51 @@ unique_name_in_owner = true
 
 [node name="MetalPipe" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
-stream = ExtResource("3_dgbms")
+stream = ExtResource("3_4urii")
 
 [node name="40hzFocus100" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
-stream = ExtResource("4_hhq70")
-volume_db = -10.0
+stream = ExtResource("4_vroal")
+volume_db = -5.0
 parameters/looping = true
 
 [node name="40hzFocus250" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
-stream = ExtResource("5_33fco")
+stream = ExtResource("5_fc0sq")
 parameters/looping = true
 
 [node name="40hzFocus400" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
-stream = ExtResource("6_63adi")
+stream = ExtResource("6_6fmgr")
 volume_db = -15.0
 parameters/looping = true
 
 [node name="TimeToFocusMB" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
-stream = ExtResource("7_jp2dx")
+stream = ExtResource("7_tggj3")
 volume_db = -11.0
 
 [node name="TimeToBreakMB" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
-stream = ExtResource("8_k011g")
+stream = ExtResource("8_up0mk")
 volume_db = -11.0
 
 [node name="NotificationMB" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
-stream = ExtResource("9_d8wry")
+stream = ExtResource("9_u5ggf")
 volume_db = -8.0
 
 [node name="Alert1MB" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
-stream = ExtResource("10_slpp0")
+stream = ExtResource("10_go321")
 volume_db = -11.0
 
 [node name="Alert2MB" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
-stream = ExtResource("11_fego0")
+stream = ExtResource("11_whc0q")
 volume_db = -11.0
 
 [node name="Distracted" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
-stream = ExtResource("12_53nsc")
+stream = ExtResource("12_rrwxg")
 volume_db = -5.0
