@@ -32,28 +32,33 @@ stream = ExtResource("3_4urii")
 unique_name_in_owner = true
 stream = ExtResource("4_vroal")
 volume_db = -5.0
+bus = &"Background"
 parameters/looping = true
 
 [node name="40hzFocus250" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("5_fc0sq")
+bus = &"Background"
 parameters/looping = true
 
 [node name="40hzFocus400" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("6_6fmgr")
 volume_db = -15.0
+bus = &"Background"
 parameters/looping = true
 
 [node name="TimeToFocusMB" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("7_tggj3")
 volume_db = -11.0
+bus = &"Alerts-ModeSwitch"
 
 [node name="TimeToBreakMB" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("8_up0mk")
 volume_db = -11.0
+bus = &"Alerts-ModeSwitch"
 
 [node name="NotificationMB" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
@@ -64,13 +69,16 @@ volume_db = -8.0
 unique_name_in_owner = true
 stream = ExtResource("10_go321")
 volume_db = -11.0
+bus = &"Alerts"
 
 [node name="Alert2MB" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("11_whc0q")
 volume_db = -11.0
+bus = &"Alerts"
 
 [node name="Distracted" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("12_rrwxg")
 volume_db = -5.0
+bus = &"Alerts"
