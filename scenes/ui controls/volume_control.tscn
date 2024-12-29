@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://ch3wwse0bq8xl"]
+
+[ext_resource type="Script" path="res://scenes/ui controls/volume_control.gd" id="1_aqj2o"]
+
+[sub_resource type="FontVariation" id="FontVariation_jlybh"]
+spacing_top = -4
+spacing_bottom = 4
+
+[sub_resource type="Theme" id="Theme_5seu2"]
+default_font = SubResource("FontVariation_jlybh")
+
+[node name="volume_control" type="HBoxContainer"]
+offset_right = 8.0
+offset_bottom = 23.0
+size_flags_horizontal = 3
+size_flags_vertical = 4
+script = ExtResource("1_aqj2o")
+
+[node name="VolumeLabel" type="Label" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+theme = SubResource("Theme_5seu2")
+text = "0"
+horizontal_alignment = 1
+
+[node name="VolumeSlider" type="HSlider" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.001
