@@ -1,4 +1,4 @@
-[gd_scene load_steps=34 format=3 uid="uid://cyssynqbw33oq"]
+[gd_scene load_steps=35 format=3 uid="uid://cyssynqbw33oq"]
 
 [ext_resource type="Script" path="res://scenes/pomodoro timer/PomodoroTimer.gd" id="1_dpc6i"]
 [ext_resource type="FontFile" uid="uid://cogm35cdl37e6" path="res://fonts/ComicMono/ComicMono.ttf" id="2_j8k3t"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://peqio3wcu2w6" path="res://graphics/256x128-toggled-on-icon.svg" id="6_ppuow"]
 [ext_resource type="Theme" uid="uid://bo63cmd85t6l4" path="res://themes/TooltipPanelDarker.tres" id="6_pybon"]
 [ext_resource type="PackedScene" uid="uid://inb5foqb6gjj" path="res://scenes/task timer/task_timer.tscn" id="10_l7cyc"]
+[ext_resource type="PackedScene" uid="uid://ch3wwse0bq8xl" path="res://scenes/ui controls/volume_slider.tscn" id="10_lcmql"]
 [ext_resource type="StyleBox" uid="uid://csusgeo1f8t8c" path="res://themes/Exitbutton.tres" id="10_rt072"]
 [ext_resource type="Texture2D" uid="uid://na41aqi1owpq" path="res://graphics/128x128-circle-blank.svg" id="10_sb4l6"]
 [ext_resource type="Texture2D" uid="uid://cbopcrt7ijq3l" path="res://graphics/128x128-circle.svg" id="11_cjx1h"]
@@ -652,10 +653,11 @@ metadata/_edit_use_anchors_ = true
 
 [node name="TabContainer" type="TabContainer" parent="SettingMenu"]
 layout_mode = 2
-current_tab = 0
+current_tab = 1
 
 [node name="Timer Settings" type="ScrollContainer" parent="SettingMenu/TabContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -1068,7 +1070,6 @@ text = "default"
 layout_mode = 2
 
 [node name="Audio" type="ScrollContainer" parent="SettingMenu/TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
@@ -1079,6 +1080,68 @@ size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="SettingMenu/TabContainer/Audio/VBoxContainer"]
 layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingMenu/TabContainer/Audio/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = " Master"
+
+[node name="volume_slider" parent="SettingMenu/TabContainer/Audio/VBoxContainer/HBoxContainer" instance=ExtResource("10_lcmql")]
+layout_mode = 2
+bus_name = "Master"
+
+[node name="Button" type="Button" parent="SettingMenu/TabContainer/Audio/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "test"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="SettingMenu/TabContainer/Audio/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingMenu/TabContainer/Audio/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = " Music"
+
+[node name="volume_slider" parent="SettingMenu/TabContainer/Audio/VBoxContainer/HBoxContainer2" instance=ExtResource("10_lcmql")]
+layout_mode = 2
+bus_name = "bgm"
+
+[node name="Button2" type="Button" parent="SettingMenu/TabContainer/Audio/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "test"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="SettingMenu/TabContainer/Audio/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingMenu/TabContainer/Audio/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = " Alerts"
+
+[node name="volume_slider" parent="SettingMenu/TabContainer/Audio/VBoxContainer/HBoxContainer3" instance=ExtResource("10_lcmql")]
+layout_mode = 2
+bus_name = "alert"
+
+[node name="Button2" type="Button" parent="SettingMenu/TabContainer/Audio/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+text = "test"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="SettingMenu/TabContainer/Audio/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SettingMenu/TabContainer/Audio/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = " SFX
+"
+
+[node name="volume_slider" parent="SettingMenu/TabContainer/Audio/VBoxContainer/HBoxContainer4" instance=ExtResource("10_lcmql")]
+layout_mode = 2
+bus_name = "sfx"
+
+[node name="Button2" type="Button" parent="SettingMenu/TabContainer/Audio/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+text = "test"
 
 [node name="TaskTimerMenu" type="PanelContainer" parent="."]
 unique_name_in_owner = true
