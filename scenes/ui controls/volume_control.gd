@@ -4,6 +4,7 @@ extends HBoxContainer
 
 @onready var volume_label = %VolumeLabel
 @onready var volume_slider = %VolumeSlider
+@onready var test_button = %TestButton
 
 var bus_index: int
 
