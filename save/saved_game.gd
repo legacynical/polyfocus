@@ -30,6 +30,7 @@ extends Resource
 
 @export var auto_extend_id: int
 @export var rating_timeout: int
+
 #endregion
 
 #region save_stats() & load_stats()

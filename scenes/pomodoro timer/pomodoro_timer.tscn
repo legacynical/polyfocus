@@ -1090,10 +1090,6 @@ text = " Master"
 layout_mode = 2
 bus_name = "Master"
 
-[node name="Button" type="Button" parent="SettingMenu/TabContainer/Audio/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-text = "test"
-
 [node name="HBoxContainer5" type="HBoxContainer" parent="SettingMenu/TabContainer/Audio/VBoxContainer"]
 layout_mode = 2
 
@@ -1106,10 +1102,6 @@ text = " Focus/Break"
 layout_mode = 2
 bus_name = "mode"
 
-[node name="Button" type="Button" parent="SettingMenu/TabContainer/Audio/VBoxContainer/HBoxContainer5"]
-layout_mode = 2
-text = "test"
-
 [node name="HBoxContainer3" type="HBoxContainer" parent="SettingMenu/TabContainer/Audio/VBoxContainer"]
 layout_mode = 2
 
@@ -1121,10 +1113,6 @@ text = " Alerts"
 [node name="volume_control" parent="SettingMenu/TabContainer/Audio/VBoxContainer/HBoxContainer3" instance=ExtResource("10_lcmql")]
 layout_mode = 2
 bus_name = "alert"
-
-[node name="Button2" type="Button" parent="SettingMenu/TabContainer/Audio/VBoxContainer/HBoxContainer3"]
-layout_mode = 2
-text = "test"
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="SettingMenu/TabContainer/Audio/VBoxContainer"]
 layout_mode = 2
@@ -1139,10 +1127,6 @@ text = " SFX
 layout_mode = 2
 bus_name = "sfx"
 
-[node name="Button2" type="Button" parent="SettingMenu/TabContainer/Audio/VBoxContainer/HBoxContainer4"]
-layout_mode = 2
-text = "test"
-
 [node name="HBoxContainer2" type="HBoxContainer" parent="SettingMenu/TabContainer/Audio/VBoxContainer"]
 layout_mode = 2
 
@@ -1154,10 +1138,6 @@ text = " Music"
 [node name="volume_control" parent="SettingMenu/TabContainer/Audio/VBoxContainer/HBoxContainer2" instance=ExtResource("10_lcmql")]
 layout_mode = 2
 bus_name = "bgm"
-
-[node name="Button2" type="Button" parent="SettingMenu/TabContainer/Audio/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-text = "test"
 
 [node name="TaskTimerMenu" type="PanelContainer" parent="."]
 unique_name_in_owner = true

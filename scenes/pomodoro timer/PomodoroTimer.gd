@@ -625,8 +625,6 @@ func load_quick_timers() -> void:
 	custom_qt_session_spin_box.value = saved_game.custom_qt_session
 	custom_qt_session_slider.value = saved_game.custom_qt_session
 
-
-
 func save_task_timers() -> void:
 	print("\nsaving task timers:")
 	var new_task_timers: Array = []
