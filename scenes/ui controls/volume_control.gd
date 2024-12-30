@@ -23,3 +23,6 @@ func _on_value_changed(value: float) -> void:
 		linear_to_db(value) # this sets volume sliders to work more intuitively
 	)
 	volume_label.text = str(value * 100)
+
+func set_volume(volume: int) -> void:
+	volume_slider.value = volume * 0.01
