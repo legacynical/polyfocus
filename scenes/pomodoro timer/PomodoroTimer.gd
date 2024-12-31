@@ -273,45 +273,45 @@ func is_long_break_due() -> bool:
 ##END Timer
 
 #region QuickTimer
-func _on_quick_timer_button_pressed():
+func _on_quick_timer_button_pressed() -> void:
 	AudioManager.alert_1_mb.play()
 	quick_timer_menu.visible = true
 
-func _on_qt_one_click_start_toggle_toggled(toggled_on):
+func _on_qt_one_click_start_toggle_toggled(toggled_on) -> void:
 	AudioManager.click_basic.play()
 
-func _on_custom_qt_session_slider_value_changed(value):
+func _on_custom_qt_session_slider_value_changed(value) -> void:
 	custom_qt_session_spin_box.value = value
 	
-func _on_custom_qt_session_spin_box_value_changed(value):
+func _on_custom_qt_session_spin_box_value_changed(value) -> void:
 	custom_qt_session_slider.value = value
 	custom_qt_session_label.text = convert_time(value * 60)
 	
 ##TODO I can probably make this code more concise like with task timers and also add customizeable
 ## preset quick timers but also probably not worth the effort
-func _on_min_5_button_pressed():
+func _on_min_5_button_pressed() -> void:
 	set_quick_timer(5)
-func _on_min_10_button_pressed():
+func _on_min_10_button_pressed() -> void:
 	set_quick_timer(10)
-func _on_min_15_button_pressed():
+func _on_min_15_button_pressed() -> void:
 	set_quick_timer(15)
-func _on_min_20_button_pressed():
+func _on_min_20_button_pressed() -> void:
 	set_quick_timer(20)
-func _on_min_25_button_pressed():
+func _on_min_25_button_pressed() -> void:
 	set_quick_timer(25)
-func _on_min_30_button_pressed():
+func _on_min_30_button_pressed() -> void:
 	set_quick_timer(30)
-func _on_min_35_button_pressed():
+func _on_min_35_button_pressed() -> void:
 	set_quick_timer(35)
-func _on_min_40_button_pressed():
+func _on_min_40_button_pressed() -> void:
 	set_quick_timer(40)
-func _on_min_45_button_pressed():
+func _on_min_45_button_pressed() -> void:
 	set_quick_timer(45)
-func _on_min_50_button_pressed():
+func _on_min_50_button_pressed() -> void:
 	set_quick_timer(50)
-func _on_min_55_button_pressed():
+func _on_min_55_button_pressed() -> void:
 	set_quick_timer(55)
-func _on_hr_1_button_pressed():
+func _on_hr_1_button_pressed() -> void:
 	set_quick_timer(60)
 
 func _on_custom_qt_session_start_pressed():
@@ -320,24 +320,24 @@ func _on_custom_qt_session_start_pressed():
 	AudioManager.click_basic.play()
 	quick_timer_menu.visible = false
 	
-func _on_subtract_l_pressed():
+func _on_subtract_l_pressed() -> void:
 	edit_quick_timer(-10)
-func _on_subtract_m_pressed():
+func _on_subtract_m_pressed() -> void:
 	edit_quick_timer(-5)
-func _on_subtract_s_pressed():
+func _on_subtract_s_pressed() -> void:
 	edit_quick_timer(-1)
-func _on_add_s_pressed():
+func _on_add_s_pressed() -> void:
 	edit_quick_timer(1)
-func _on_add_m_pressed():
+func _on_add_m_pressed() -> void:
 	edit_quick_timer(5)
-func _on_add_l_pressed():
+func _on_add_l_pressed() -> void:
 	edit_quick_timer(10)
 
-func edit_quick_timer(edit_value: int):
+func edit_quick_timer(edit_value: int) -> void:
 	AudioManager.click_basic.play()
 	custom_qt_session_spin_box.value += edit_value
 
-func set_quick_timer(reset_time_in_minutes: int):	
+func set_quick_timer(reset_time_in_minutes: int) -> void:	
 	AudioManager.click_basic.play()
 	if qt_one_click_start_toggle.button_pressed:
 		session_resume(reset_time_in_minutes)
@@ -753,7 +753,7 @@ func get_caller_function_name():
 		return stack[1]["function"]
 	return "Unknown"
 
-func _on_debug_pressed():
+func _on_debug_pressed() -> void:
 	print("what's up")
 #endregion
 ##END DEBUG
