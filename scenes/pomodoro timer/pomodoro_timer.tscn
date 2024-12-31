@@ -640,6 +640,7 @@ size_flags_stretch_ratio = 3.0
 
 [node name="SettingMenu" type="PanelContainer" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -653,11 +654,10 @@ metadata/_edit_use_anchors_ = true
 
 [node name="TabContainer" type="TabContainer" parent="SettingMenu"]
 layout_mode = 2
-current_tab = 1
+current_tab = 0
 
 [node name="Timer Settings" type="ScrollContainer" parent="SettingMenu/TabContainer"]
 unique_name_in_owner = true
-visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
@@ -1070,6 +1070,7 @@ text = "default"
 layout_mode = 2
 
 [node name="Audio" type="ScrollContainer" parent="SettingMenu/TabContainer"]
+visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
