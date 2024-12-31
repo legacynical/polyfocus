@@ -30,7 +30,10 @@ extends Resource
 
 @export var auto_extend_id: int
 @export var rating_timeout: int
+#endregion
 
+
+#region save_audio_setting() & load_audio_setting()
 @export var audio_settings: Array
 #endregion
 
