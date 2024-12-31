@@ -1073,69 +1073,70 @@ layout_mode = 2
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="SettingMenu/TabContainer/Audio"]
+[node name="AudioSettingContainer" type="VBoxContainer" parent="SettingMenu/TabContainer/Audio"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="SettingMenu/TabContainer/Audio/VBoxContainer"]
+[node name="Master" type="HBoxContainer" parent="SettingMenu/TabContainer/Audio/AudioSettingContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="SettingMenu/TabContainer/Audio/VBoxContainer/HBoxContainer"]
+[node name="Label" type="Label" parent="SettingMenu/TabContainer/Audio/AudioSettingContainer/Master"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = " Master"
 
-[node name="volume_control" parent="SettingMenu/TabContainer/Audio/VBoxContainer/HBoxContainer" instance=ExtResource("10_lcmql")]
+[node name="volume_control" parent="SettingMenu/TabContainer/Audio/AudioSettingContainer/Master" instance=ExtResource("10_lcmql")]
 layout_mode = 2
 bus_name = "Master"
 
-[node name="HBoxContainer5" type="HBoxContainer" parent="SettingMenu/TabContainer/Audio/VBoxContainer"]
+[node name="mode" type="HBoxContainer" parent="SettingMenu/TabContainer/Audio/AudioSettingContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="SettingMenu/TabContainer/Audio/VBoxContainer/HBoxContainer5"]
+[node name="Label" type="Label" parent="SettingMenu/TabContainer/Audio/AudioSettingContainer/mode"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = " Focus/Break"
 
-[node name="volume_control" parent="SettingMenu/TabContainer/Audio/VBoxContainer/HBoxContainer5" instance=ExtResource("10_lcmql")]
+[node name="volume_control" parent="SettingMenu/TabContainer/Audio/AudioSettingContainer/mode" instance=ExtResource("10_lcmql")]
 layout_mode = 2
 bus_name = "mode"
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="SettingMenu/TabContainer/Audio/VBoxContainer"]
+[node name="alert" type="HBoxContainer" parent="SettingMenu/TabContainer/Audio/AudioSettingContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="SettingMenu/TabContainer/Audio/VBoxContainer/HBoxContainer3"]
+[node name="Label" type="Label" parent="SettingMenu/TabContainer/Audio/AudioSettingContainer/alert"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = " Alerts"
 
-[node name="volume_control" parent="SettingMenu/TabContainer/Audio/VBoxContainer/HBoxContainer3" instance=ExtResource("10_lcmql")]
+[node name="volume_control" parent="SettingMenu/TabContainer/Audio/AudioSettingContainer/alert" instance=ExtResource("10_lcmql")]
 layout_mode = 2
 bus_name = "alert"
 
-[node name="HBoxContainer4" type="HBoxContainer" parent="SettingMenu/TabContainer/Audio/VBoxContainer"]
+[node name="sfx" type="HBoxContainer" parent="SettingMenu/TabContainer/Audio/AudioSettingContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="SettingMenu/TabContainer/Audio/VBoxContainer/HBoxContainer4"]
+[node name="Label" type="Label" parent="SettingMenu/TabContainer/Audio/AudioSettingContainer/sfx"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = " SFX
 "
 
-[node name="volume_control" parent="SettingMenu/TabContainer/Audio/VBoxContainer/HBoxContainer4" instance=ExtResource("10_lcmql")]
+[node name="volume_control" parent="SettingMenu/TabContainer/Audio/AudioSettingContainer/sfx" instance=ExtResource("10_lcmql")]
 layout_mode = 2
 bus_name = "sfx"
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="SettingMenu/TabContainer/Audio/VBoxContainer"]
+[node name="bgm" type="HBoxContainer" parent="SettingMenu/TabContainer/Audio/AudioSettingContainer"]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="SettingMenu/TabContainer/Audio/VBoxContainer/HBoxContainer2"]
+[node name="Label" type="Label" parent="SettingMenu/TabContainer/Audio/AudioSettingContainer/bgm"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = " Music"
 
-[node name="volume_control" parent="SettingMenu/TabContainer/Audio/VBoxContainer/HBoxContainer2" instance=ExtResource("10_lcmql")]
+[node name="volume_control" parent="SettingMenu/TabContainer/Audio/AudioSettingContainer/bgm" instance=ExtResource("10_lcmql")]
 layout_mode = 2
 bus_name = "bgm"
 

@@ -10,18 +10,17 @@ extends Node
 @onready var quick_timer_menu: PanelContainer = %QuickTimerMenu
 @onready var quick_timer_button: Button = %QuickTimerButton
 
-######TODO add to save
 @onready var qt_one_click_start_toggle: TextureButton = %QTOneClickStartToggle
 
 # these two should be the same value
 @onready var custom_qt_session_slider: HSlider = %CustomQTSessionSlider
 @onready var custom_qt_session_spin_box: SpinBox = %CustomQTSessionSpinBox
 #save_game.custom_qt_session
-#####TODO END
+
 @onready var custom_qt_session_label = %CustomQTSessionLabel
 @onready var custom_qt_session_start = %CustomQTSessionStart
 
-#TODO ADD VOLUME ADJUSTING
+
 
 @onready var setting_menu: PanelContainer = %SettingMenu
 @onready var timer_setting_scroll: ScrollContainer = %"Timer Settings"
@@ -55,6 +54,8 @@ extends Node
 
 @onready var auto_session_extend: OptionButton = %AutoSessionExtend
 @onready var rating_timeout: SpinBox = %RatingTimeout
+
+@onready var audio_setting_container: VBoxContainer = %AudioSettingContainer
 
 @onready var saved_game: SavedGame = SavedGame.new()
 #@onready var save_file: String = "user://savegame.tres"
@@ -104,11 +105,13 @@ func _ready() -> void:
 	if not FileAccess.file_exists(save_file):
 		save_window()
 		save_pomodoro_timer()
+		save_audio_setting()
 		save_quick_timers()
 		set_default_task_timers()
 		save_task_timers()
 	load_window()
 	load_pomodoro_timer()
+	load_audio_setting()
 	load_quick_timers()
 	load_task_timers()
 	
@@ -612,6 +615,7 @@ func load_pomodoro_timer() -> void:
 	auto_session_extend.selected = saved_game.auto_extend_id
 	rating_timeout.value = saved_game.rating_timeout
 
+
 func save_quick_timers() -> void:
 	print("\nsaving quick timers:")
 	saved_game.is_qt_one_click_start = qt_one_click_start_toggle.button_pressed
@@ -688,11 +692,42 @@ func set_default_task_timers() -> void:
 	task_timer_grid_container.get_child(6).get_node("TaskTimer").set_setting_values(Color.html("82E0AA"), "Cleaning", 20)
 	task_timer_grid_container.get_child(7).get_node("TaskTimer").set_setting_values(Color.html("5DADE2"), "Laundry", 80)
 
+func save_audio_setting() -> void:
+	print("\nsaving audio settings:")
+	var new_audio_settings: Array = []
+	for volume_container in audio_setting_container.get_children():
+		print(volume_container)
+		var audio_settings: Dictionary = {
+			"Volume Container": volume_container.name,
+			"Bus": volume_container.get_node("volume_control").bus_name,
+			"Volume": int(volume_container.get_node("volume_control").volume_label.text),
+		}
+		print("audio settings: " + str(audio_settings))
+		new_audio_settings.append(audio_settings)
+	saved_game.audio_settings = new_audio_settings
+	print("saved audio settings: " + str(saved_game.audio_settings))
+	ResourceSaver.save(saved_game, save_file)
+	
+func load_audio_setting() -> void:
+	print("\nloading audio settingss:")
+	var saved_game: SavedGame = load(save_file) as SavedGame
+	
+	print("total saved audio settings: " + str(saved_game.audio_settings.size()))
+	for i in range(saved_game.audio_settings.size()):
+		var saved_audio_settings: Dictionary = saved_game.audio_settings[i]
+		print("loading audio setting at index: ", i)
+		var target_volume_control: HBoxContainer = audio_setting_container.get_child(i).get_node("volume_control") as HBoxContainer
+		print("  control: ", audio_setting_container.get_child(i))
+		print("    control: ", audio_setting_container.get_child(i).get_node("volume_control"))
+		target_volume_control.set_volume(saved_audio_settings["Volume"])
+		print("setting audio bus [", saved_audio_settings["Bus"],"] volume to ", saved_audio_settings["Volume"])
+		
 func _notification(what) -> void:
 	match what:
 		NOTIFICATION_WM_CLOSE_REQUEST:
 			save_window() # saves window position & size
 			save_pomodoro_timer() # saves pomodoro timer settings
+			save_audio_setting() # saves audio settings
 			save_quick_timers() # saves quick timer settings
 			save_task_timers() # saves task timers
 			get_tree().quit() # default behavior
