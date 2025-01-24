@@ -1,0 +1,108 @@
+[gd_scene load_steps=10 format=3 uid="uid://ptrksu7kuibd"]
+
+[ext_resource type="Texture2D" uid="uid://ddcu2t7y2pmog" path="res://icon.svg" id="1_fkksn"]
+[ext_resource type="Script" path="res://scenes/to-do list/to_do_list_entry.gd" id="1_gewdv"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_biycj"]
+
+[sub_resource type="FontVariation" id="FontVariation_dr5m1"]
+spacing_top = -4
+spacing_bottom = -4
+
+[sub_resource type="Theme" id="Theme_ve1l6"]
+default_font = SubResource("FontVariation_dr5m1")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lqqou"]
+content_margin_left = 4.0
+content_margin_top = 0.0
+content_margin_right = 4.0
+bg_color = Color(0.248842, 0.248842, 0.248842, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="FontVariation" id="FontVariation_a40j4"]
+
+[sub_resource type="Theme" id="Theme_8mh0n"]
+default_font = SubResource("FontVariation_a40j4")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h3ico"]
+content_margin_left = 4.0
+content_margin_right = 4.0
+
+[node name="ToDoListEntry" type="Control" node_paths=PackedStringArray("to_do_edit", "to_do_label")]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 480.0
+offset_bottom = 270.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_gewdv")
+to_do_edit = NodePath("HBoxContainer/LineEdit")
+to_do_label = NodePath("HBoxContainer/LineEdit/RichTextLabel")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_right = 126.0
+offset_bottom = 23.0
+theme_override_constants/separation = 2
+
+[node name="TextureButton" type="TextureButton" parent="HBoxContainer"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_vertical = 0
+texture_normal = ExtResource("1_fkksn")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HBoxContainer/TextureButton"]
+sprite_frames = SubResource("SpriteFrames_biycj")
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme = SubResource("Theme_ve1l6")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/normal = SubResource("StyleBoxFlat_lqqou")
+text = "asdfasdfasd"
+expand_to_text_length = true
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/LineEdit"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 148.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 0
+theme = SubResource("Theme_8mh0n")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_h3ico")
+text = "asdfasdfasd"
+fit_content = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/LineEdit"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureButton2" type="TextureButton" parent="HBoxContainer"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+texture_normal = ExtResource("1_fkksn")
+ignore_texture_size = true
+stretch_mode = 4
+
+[node name="TextureButton3" type="TextureButton" parent="HBoxContainer"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+texture_normal = ExtResource("1_fkksn")
+ignore_texture_size = true
+stretch_mode = 4
+
+[connection signal="text_changed" from="HBoxContainer/LineEdit" to="." method="_on_line_edit_text_changed"]
