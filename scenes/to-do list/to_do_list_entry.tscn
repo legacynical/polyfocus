@@ -1,7 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://ptrksu7kuibd"]
+[gd_scene load_steps=17 format=3 uid="uid://ptrksu7kuibd"]
 
 [ext_resource type="Texture2D" uid="uid://ddcu2t7y2pmog" path="res://icon.svg" id="1_fkksn"]
 [ext_resource type="Script" path="res://scenes/to-do list/to_do_list_entry.gd" id="1_gewdv"]
+[ext_resource type="Texture2D" uid="uid://chp3pemtjryqc" path="res://graphics/128x128-white-rounded-box.svg" id="2_4jj4j"]
+[ext_resource type="Texture2D" uid="uid://b6cyjinksgnnp" path="res://graphics/128x128-white-rounded-box-checked.svg" id="3_blrg3"]
+[ext_resource type="StyleBox" uid="uid://csusgeo1f8t8c" path="res://themes/Exitbutton.tres" id="5_o1xc5"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_biycj"]
 
@@ -11,6 +14,10 @@ spacing_bottom = -4
 
 [sub_resource type="Theme" id="Theme_ve1l6"]
 default_font = SubResource("FontVariation_dr5m1")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4r8eb"]
+content_margin_left = 4.0
+content_margin_right = 4.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lqqou"]
 content_margin_left = 4.0
@@ -22,16 +29,82 @@ corner_radius_top_right = 8
 corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 
-[sub_resource type="FontVariation" id="FontVariation_a40j4"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_aatwl"]
+content_margin_top = 1.0
+content_margin_bottom = 1.0
 
-[sub_resource type="Theme" id="Theme_8mh0n"]
-default_font = SubResource("FontVariation_a40j4")
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rns6p"]
+bg_color = Color(0.278431, 1, 0.388235, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h3ico"]
-content_margin_left = 4.0
-content_margin_right = 4.0
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6umaq"]
+bg_color = Color(0.277748, 0.705089, 0.286956, 1)
 
-[node name="ToDoListEntry" type="Control" node_paths=PackedStringArray("to_do_edit", "to_do_label")]
+[sub_resource type="Animation" id="Animation_ykqm7"]
+resource_name = "checkmark"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HBoxContainer/TextureButton/TextureProgressBar:value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(2, 2),
+"update": 0,
+"values": [0.0, 100.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HBoxContainer/Control/LineEdit/MarginContainer/ProgressBar:value")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(2, 2),
+"update": 0,
+"values": [0.0, 100.0]
+}
+
+[sub_resource type="Animation" id="Animation_8t362"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HBoxContainer/TextureButton/TextureProgressBar:value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [100.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HBoxContainer/Control/LineEdit/MarginContainer/ProgressBar:value")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [50.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_66p0s"]
+_data = {
+"RESET": SubResource("Animation_8t362"),
+"checkmark": SubResource("Animation_ykqm7")
+}
+
+[node name="ToDoListEntry" type="Control" node_paths=PackedStringArray("to_do_edit")]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 480.0
@@ -39,8 +112,7 @@ offset_bottom = 270.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_gewdv")
-to_do_edit = NodePath("HBoxContainer/LineEdit")
-to_do_label = NodePath("HBoxContainer/LineEdit/RichTextLabel")
+to_do_edit = NodePath("HBoxContainer/Control/LineEdit")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 0
@@ -52,46 +124,72 @@ theme_override_constants/separation = 2
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 size_flags_vertical = 0
-texture_normal = ExtResource("1_fkksn")
+toggle_mode = true
+texture_normal = ExtResource("2_4jj4j")
 ignore_texture_size = true
 stretch_mode = 4
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HBoxContainer/TextureButton"]
+visible = false
 sprite_frames = SubResource("SpriteFrames_biycj")
 
-[node name="LineEdit" type="LineEdit" parent="HBoxContainer"]
-custom_minimum_size = Vector2(250, 0)
+[node name="TextureProgressBar" type="TextureProgressBar" parent="HBoxContainer/TextureButton"]
+layout_mode = 0
+offset_right = 24.0
+offset_bottom = 24.0
+value = 100.0
+fill_mode = 5
+radial_center_offset = Vector2(-8, 0)
+nine_patch_stretch = true
+texture_under = ExtResource("2_4jj4j")
+texture_over = ExtResource("2_4jj4j")
+texture_progress = ExtResource("3_blrg3")
+tint_progress = Color(0.28, 1, 0.388, 1)
+
+[node name="Control" type="Control" parent="HBoxContainer"]
+custom_minimum_size = Vector2(360, 0)
 layout_mode = 2
+
+[node name="LineEdit" type="LineEdit" parent="HBoxContainer/Control"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 1
+offset_right = 271.0
+offset_bottom = 24.0
 size_flags_horizontal = 3
 size_flags_vertical = 0
 theme = SubResource("Theme_ve1l6")
+theme_override_colors/font_uneditable_color = Color(1, 1, 1, 1)
 theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_4r8eb")
 theme_override_styles/normal = SubResource("StyleBoxFlat_lqqou")
-text = "asdfasdfasd"
+text = "asdfassdfasdfasdfasdfasdfasdfasasdfasdfa"
+alignment = 3
+max_length = 40
+editable = false
 expand_to_text_length = true
+clear_button_enabled = true
 
-[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/LineEdit"]
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/Control/LineEdit"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = 148.0
-offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 0
-theme = SubResource("Theme_8mh0n")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_h3ico")
-text = "asdfasdfasd"
-fit_content = true
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 20
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/LineEdit"]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+[node name="ProgressBar" type="ProgressBar" parent="HBoxContainer/Control/LineEdit/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_styles/background = SubResource("StyleBoxEmpty_aatwl")
+theme_override_styles/fill = SubResource("StyleBoxFlat_rns6p")
+value = 50.0
+show_percentage = false
 
 [node name="TextureButton2" type="TextureButton" parent="HBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 texture_normal = ExtResource("1_fkksn")
@@ -99,10 +197,31 @@ ignore_texture_size = true
 stretch_mode = 4
 
 [node name="TextureButton3" type="TextureButton" parent="HBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
 texture_normal = ExtResource("1_fkksn")
 ignore_texture_size = true
 stretch_mode = 4
 
-[connection signal="text_changed" from="HBoxContainer/LineEdit" to="." method="_on_line_edit_text_changed"]
+[node name="SMConfirm" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_6umaq")
+text = "✓"
+
+[node name="QMExit" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/normal = ExtResource("5_o1xc5")
+text = "X"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_66p0s")
+}
+
+[connection signal="toggled" from="HBoxContainer/TextureButton" to="." method="_on_texture_button_toggled"]
+[connection signal="text_changed" from="HBoxContainer/Control/LineEdit" to="." method="_on_line_edit_text_changed"]
