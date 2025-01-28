@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://ptrksu7kuibd"]
+[gd_scene load_steps=17 format=3 uid="uid://uepaojeji6h7"]
 
-[ext_resource type="Texture2D" uid="uid://ddcu2t7y2pmog" path="res://icon.svg" id="1_fkksn"]
 [ext_resource type="Script" path="res://scenes/to-do list/to_do_list_entry.gd" id="1_gewdv"]
 [ext_resource type="Texture2D" uid="uid://chp3pemtjryqc" path="res://graphics/128x128-white-rounded-box.svg" id="2_4jj4j"]
 [ext_resource type="Texture2D" uid="uid://b6cyjinksgnnp" path="res://graphics/128x128-white-rounded-box-checked.svg" id="3_blrg3"]
+[ext_resource type="Texture2D" uid="uid://mr26g7xlf1oy" path="res://graphics/128x128-edit.svg" id="4_rokdc"]
+[ext_resource type="Texture2D" uid="uid://dtx62v5kdhvl0" path="res://graphics/128x128-pin.svg" id="5_av247"]
 [ext_resource type="StyleBox" uid="uid://csusgeo1f8t8c" path="res://themes/Exitbutton.tres" id="5_o1xc5"]
 
 [sub_resource type="FontVariation" id="FontVariation_dr5m1"]
@@ -40,6 +41,45 @@ corner_radius_bottom_left = 8
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6umaq"]
 bg_color = Color(0.277748, 0.705089, 0.286956, 1)
+
+[sub_resource type="Animation" id="Animation_8t362"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("HBoxContainer/TextureButton/TextureProgressBar:value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [100.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("HBoxContainer/Control/LineEdit/MarginContainer/ProgressBar:value")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [50.0]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("HBoxContainer/Control/LineEdit:modulate")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.8, 0.8, 0.8, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_ykqm7"]
 resource_name = "checkmark"
@@ -79,45 +119,6 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(0.7, 0.7, 0.7, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_8t362"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("HBoxContainer/TextureButton/TextureProgressBar:value")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [100.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("HBoxContainer/Control/LineEdit/MarginContainer/ProgressBar:value")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [50.0]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("HBoxContainer/Control/LineEdit:modulate")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(0.8, 0.8, 0.8, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_66p0s"]
@@ -211,18 +212,16 @@ value = 50.0
 show_percentage = false
 
 [node name="TextureButton2" type="TextureButton" parent="HBoxContainer"]
-visible = false
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
-texture_normal = ExtResource("1_fkksn")
+texture_normal = ExtResource("4_rokdc")
 ignore_texture_size = true
 stretch_mode = 4
 
 [node name="TextureButton3" type="TextureButton" parent="HBoxContainer"]
-visible = false
 custom_minimum_size = Vector2(24, 24)
 layout_mode = 2
-texture_normal = ExtResource("1_fkksn")
+texture_normal = ExtResource("5_av247")
 ignore_texture_size = true
 stretch_mode = 4
 
