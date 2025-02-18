@@ -108,6 +108,7 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_dpc6i")
+polyfocus_version = " Polyfocus v0.6.2-beta"
 metadata/_edit_vertical_guides_ = [480.0]
 metadata/_edit_horizontal_guides_ = [272.0]
 
@@ -1177,7 +1178,8 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="SettingMenu/TabContainer/About/VBoxContainer/VersionHBox"]
+[node name="PolyfocusVersionLabel" type="Label" parent="SettingMenu/TabContainer/About/VBoxContainer/VersionHBox"]
+unique_name_in_owner = true
 layout_mode = 2
 text = " Polyfocus v0.6.2-beta"
 

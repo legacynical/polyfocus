@@ -17,8 +17,8 @@ extends Node
 @onready var custom_qt_session_spin_box: SpinBox = %CustomQTSessionSpinBox
 #save_game.custom_qt_session
 
-@onready var custom_qt_session_label = %CustomQTSessionLabel
-@onready var custom_qt_session_start = %CustomQTSessionStart
+@onready var custom_qt_session_label: Label = %CustomQTSessionLabel
+@onready var custom_qt_session_start: Button = %CustomQTSessionStart
 
 
 
@@ -26,6 +26,7 @@ extends Node
 @onready var timer_setting_scroll: ScrollContainer = %"Timer Settings"
 @onready var pomo_session: SpinBox = %PomoSession
 @onready var break_session: SpinBox = %BreakSession
+@onready var long_break_toggle: TextureButton = %LongBreakToggle
 @onready var long_break_session: SpinBox = %LongBreakSession
 @onready var break_session_interval: SpinBox = %BreakSessionInterval
 @onready var primer_session: SpinBox = %ProgressivePrimerSession
@@ -78,7 +79,7 @@ var is_switch_mode_on_timeout: bool = true # unused, may or may not be implement
 
 var is_muted: bool = true
 
-var break_session_counter: int = 0
+var break_session_counter: int = 0 # resets to 0 when long breaks toggled on from off
 var total_focus_time: int = 0
 var focus_duration: int = 0
 var session_time: int = 0
@@ -393,8 +394,9 @@ func _on_window_default_button_pressed() -> void:
 	DisplayServer.window_set_size(default_window_size)
 	DisplayServer.window_set_position(default_window_position)
 
-func _on_long_break_toggle_toggled(toggled_on) -> void:
-	AudioManager.click_basic.play()
+func _on_long_break_toggle_toggled(toggled_on, is_muted: bool = false) -> void:
+	if not is_muted:
+		AudioManager.click_basic.play()
 	if toggled_on:
 		break_session_counter = 0
 		print("reset break session counter")
@@ -549,7 +551,7 @@ func switch_mode() -> void:
 			@warning_ignore("narrowing_conversion")
 			break_session_counter += 1
 			print("\nbreak counter: " + str(break_session_counter))
-			if is_long_break_due():
+			if is_long_break_due() and long_break_toggle.is_pressed():
 				reset_timer(long_break_session.value)
 			else:
 				reset_timer(break_session.value)
@@ -606,20 +608,21 @@ func save_timer_setting() -> void:
 	saved_game.break_color_picker = break_color_picker.color
 	#TODO focus color presets
 	#TODO break color presets
-	saved_game.is_progressive_pomo_enabled = is_progressive_pomo_enabled
-	saved_game.is_long_breaks_enabled = is_long_breaks_enabled
 	
 	saved_game.pomodoro_session = pomo_session.value
 	saved_game.break_session = break_session.value
 	saved_game.long_break_session = long_break_session.value
+
+	saved_game.long_break_toggle = long_break_toggle.button_pressed
 	saved_game.break_session_interval = break_session_interval.value
+	saved_game.is_progressive_pomo_enabled = is_progressive_pomo_enabled
+	saved_game.auto_extend_id = auto_session_extend.selected
+	saved_game.rating_timeout = rating_timeout.value
 
 	saved_game.primer_session = primer_session.value
 	saved_game.neutral_session = neutral_session.value
 	saved_game.focused_session = focused_session.value
 	saved_game.flow_session = flow_session.value
-	saved_game.auto_extend_id = auto_session_extend.selected
-	saved_game.rating_timeout = rating_timeout.value
 	
 	saved_game.low_processor_mode_toggle = low_processor_mode_toggle.button_pressed
 
@@ -637,7 +640,7 @@ func load_timer_setting() -> void:
 	break_session.value = saved_game.break_session
 	long_break_session.value = saved_game.long_break_session
 	
-	is_long_breaks_enabled = saved_game.is_long_breaks_enabled
+	_on_long_break_toggle_toggled(saved_game.long_break_toggle, is_muted)
 	break_session_interval.value = saved_game.break_session_interval
 	is_progressive_pomo_enabled = saved_game.is_progressive_pomo_enabled
 	auto_session_extend.selected = saved_game.auto_extend_id

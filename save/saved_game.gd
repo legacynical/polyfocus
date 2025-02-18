@@ -22,7 +22,7 @@ extends Resource
 @export var break_session: int
 @export var long_break_session: int
 
-@export var is_long_breaks_enabled: bool
+@export var long_break_toggle: bool
 @export var break_session_interval: int
 @export var is_progressive_pomo_enabled: bool
 @export var auto_extend_id: int
