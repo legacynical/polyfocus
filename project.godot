@@ -14,7 +14,6 @@ config/name="polyfocus"
 run/main_scene="res://scenes/pomodoro timer/pomodoro_timer.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 run/max_fps=60
-run/low_processor_mode=true
 config/icon="res://polyfocus-logo.svg"
 
 [autoload]

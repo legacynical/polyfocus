@@ -640,7 +640,6 @@ size_flags_stretch_ratio = 3.0
 
 [node name="SettingMenu" type="PanelContainer" parent="."]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -654,11 +653,13 @@ metadata/_edit_use_anchors_ = true
 
 [node name="TabContainer" type="TabContainer" parent="SettingMenu"]
 layout_mode = 2
-current_tab = 0
+current_tab = 2
 
 [node name="Timer Settings" type="ScrollContainer" parent="SettingMenu/TabContainer"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
+scroll_vertical = 146
 metadata/_tab_index = 0
 
 [node name="TimerSettingContainer" type="VBoxContainer" parent="SettingMenu/TabContainer/Timer Settings"]
@@ -1034,6 +1035,16 @@ mouse_filter = 1
 theme = ExtResource("6_pybon")
 text = " Low Processor Mode"
 
+[node name="LowProcessorModeToggle" type="TextureButton" parent="SettingMenu/TabContainer/Timer Settings/TimerSettingContainer/HBoxContainer9"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+toggle_mode = true
+texture_normal = ExtResource("5_b358n")
+texture_pressed = ExtResource("6_ppuow")
+ignore_texture_size = true
+stretch_mode = 5
+
 [node name="HBoxContainerA" type="HBoxContainer" parent="SettingMenu/TabContainer/Timer Settings/TimerSettingContainer"]
 custom_minimum_size = Vector2(0, 40)
 layout_mode = 2
@@ -1156,7 +1167,6 @@ layout_mode = 2
 bus_name = "bgm"
 
 [node name="About" type="ScrollContainer" parent="SettingMenu/TabContainer"]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 
@@ -1531,6 +1541,7 @@ scale = Vector2(0.545, 0.545)
 [connection signal="value_changed" from="SettingMenu/TabContainer/Timer Settings/TimerSettingContainer/HBoxContainer3/LongBreakSession" to="." method="_on_long_break_session_value_changed"]
 [connection signal="toggled" from="SettingMenu/TabContainer/Timer Settings/TimerSettingContainer/HBoxContainer4/HBoxContainer/LongBreakToggle" to="." method="_on_long_break_toggle_toggled"]
 [connection signal="toggled" from="SettingMenu/TabContainer/Timer Settings/TimerSettingContainer/HBoxContainer5/HBoxContainer/ProgressivePomoToggle" to="." method="_on_progressive_pomo_toggle_toggled"]
+[connection signal="toggled" from="SettingMenu/TabContainer/Timer Settings/TimerSettingContainer/HBoxContainer9/LowProcessorModeToggle" to="." method="_on_low_processor_mode_toggle_toggled"]
 [connection signal="pressed" from="SettingMenu/TabContainer/Timer Settings/TimerSettingContainer/HBoxContainerA/WindowReset" to="." method="_on_window_reset_button_pressed"]
 [connection signal="pressed" from="SettingMenu/TabContainer/Timer Settings/TimerSettingContainer/HBoxContainerA/WindowSave" to="." method="_on_window_save_button_pressed"]
 [connection signal="pressed" from="SettingMenu/TabContainer/Timer Settings/TimerSettingContainer/HBoxContainerA/WindowDefault" to="." method="_on_window_default_button_pressed"]

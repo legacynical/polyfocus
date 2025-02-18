@@ -32,6 +32,7 @@ extends Node
 @onready var neutral_session: SpinBox = %NeutralSession
 @onready var focused_session: SpinBox = %FocusedSession
 @onready var flow_session: SpinBox = %FlowSession
+@onready var low_processor_mode_toggle: TextureButton = %LowProcessorModeToggle
 
 @onready var task_timer_menu: PanelContainer = %TaskTimerMenu
 @onready var task_timer_grid_container: GridContainer = %TTGridContainer
@@ -57,6 +58,10 @@ extends Node
 
 @onready var audio_setting_container: VBoxContainer = %AudioSettingContainer
 
+@onready var polyfocus_version_label: Label = %PolyfocusVersionLabel
+@export var polyfocus_version: String
+
+
 @onready var saved_game: SavedGame = SavedGame.new()
 #@onready var save_file: String = "user://savegame.tres"
 @onready var save_file: String = "user://[v0.6.2-beta]savegame.tres"
@@ -65,10 +70,11 @@ extends Node
 var default_window_size: Vector2 = Vector2(480, 270)
 var default_window_position = null # sets to center of user's primary screen on 1st startup
 
-var is_long_breaks_enabled: bool = true
 var is_progressive_pomo_enabled: bool = false
 var is_progressive_pomo_break_due: bool = false
-var is_switch_mode_on_timeout: bool = true
+
+var is_low_processor_mode_enabled: bool = false # possibly not needed
+var is_switch_mode_on_timeout: bool = true # unused, may or may not be implemented
 
 var is_muted: bool = true
 
@@ -86,6 +92,7 @@ enum mode {
 var current_mode: mode = mode.FOCUS
 
 func _ready() -> void:
+	polyfocus_version_label.text = polyfocus_version
 	DisplayServer.window_set_min_size(default_window_size)
 	
 	timer_setting_scroll.scroll_vertical = 0
@@ -347,7 +354,7 @@ func set_quick_timer(reset_time_in_minutes: int) -> void:
 #endregion
 ##END QuickTimer
 
-#region SettingMenu
+#region Timer Settings Menu
 func _on_setting_menu_button_pressed() -> void:
 	AudioManager.click_basic.play()
 	print("setting menu button pressed")
@@ -389,11 +396,22 @@ func _on_window_default_button_pressed() -> void:
 func _on_long_break_toggle_toggled(toggled_on) -> void:
 	AudioManager.click_basic.play()
 	if toggled_on:
-		is_long_breaks_enabled = true
-	else:
-		is_long_breaks_enabled = false
+		break_session_counter = 0
+		print("reset break session counter")
+	long_break_toggle.set_pressed_no_signal(toggled_on)
+		
+func _on_low_processor_mode_toggle_toggled(toggled_on, is_muted: bool = false):
+	if not is_muted:
+		AudioManager.click_basic.play()
+	low_processor_mode_toggle.set_pressed_no_signal(toggled_on) # prevents toggle emit when changing pressed state
+	is_low_processor_mode_enabled = toggled_on
+	OS.set_low_processor_usage_mode(toggled_on)
+	print("low processor mode: ",OS.is_in_low_processor_usage_mode())
+
+		
+
 #endregion
-##END SettingMenu
+##END Timer Settings Menu
 
 #region TaskTimerMenu
 func _on_task_timer_menu_button_pressed() -> void:
@@ -602,6 +620,9 @@ func save_timer_setting() -> void:
 	saved_game.flow_session = flow_session.value
 	saved_game.auto_extend_id = auto_session_extend.selected
 	saved_game.rating_timeout = rating_timeout.value
+	
+	saved_game.low_processor_mode_toggle = low_processor_mode_toggle.button_pressed
+
 	ResourceSaver.save(saved_game, save_file)
 	
 func load_timer_setting() -> void:
@@ -626,8 +647,9 @@ func load_timer_setting() -> void:
 	neutral_session.value = saved_game.neutral_session
 	focused_session.value = saved_game.focused_session
 	flow_session.value = saved_game.flow_session
-
-
+	
+	_on_low_processor_mode_toggle_toggled(saved_game.low_processor_mode_toggle, is_muted)
+	
 func save_quick_timers() -> void:
 	print("\nsaving quick timers:")
 	saved_game.is_qt_one_click_start = qt_one_click_start_toggle.button_pressed

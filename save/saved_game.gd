@@ -32,6 +32,8 @@ extends Resource
 @export var neutral_session: int
 @export var focused_session: int
 @export var flow_session: int
+
+@export var low_processor_mode_toggle: bool
 #endregion
 
 
