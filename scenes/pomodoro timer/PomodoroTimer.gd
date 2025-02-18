@@ -77,7 +77,7 @@ var is_progressive_pomo_break_due: bool = false
 var is_low_processor_mode_enabled: bool = false # possibly not needed
 var is_switch_mode_on_timeout: bool = true # unused, may or may not be implemented
 
-var is_muted: bool = true
+var is_muted: bool = true # used to prevent clicks sfx on some function calls
 
 var break_session_counter: int = 0 # resets to 0 when long breaks toggled on from off
 var total_focus_time: int = 0
@@ -285,13 +285,13 @@ func _on_quick_timer_button_pressed() -> void:
 	AudioManager.alert_1_mb.play()
 	quick_timer_menu.visible = true
 
-func _on_qt_one_click_start_toggle_toggled(toggled_on) -> void:
+func _on_qt_one_click_start_toggle_toggled(_toggled_on) -> void:
 	AudioManager.click_basic.play()
 
-func _on_custom_qt_session_slider_value_changed(value) -> void:
+func _on_custom_qt_session_slider_value_changed(value: int) -> void:
 	custom_qt_session_spin_box.value = value
 	
-func _on_custom_qt_session_spin_box_value_changed(value) -> void:
+func _on_custom_qt_session_spin_box_value_changed(value: int) -> void:
 	custom_qt_session_slider.value = value
 	custom_qt_session_label.text = convert_time(value * 60)
 	
@@ -394,7 +394,7 @@ func _on_window_default_button_pressed() -> void:
 	DisplayServer.window_set_size(default_window_size)
 	DisplayServer.window_set_position(default_window_position)
 
-func _on_long_break_toggle_toggled(toggled_on, is_muted: bool = false) -> void:
+func _on_long_break_toggle_toggled(toggled_on: bool, is_muted: bool = false) -> void:
 	if not is_muted:
 		AudioManager.click_basic.play()
 	if toggled_on:
@@ -402,7 +402,7 @@ func _on_long_break_toggle_toggled(toggled_on, is_muted: bool = false) -> void:
 		print("reset break session counter")
 	long_break_toggle.set_pressed_no_signal(toggled_on)
 		
-func _on_low_processor_mode_toggle_toggled(toggled_on, is_muted: bool = false):
+func _on_low_processor_mode_toggle_toggled(toggled_on: bool, is_muted: bool = false) -> void:
 	if not is_muted:
 		AudioManager.click_basic.play()
 	low_processor_mode_toggle.set_pressed_no_signal(toggled_on) # prevents toggle emit when changing pressed state
