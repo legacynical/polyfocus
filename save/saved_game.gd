@@ -14,22 +14,24 @@ extends Resource
 
 @export var focus_color_picker: Color
 @export var break_color_picker: Color
+# color presets not implemented yet
 @export var focus_color_picker_presets: Array
 @export var break_color_picker_presets: Array
-@export var is_progressive_pomo_enabled: bool
 
 @export var pomodoro_session: int
 @export var break_session: int
 @export var long_break_session: int
+
+@export var is_long_breaks_enabled: bool
 @export var break_session_interval: int
-
-@export var primer_session: int
-@export var flow_session: int
-@export var focused_session: int
-@export var neutral_session: int
-
+@export var is_progressive_pomo_enabled: bool
 @export var auto_extend_id: int
 @export var rating_timeout: int
+
+@export var primer_session: int
+@export var neutral_session: int
+@export var focused_session: int
+@export var flow_session: int
 #endregion
 
 

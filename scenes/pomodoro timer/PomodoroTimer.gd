@@ -59,16 +59,16 @@ extends Node
 
 @onready var saved_game: SavedGame = SavedGame.new()
 #@onready var save_file: String = "user://savegame.tres"
-@onready var save_file: String = "user://[v0.6.1-beta]savegame.tres"
+@onready var save_file: String = "user://[v0.6.2-beta]savegame.tres"
 
 
 var default_window_size: Vector2 = Vector2(480, 270)
 var default_window_position = null # sets to center of user's primary screen on 1st startup
 
+var is_long_breaks_enabled: bool = true
 var is_progressive_pomo_enabled: bool = false
 var is_progressive_pomo_break_due: bool = false
 var is_switch_mode_on_timeout: bool = true
-var is_long_breaks_enabled: bool = true
 
 var is_muted: bool = true
 
@@ -104,13 +104,13 @@ func _ready() -> void:
 	
 	if not FileAccess.file_exists(save_file):
 		save_window()
-		save_pomodoro_timer()
+		save_timer_setting()
 		save_audio_setting()
 		save_quick_timers()
 		set_default_task_timers()
 		save_task_timers()
 	load_window()
-	load_pomodoro_timer()
+	load_timer_setting()
 	load_audio_setting()
 	load_quick_timers()
 	load_task_timers()
@@ -385,6 +385,13 @@ func _on_window_default_button_pressed() -> void:
 	print("resetting window")
 	DisplayServer.window_set_size(default_window_size)
 	DisplayServer.window_set_position(default_window_position)
+
+func _on_long_break_toggle_toggled(toggled_on) -> void:
+	AudioManager.click_basic.play()
+	if toggled_on:
+		is_long_breaks_enabled = true
+	else:
+		is_long_breaks_enabled = false
 #endregion
 ##END SettingMenu
 
@@ -546,6 +553,8 @@ func switch_mode() -> void:
 #endregion
 ##END Focus/Break Toggle
 
+
+
 #region Save/Load 
 func save_window() -> void:
 	print("\nsaving window:")
@@ -573,13 +582,14 @@ func print_window_stats() -> void:
 	print(" |win size: " + str(DisplayServer.window_get_size()))
 	print(" ⌊default win pos: " + str(default_window_position))
 
-func save_pomodoro_timer() -> void:
-	print("\nsaving pomodoro timer:")
+func save_timer_setting() -> void:
+	print("\nsaving timer setting:")
 	saved_game.focus_color_picker = focus_color_picker.color
 	saved_game.break_color_picker = break_color_picker.color
 	#TODO focus color presets
 	#TODO break color presets
 	saved_game.is_progressive_pomo_enabled = is_progressive_pomo_enabled
+	saved_game.is_long_breaks_enabled = is_long_breaks_enabled
 	
 	saved_game.pomodoro_session = pomo_session.value
 	saved_game.break_session = break_session.value
@@ -594,26 +604,28 @@ func save_pomodoro_timer() -> void:
 	saved_game.rating_timeout = rating_timeout.value
 	ResourceSaver.save(saved_game, save_file)
 	
-func load_pomodoro_timer() -> void:
-	print("\nloading pomodoro timer:")
+func load_timer_setting() -> void:
+	print("\nloading timer setting:")
 	var saved_game: SavedGame = load(save_file) as SavedGame
 	focus_color_picker.color = saved_game.focus_color_picker
 	break_color_picker.color = saved_game.break_color_picker
 	#TODO focus color presets
 	#TODO break color presets
-	is_progressive_pomo_enabled = saved_game.is_progressive_pomo_enabled
 	
 	pomo_session.value = saved_game.pomodoro_session
 	break_session.value = saved_game.break_session
 	long_break_session.value = saved_game.long_break_session
+	
+	is_long_breaks_enabled = saved_game.is_long_breaks_enabled
 	break_session_interval.value = saved_game.break_session_interval
-
-	primer_session.value = saved_game.primer_session
-	neutral_session.value = saved_game.neutral_session
-	flow_session.value = saved_game.flow_session
-	focused_session.value = saved_game.focused_session
+	is_progressive_pomo_enabled = saved_game.is_progressive_pomo_enabled
 	auto_session_extend.selected = saved_game.auto_extend_id
 	rating_timeout.value = saved_game.rating_timeout
+	
+	primer_session.value = saved_game.primer_session
+	neutral_session.value = saved_game.neutral_session
+	focused_session.value = saved_game.focused_session
+	flow_session.value = saved_game.flow_session
 
 
 func save_quick_timers() -> void:
@@ -726,7 +738,7 @@ func _notification(what) -> void:
 	match what:
 		NOTIFICATION_WM_CLOSE_REQUEST:
 			save_window() # saves window position & size
-			save_pomodoro_timer() # saves pomodoro timer settings
+			save_timer_setting() # saves pomodoro timer settings
 			save_audio_setting() # saves audio settings
 			save_quick_timers() # saves quick timer settings
 			save_task_timers() # saves task timers
