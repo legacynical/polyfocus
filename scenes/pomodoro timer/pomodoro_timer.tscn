@@ -641,7 +641,6 @@ size_flags_stretch_ratio = 3.0
 
 [node name="SettingMenu" type="PanelContainer" parent="."]
 unique_name_in_owner = true
-visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -1483,15 +1482,18 @@ grow_horizontal = 0
 theme_override_styles/normal = ExtResource("10_rt072")
 text = "X"
 
-[node name="CurrentDateTime" parent="." instance=ExtResource("4_rjnu3")]
-unique_name_in_owner = true
-layout_mode = 1
+[node name="Overlay" type="Node" parent="."]
+
+[node name="PolyfocusVersionLabel" parent="Overlay" instance=ExtResource("11_4gt85")]
 anchors_preset = 3
 anchor_left = 1.0
+anchor_top = 1.0
 anchor_right = 1.0
-offset_left = -480.0
-offset_top = -23.0
-offset_right = 0.0
+anchor_bottom = 1.0
+offset_left = -168.0
+offset_top = -16.0
+offset_right = -2.0
+offset_bottom = -2.0
 grow_horizontal = 0
 
 [node name="Utilities" type="Node" parent="."]
