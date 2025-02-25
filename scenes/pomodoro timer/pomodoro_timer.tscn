@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://cyssynqbw33oq"]
+[gd_scene load_steps=36 format=3 uid="uid://cyssynqbw33oq"]
 
 [ext_resource type="Script" path="res://scenes/pomodoro timer/PomodoroTimer.gd" id="1_dpc6i"]
 [ext_resource type="FontFile" uid="uid://cogm35cdl37e6" path="res://fonts/ComicMono/ComicMono.ttf" id="2_j8k3t"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://ch3wwse0bq8xl" path="res://scenes/ui controls/volume_control.tscn" id="10_lcmql"]
 [ext_resource type="StyleBox" uid="uid://csusgeo1f8t8c" path="res://themes/Exitbutton.tres" id="10_rt072"]
 [ext_resource type="Texture2D" uid="uid://na41aqi1owpq" path="res://graphics/128x128-circle-blank.svg" id="10_sb4l6"]
+[ext_resource type="PackedScene" uid="uid://2etsnaqi3s4u" path="res://scenes/pomodoro timer/polyfocus_version_label.tscn" id="11_4gt85"]
 [ext_resource type="Texture2D" uid="uid://cbopcrt7ijq3l" path="res://graphics/128x128-circle.svg" id="11_cjx1h"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_weg84"]
@@ -108,7 +109,6 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_dpc6i")
-polyfocus_version = " Polyfocus v0.6.2-beta"
 metadata/_edit_vertical_guides_ = [480.0]
 metadata/_edit_horizontal_guides_ = [272.0]
 
@@ -641,6 +641,7 @@ size_flags_stretch_ratio = 3.0
 
 [node name="SettingMenu" type="PanelContainer" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -660,7 +661,7 @@ current_tab = 2
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
-scroll_vertical = 146
+scroll_vertical = 100
 metadata/_tab_index = 0
 
 [node name="TimerSettingContainer" type="VBoxContainer" parent="SettingMenu/TabContainer/Timer Settings"]
@@ -1173,15 +1174,15 @@ metadata/_tab_index = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="SettingMenu/TabContainer/About"]
 layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="VersionHBox" type="HBoxContainer" parent="SettingMenu/TabContainer/About/VBoxContainer"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="PolyfocusVersionLabel" type="Label" parent="SettingMenu/TabContainer/About/VBoxContainer/VersionHBox"]
+[node name="PolyfocusVersionLabel" parent="SettingMenu/TabContainer/About/VBoxContainer/VersionHBox" instance=ExtResource("11_4gt85")]
 unique_name_in_owner = true
 layout_mode = 2
-text = " Polyfocus v0.6.2-beta"
 
 [node name="CreatorHBox" type="HBoxContainer" parent="SettingMenu/TabContainer/About/VBoxContainer"]
 custom_minimum_size = Vector2(0, 30)
@@ -1202,7 +1203,7 @@ text = " Made with: Godot Engine"
 [node name="TextureRect" type="TextureRect" parent="SettingMenu/TabContainer/About/VBoxContainer/EngineHBox"]
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 2
 texture = ExtResource("3_e0otb")
 expand_mode = 1
 stretch_mode = 5

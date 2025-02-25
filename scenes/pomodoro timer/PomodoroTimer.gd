@@ -20,8 +20,6 @@ extends Node
 @onready var custom_qt_session_label: Label = %CustomQTSessionLabel
 @onready var custom_qt_session_start: Button = %CustomQTSessionStart
 
-
-
 @onready var setting_menu: PanelContainer = %SettingMenu
 @onready var timer_setting_scroll: ScrollContainer = %"Timer Settings"
 @onready var pomo_session: SpinBox = %PomoSession
@@ -60,12 +58,12 @@ extends Node
 @onready var audio_setting_container: VBoxContainer = %AudioSettingContainer
 
 @onready var polyfocus_version_label: Label = %PolyfocusVersionLabel
-@export var polyfocus_version: String
+@onready var polyfocus_version: String = ProjectSettings.get_setting("application/config/version")
 
 
 @onready var saved_game: SavedGame = SavedGame.new()
 #@onready var save_file: String = "user://savegame.tres"
-@onready var save_file: String = "user://[v0.6.2-beta]savegame.tres"
+@onready var save_file: String = "user://[v" + polyfocus_version + "]savegame.tres"
 
 
 var default_window_size: Vector2 = Vector2(480, 270)
@@ -93,7 +91,7 @@ enum mode {
 var current_mode: mode = mode.FOCUS
 
 func _ready() -> void:
-	polyfocus_version_label.text = polyfocus_version
+	polyfocus_version_label.text = "Polyfocus v" + polyfocus_version
 	DisplayServer.window_set_min_size(default_window_size)
 	
 	timer_setting_scroll.scroll_vertical = 0
