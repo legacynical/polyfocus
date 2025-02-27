@@ -4,4 +4,4 @@ extends Label
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	self.text = "v" + polyfocus_version
+	self.text = "v" + polyfocus_version + "-beta"

@@ -91,7 +91,7 @@ enum mode {
 var current_mode: mode = mode.FOCUS
 
 func _ready() -> void:
-	polyfocus_version_label.text = " Polyfocus v" + polyfocus_version
+	polyfocus_version_label.text = " Polyfocus v" + polyfocus_version + "-beta"
 	DisplayServer.window_set_min_size(default_window_size)
 	
 	timer_setting_scroll.scroll_vertical = 0
