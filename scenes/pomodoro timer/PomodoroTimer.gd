@@ -258,6 +258,7 @@ func reset_timer(new_session_time_in_minutes: int, is_auto_start_enabled: bool =
 	time_left_rounded = round(timer.time_left)
 	update_label()
 	print("reset timer to " + convert_time(int(timer.time_left)))
+	quick_timer_button.visible = true
 
 	if is_auto_start_enabled: # auto starts timer after timer reset
 		timer.paused = false
@@ -541,7 +542,6 @@ func _on_mode_toggle_toggled(_toggled_on: bool) -> void:
 func switch_mode() -> void:
 	is_progressive_pomo_break_due = false # prevents unintended breaks
 	skip_button.visible = false
-	quick_timer_button.visible = true
 	match current_mode:
 		mode.FOCUS: # switches to break
 			AudioManager.time_to_break_mb.play()
