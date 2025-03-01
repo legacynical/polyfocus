@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="polyfocus"
-config/version="0.7.2"
+config/version="0.7.3"
 run/main_scene="res://scenes/pomodoro timer/pomodoro_timer.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 run/max_fps=60

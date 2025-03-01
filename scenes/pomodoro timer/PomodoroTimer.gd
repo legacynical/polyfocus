@@ -239,7 +239,7 @@ func _on_pomo_timer_timeout() -> void:
 			if is_switch_mode_on_timeout: # user non-changeable true
 				switch_mode() # would user even want auto mode switch on timeout off?
 				
-func reset_timer(new_session_time_in_minutes: int) -> void:
+func reset_timer(new_session_time_in_minutes: int, is_auto_start_enabled: bool = false) -> void:
 	print("resetting timer to: ", new_session_time_in_minutes, " min")
 	# timer.paused = false # redundant
 	#is_counting_down = false
@@ -259,6 +259,11 @@ func reset_timer(new_session_time_in_minutes: int) -> void:
 	update_label()
 	print("reset timer to " + convert_time(int(timer.time_left)))
 
+	if is_auto_start_enabled: # auto starts timer after timer reset
+		timer.paused = false
+		timer_button.text = "PAUSE"
+		skip_button.visible = true
+		quick_timer_button.visible = false
 
 # closes pomo menus when clicking outside to the background panel
 func _on_background_panel_gui_input(event) -> void:
@@ -322,7 +327,7 @@ func _on_hr_1_button_pressed() -> void:
 
 func _on_custom_qt_session_start_pressed():
 	if custom_qt_session_spin_box.value > 0:
-		session_resume(custom_qt_session_spin_box.value)
+		reset_timer(custom_qt_session_spin_box.value, true)
 	AudioManager.click_basic.play()
 	quick_timer_menu.visible = false
 	
@@ -346,7 +351,7 @@ func edit_quick_timer(edit_value: int) -> void:
 func set_quick_timer(reset_time_in_minutes: int) -> void:	
 	AudioManager.click_basic.play()
 	if qt_one_click_start_toggle.button_pressed:
-		session_resume(reset_time_in_minutes)
+		reset_timer(reset_time_in_minutes, true)
 		quick_timer_menu.visible = false
 	else:
 		custom_qt_session_spin_box.value = reset_time_in_minutes
@@ -496,12 +501,7 @@ func session_resume(extend_time: int) -> void:
 	#timer_elements.visible = true
 	session_rating.visible = false
 	is_progressive_pomo_break_due = true
-	reset_timer(extend_time)
-	timer.paused = false # auto starts timer after session_resume reset
-	#is_counting_down = true
-	timer_button.text = "PAUSE"
-	skip_button.visible = true
-	quick_timer_button.visible = false
+	reset_timer(extend_time, true) # resets timer by extend_time and starts timer
 #endregion
 ##END SessionRating
 
