@@ -395,10 +395,11 @@ func _on_window_default_button_pressed() -> void:
 func _on_long_break_toggle_toggled(toggled_on: bool, is_muted: bool = false) -> void:
 	if not is_muted:
 		AudioManager.click_basic.play()
+	long_break_toggle.set_pressed_no_signal(toggled_on)
 	if toggled_on:
 		break_session_counter = 0
 		print("reset break session counter")
-	long_break_toggle.set_pressed_no_signal(toggled_on)
+		print("long breaks: ", long_break_toggle.is_pressed())
 		
 func _on_low_processor_mode_toggle_toggled(toggled_on: bool, is_muted: bool = false) -> void:
 	if not is_muted:
@@ -772,6 +773,6 @@ func get_caller_function_name():
 	return "Unknown"
 
 func _on_debug_pressed() -> void:
-	print("what's up")
+	print("low processor mode: ",OS.is_in_low_processor_usage_mode())
 #endregion
 ##END DEBUG
