@@ -323,6 +323,7 @@ func _on_custom_qt_session_start_pressed():
 	if custom_qt_session_spin_box.value > 0:
 		reset_timer(custom_qt_session_spin_box.value, true)
 	AudioManager.click_basic.play()
+	AudioManager.alert_2_mb.play()
 	quick_timer_menu.visible = false
 	
 func _on_subtract_l_pressed() -> void:
@@ -346,6 +347,7 @@ func set_quick_timer(reset_time_in_minutes: int) -> void:
 	AudioManager.click_basic.play()
 	if qt_one_click_start_toggle.button_pressed:
 		reset_timer(reset_time_in_minutes, true)
+		AudioManager.alert_2_mb.play()
 		quick_timer_menu.visible = false
 	else:
 		custom_qt_session_spin_box.value = reset_time_in_minutes
