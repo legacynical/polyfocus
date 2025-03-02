@@ -15,7 +15,6 @@ extends Node
 # these two should be the same value
 @onready var custom_qt_session_slider: HSlider = %CustomQTSessionSlider
 @onready var custom_qt_session_spin_box: SpinBox = %CustomQTSessionSpinBox
-#save_game.custom_qt_session
 
 @onready var custom_qt_session_label: Label = %CustomQTSessionLabel
 @onready var custom_qt_session_start: Button = %CustomQTSessionStart
@@ -72,7 +71,6 @@ var default_window_position = null # sets to center of user's primary screen on 
 var is_progressive_pomo_enabled: bool = false
 var is_progressive_pomo_break_due: bool = false
 
-var is_low_processor_mode_enabled: bool = false # possibly not needed
 var is_switch_mode_on_timeout: bool = true # unused, may or may not be implemented
 
 var is_muted: bool = true # used to prevent clicks sfx on some function calls
@@ -122,7 +120,6 @@ func _ready() -> void:
 	load_task_timers()
 	
 func _process(_delta: float) -> void:
-	#if is_counting_down:
 	if not timer.paused:
 		time_left_rounded = round(timer.time_left) 
 		update_label()
@@ -143,7 +140,6 @@ func update_label() -> void:
 	timer_label.text = convert_time(time_left_rounded)
 
 func update_total_focus_time() -> void:
-	#if is_counting_down:
 	if not timer.paused:
 		# important to use session_time instead of timer.wait_time
 		focus_duration = session_time - time_left_rounded
@@ -186,13 +182,11 @@ func _on_timer_button_pressed() -> void:
 	# for this use case, we care about local timer pause state so we use .paused
 	if timer.paused: # if paused...
 		timer.paused = false #...then unpause
-		#is_counting_down = true # we can instead check the .paused value
 		skip_button.visible = true
 		quick_timer_button.visible = false
 		timer_button.text = "PAUSE"
 	elif not timer.paused: # if not paused...
 		timer.paused = true #...then pause
-		#is_counting_down = false
 		skip_button.visible = false
 		quick_timer_button.visible = true
 		timer_button.text = "RESUME"
@@ -203,7 +197,6 @@ func _on_timer_button_pressed() -> void:
 		# timer.start() # does not unpause, but will start countdown if .paused = false
 			# sets .is_stopped() = false
 			# resets running timers time_left with new duration or default wait time
-		#is_counting_down = true
 		skip_button.visible = true
 		timer_button.text = "PAUSE"
 		
@@ -241,10 +234,6 @@ func _on_pomo_timer_timeout() -> void:
 				
 func reset_timer(new_session_time_in_minutes: int, is_auto_start_enabled: bool = false) -> void:
 	print("resetting timer to: ", new_session_time_in_minutes, " min")
-	# timer.paused = false # redundant
-	#is_counting_down = false
-	#timer.stop()
-		# WARNING: this also sets timer.paused = false
 	timer.paused = true
 	timer_button.text = "START"
 	skip_button.visible = false
@@ -372,7 +361,6 @@ func _on_setting_menu_button_pressed() -> void:
 		
 func _on_pomo_session_value_changed(_custom_time: int) -> void:
 	print("pomo session time changed to " + str(pomo_session.value) + " min")
-	#update_total_focus_time() # prevents desync? hopefully
 	if current_mode == mode.FOCUS and not is_progressive_pomo_enabled:
 		reset_timer(pomo_session.value)
 
@@ -410,7 +398,6 @@ func _on_low_processor_mode_toggle_toggled(toggled_on: bool, is_muted: bool = fa
 	if not is_muted:
 		AudioManager.click_basic.play()
 	low_processor_mode_toggle.set_pressed_no_signal(toggled_on) # prevents toggle emit when changing pressed state
-	is_low_processor_mode_enabled = toggled_on
 	OS.set_low_processor_usage_mode(toggled_on)
 	print("low processor mode: ",OS.is_in_low_processor_usage_mode())
 
@@ -448,10 +435,7 @@ func close_task_timer_quick_menus() -> void:
 #region SessionRating
 func rate_session() -> void:
 	AudioManager.alert_1_mb.play()
-	#update_total_focus_time()
 	timer.paused = true
-	#is_counting_down = false
-	#timer_elements.visible = false
 	flow_label.text = "+%dm" % flow_session.value
 	focused_label.text = "+%dm" % focused_session.value
 	neutral_label.text = "+%dm" % neutral_session.value
@@ -492,14 +476,12 @@ func _on_neutral_pressed() -> void:
 
 func _on_distracted_pressed() -> void:
 	AudioManager.distracted.play()
-	#timer_elements.visible = true
 	session_rating.visible = false
 	reset_timer(primer_session.value)
 	
 func session_resume(extend_time: int) -> void:
 	AudioManager.click_basic.play()
 	AudioManager.alert_2_mb.play()
-	#timer_elements.visible = true
 	session_rating.visible = false
 	is_progressive_pomo_break_due = true
 	reset_timer(extend_time, true) # resets timer by extend_time and starts timer
@@ -510,23 +492,17 @@ func session_resume(extend_time: int) -> void:
 func _on_progressive_pomo_toggle_toggled(toggled_on: bool) -> void:
 	AudioManager.click_basic.play()
 	if toggled_on:
-		#is_progressive_pomo_toggle.modulate = Color(1, 1, 1) # normal
 		is_progressive_pomo_enabled = true
 		match current_mode:
 			mode.FOCUS:
-				# update_focus_time_label() must be called before reset_timer()
-				# calls during focus mode to 
-				#update_total_focus_time()
 				reset_timer(primer_session.value)
 			mode.BREAK:
 				pass
 		print("progressive pomo: true")
 	else:
-		#is_progressive_pomo_toggle.modulate = Color(0.5, 0.1, 0.1) # red
 		is_progressive_pomo_enabled = false
 		match current_mode:
 			mode.FOCUS:
-				#update_total_focus_time()
 				reset_timer(pomo_session.value)
 			mode.BREAK:
 				pass
@@ -545,7 +521,6 @@ func switch_mode() -> void:
 	match current_mode:
 		mode.FOCUS: # switches to break
 			AudioManager.time_to_break_mb.play()
-			#update_total_focus_time()
 			@warning_ignore("narrowing_conversion")
 			break_session_counter += 1
 			print("\nbreak counter: " + str(break_session_counter))
