@@ -27,6 +27,7 @@ extends Node
 @onready var long_break_session: SpinBox = %LongBreakSession
 @onready var break_session_interval: SpinBox = %BreakSessionInterval
 @onready var progressive_pomo_toggle: TextureButton = %ProgressivePomoToggle
+
 @onready var primer_session: SpinBox = %ProgressivePrimerSession
 @onready var neutral_session: SpinBox = %NeutralSession
 @onready var focused_session: SpinBox = %FocusedSession
@@ -279,8 +280,10 @@ func _on_quick_timer_button_pressed() -> void:
 	AudioManager.alert_1_mb.play()
 	quick_timer_menu.visible = true
 
-func _on_qt_one_click_start_toggle_toggled(_toggled_on) -> void:
-	AudioManager.click_basic.play()
+func _on_qt_one_click_start_toggle_toggled(toggled_on: bool, is_muted: bool = false) -> void:
+	if not is_muted:
+		AudioManager.click_basic.play()
+	qt_one_click_start_toggle.set_pressed_no_signal(toggled_on)
 
 func _on_custom_qt_session_slider_value_changed(value: int) -> void:
 	custom_qt_session_spin_box.value = value
@@ -638,7 +641,7 @@ func save_quick_timers() -> void:
 func load_quick_timers() -> void:
 	print("\nloading quick timers:")
 	var saved_game: SavedGame = load(save_file) as SavedGame
-	qt_one_click_start_toggle.button_pressed = saved_game.is_qt_one_click_start
+	_on_qt_one_click_start_toggle_toggled(saved_game.is_qt_one_click_start, is_muted)
 	custom_qt_session_spin_box.value = saved_game.custom_qt_session
 	custom_qt_session_slider.value = saved_game.custom_qt_session
 
