@@ -26,6 +26,7 @@ extends Node
 @onready var long_break_toggle: TextureButton = %LongBreakToggle
 @onready var long_break_session: SpinBox = %LongBreakSession
 @onready var break_session_interval: SpinBox = %BreakSessionInterval
+@onready var progressive_pomo_toggle: TextureButton = %ProgressivePomoToggle
 @onready var primer_session: SpinBox = %ProgressivePrimerSession
 @onready var neutral_session: SpinBox = %NeutralSession
 @onready var focused_session: SpinBox = %FocusedSession
@@ -489,8 +490,10 @@ func session_resume(extend_time: int) -> void:
 ##END SessionRating
 
 #region ProgressivePomo
-func _on_progressive_pomo_toggle_toggled(toggled_on: bool) -> void:
-	AudioManager.click_basic.play()
+func _on_progressive_pomo_toggle_toggled(toggled_on: bool, is_muted: bool = false) -> void:
+	if not is_muted:
+		AudioManager.click_basic.play()
+	progressive_pomo_toggle.set_pressed_no_signal(toggled_on)
 	if toggled_on:
 		is_progressive_pomo_enabled = true
 		match current_mode:
@@ -588,7 +591,7 @@ func save_timer_setting() -> void:
 
 	saved_game.long_break_toggle = long_break_toggle.button_pressed
 	saved_game.break_session_interval = break_session_interval.value
-	saved_game.is_progressive_pomo_enabled = is_progressive_pomo_enabled
+	saved_game.is_progressive_pomo_enabled = progressive_pomo_toggle.button_pressed
 	saved_game.auto_extend_id = auto_session_extend.selected
 	saved_game.rating_timeout = rating_timeout.value
 
@@ -615,7 +618,7 @@ func load_timer_setting() -> void:
 	
 	_on_long_break_toggle_toggled(saved_game.long_break_toggle, is_muted)
 	break_session_interval.value = saved_game.break_session_interval
-	is_progressive_pomo_enabled = saved_game.is_progressive_pomo_enabled
+	_on_progressive_pomo_toggle_toggled(saved_game.is_progressive_pomo_enabled, is_muted)
 	auto_session_extend.selected = saved_game.auto_extend_id
 	rating_timeout.value = saved_game.rating_timeout
 	
