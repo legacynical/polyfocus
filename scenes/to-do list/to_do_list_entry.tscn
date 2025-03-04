@@ -241,7 +241,7 @@ text = "X"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_66p0s")
+&"": SubResource("AnimationLibrary_66p0s")
 }
 
 [connection signal="toggled" from="HBoxContainer/TextureButton" to="." method="_on_texture_button_toggled"]
