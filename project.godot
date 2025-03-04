@@ -11,11 +11,13 @@ config_version=5
 [application]
 
 config/name="polyfocus"
-config/version="0.8.0"
+config/version="0.8.1"
 run/main_scene="res://scenes/pomodoro timer/pomodoro_timer.tscn"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 run/max_fps=60
+boot_splash/image="uid://dt8sroh0jglk8"
 config/icon="res://polyfocus-logo.svg"
+boot_splash/minimum_display_time=10000
 
 [autoload]
 
