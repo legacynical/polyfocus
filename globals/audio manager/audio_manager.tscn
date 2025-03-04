@@ -19,6 +19,7 @@ script = ExtResource("1_tn5l8")
 [node name="ClickBasic" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("2_46o0g")
+volume_db = -11.0
 pitch_scale = 11.0
 bus = &"sfx"
 
