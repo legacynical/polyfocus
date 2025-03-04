@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://digrx2d1fpdei"]
 
-[ext_resource type="Script" path="res://globals/model manager/model_manager.gd" id="1_wm3ak"]
+[ext_resource type="Script" uid="uid://baw87nla8rb2t" path="res://globals/model manager/model_manager.gd" id="1_wm3ak"]
 
 [node name="ModelManager" type="Control"]
 layout_mode = 3

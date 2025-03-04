@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://2etsnaqi3s4u"]
 
-[ext_resource type="Script" path="res://scenes/pomodoro timer/polyfocus_version_label.gd" id="1_csqv7"]
+[ext_resource type="Script" uid="uid://bej5eovh3t7q" path="res://scenes/pomodoro timer/polyfocus_version_label.gd" id="1_csqv7"]
 
 [node name="PolyfocusVersionLabel" type="Label"]
 text = " vMajor.Minor.Patch-tag"

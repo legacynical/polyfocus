@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=3 uid="uid://uepaojeji6h7"]
 
-[ext_resource type="Script" path="res://scenes/to-do list/to_do_list_entry.gd" id="1_gewdv"]
+[ext_resource type="Script" uid="uid://c8dvpr408n1k7" path="res://scenes/to-do list/to_do_list_entry.gd" id="1_gewdv"]
 [ext_resource type="Texture2D" uid="uid://chp3pemtjryqc" path="res://graphics/128x128-white-rounded-box.svg" id="2_4jj4j"]
 [ext_resource type="Texture2D" uid="uid://b6cyjinksgnnp" path="res://graphics/128x128-white-rounded-box-checked.svg" id="3_blrg3"]
 [ext_resource type="Texture2D" uid="uid://mr26g7xlf1oy" path="res://graphics/128x128-edit.svg" id="4_rokdc"]
@@ -123,8 +123,8 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_66p0s"]
 _data = {
-"RESET": SubResource("Animation_8t362"),
-"checkmark": SubResource("Animation_ykqm7")
+&"RESET": SubResource("Animation_8t362"),
+&"checkmark": SubResource("Animation_ykqm7")
 }
 
 [node name="ToDoListEntry" type="Control" node_paths=PackedStringArray("to_do_edit", "check_box", "animation")]

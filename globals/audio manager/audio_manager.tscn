@@ -1,6 +1,6 @@
 [gd_scene load_steps=13 format=3 uid="uid://bnwtwnoemkhkn"]
 
-[ext_resource type="Script" path="res://globals/audio manager/audio_manager.gd" id="1_tn5l8"]
+[ext_resource type="Script" uid="uid://3opw4noowecj" path="res://globals/audio manager/audio_manager.gd" id="1_tn5l8"]
 [ext_resource type="AudioStream" uid="uid://ckxv3lkf5x0bq" path="res://audio/click-mouse.ogg" id="2_46o0g"]
 [ext_resource type="AudioStream" uid="uid://dhtdcx4n80y6c" path="res://audio/Metal Pipe Falling.ogg" id="3_4urii"]
 [ext_resource type="AudioStream" uid="uid://nfl3qkjjl3nn" path="res://audio/100-140.ogg" id="4_vroal"]
