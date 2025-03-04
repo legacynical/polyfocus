@@ -1147,8 +1147,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="SettingMenu/TabContainer/Audio/AudioSettingContainer/sfx"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = " SFX
-"
+text = " SFX"
 
 [node name="volume_control" parent="SettingMenu/TabContainer/Audio/AudioSettingContainer/sfx" instance=ExtResource("10_lcmql")]
 layout_mode = 2

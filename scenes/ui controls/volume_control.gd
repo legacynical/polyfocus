@@ -2,9 +2,9 @@ extends HBoxContainer
 
 @export var bus_name: String
 
-@onready var volume_label = %VolumeLabel
-@onready var volume_slider = %VolumeSlider
-@onready var test_button = %TestButton
+@onready var volume_label: Label = %VolumeLabel
+@onready var volume_slider: HSlider = %VolumeSlider
+@onready var test_button: Button = %TestButton
 
 var bus_index: int
 
