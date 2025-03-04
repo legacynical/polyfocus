@@ -15,14 +15,14 @@ func _ready() -> void:
 	
 	# sets default volume to 75 on a scale of 100
 	volume_slider.value = db_to_linear(AudioServer.get_bus_volume_db(bus_index)) - 0.25
-	volume_label.text = str(volume_slider.value * 100)
+	volume_label.text = str(int(volume_slider.value * 100)) # int() removes the trailing .0
 	
 func _on_value_changed(value: float) -> void:
 	AudioServer.set_bus_volume_db(
 		bus_index,
 		linear_to_db(value) # this sets volume sliders to work more intuitively
 	)
-	volume_label.text = str(value * 100)
+	volume_label.text = str(int(value * 100))
 
 func set_volume(volume: int) -> void:
 	volume_slider.value = volume * 0.01
