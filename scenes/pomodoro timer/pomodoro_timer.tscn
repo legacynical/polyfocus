@@ -1560,6 +1560,7 @@ scale = Vector2(0.545, 0.545)
 [connection signal="value_changed" from="SettingMenu/TabContainer/Timer Settings/TimerSettingContainer/HBoxContainer3/LongBreakSession" to="." method="_on_long_break_session_value_changed"]
 [connection signal="toggled" from="SettingMenu/TabContainer/Timer Settings/TimerSettingContainer/HBoxContainer4/HBoxContainer/LongBreakToggle" to="." method="_on_long_break_toggle_toggled"]
 [connection signal="toggled" from="SettingMenu/TabContainer/Timer Settings/TimerSettingContainer/HBoxContainer5/HBoxContainer/ProgressivePomoToggle" to="." method="_on_progressive_pomo_toggle_toggled"]
+[connection signal="value_changed" from="SettingMenu/TabContainer/Timer Settings/TimerSettingContainer/HBoxContainer5/ProgressivePrimerSession" to="." method="_on_progressive_primer_session_value_changed"]
 [connection signal="toggled" from="SettingMenu/TabContainer/Timer Settings/TimerSettingContainer/HBoxContainer9/LowProcessorModeToggle" to="." method="_on_low_processor_mode_toggle_toggled"]
 [connection signal="pressed" from="SettingMenu/TabContainer/Timer Settings/TimerSettingContainer/HBoxContainerA/WindowReset" to="." method="_on_window_reset_button_pressed"]
 [connection signal="pressed" from="SettingMenu/TabContainer/Timer Settings/TimerSettingContainer/HBoxContainerA/WindowSave" to="." method="_on_window_save_button_pressed"]

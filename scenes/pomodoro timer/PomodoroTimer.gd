@@ -390,6 +390,11 @@ func _on_long_break_session_value_changed(_custom_time: int) -> void:
 	if current_mode == mode.BREAK and is_long_break_due():
 		reset_timer(long_break_session.value)
 
+func _on_progressive_primer_session_value_changed(value: int):
+	print("progressive primer session time changed to ", value)
+	if current_mode == mode.FOCUS and progressive_pomo_toggle.is_pressed():
+		reset_timer(value)
+		
 func _on_low_processor_mode_toggle_toggled(toggled_on: bool, is_muted: bool = false) -> void:
 	if not is_muted:
 		AudioManager.click_basic.play()
