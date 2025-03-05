@@ -376,10 +376,27 @@ func _on_break_session_value_changed(_custom_time: int) -> void:
 		@warning_ignore("narrowing_conversion")
 		reset_timer(break_session.value)
 
+func _on_long_break_toggle_toggled(toggled_on: bool, is_muted: bool = false) -> void:
+	if not is_muted:
+		AudioManager.click_basic.play()
+	long_break_toggle.set_pressed_no_signal(toggled_on)
+	if toggled_on:
+		break_session_counter = 0
+		print("reset break session counter")
+		print("long breaks: ", long_break_toggle.is_pressed())
+
 func _on_long_break_session_value_changed(_custom_time: int) -> void:
 	print("long break session time changed to " + str(long_break_session.value) + " min")
 	if current_mode == mode.BREAK and is_long_break_due():
 		reset_timer(long_break_session.value)
+
+func _on_low_processor_mode_toggle_toggled(toggled_on: bool, is_muted: bool = false) -> void:
+	if not is_muted:
+		AudioManager.click_basic.play()
+	low_processor_mode_toggle.set_pressed_no_signal(toggled_on) # prevents toggle emit when changing pressed state
+	OS.set_low_processor_usage_mode(toggled_on)
+	print("low processor mode: ",OS.is_in_low_processor_usage_mode())
+
 func _on_window_reset_button_pressed() -> void:
 	load_window()
 
@@ -392,21 +409,9 @@ func _on_window_default_button_pressed() -> void:
 	DisplayServer.window_set_size(default_window_size)
 	DisplayServer.window_set_position(default_window_position)
 
-func _on_long_break_toggle_toggled(toggled_on: bool, is_muted: bool = false) -> void:
-	if not is_muted:
-		AudioManager.click_basic.play()
-	long_break_toggle.set_pressed_no_signal(toggled_on)
-	if toggled_on:
-		break_session_counter = 0
-		print("reset break session counter")
-		print("long breaks: ", long_break_toggle.is_pressed())
+
 		
-func _on_low_processor_mode_toggle_toggled(toggled_on: bool, is_muted: bool = false) -> void:
-	if not is_muted:
-		AudioManager.click_basic.play()
-	low_processor_mode_toggle.set_pressed_no_signal(toggled_on) # prevents toggle emit when changing pressed state
-	OS.set_low_processor_usage_mode(toggled_on)
-	print("low processor mode: ",OS.is_in_low_processor_usage_mode())
+
 
 		
 
