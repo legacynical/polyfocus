@@ -186,17 +186,20 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_w8f8n")
 text = "Reset"
 
 [node name="QMMove" type="Button" parent="TaskTimerQuickMenu/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_w8f8n")
 text = "Move"
 
 [node name="QMAdd" type="Button" parent="TaskTimerQuickMenu/VBoxContainer"]
+visible = false
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxFlat_w8f8n")
 text = "Add"
 
 [node name="TaskTimerSettingMenu" type="PanelContainer" parent="."]
 unique_name_in_owner = true
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
